@@ -1,0 +1,52 @@
+; ------------- equals -------------
+PAL_MODE equ 0
+DMA_IN_PROGRESS equ 1
+HBLANKING equ 2
+VBLANKING equ 3
+ODD_FRAME equ 4
+SPRITE_COLLISION equ 5
+SPRITE_OVERFLOW equ 6
+VBLANK_PENDING equ 7
+FIFO_FULL equ 8
+FIFO_EMPTY equ 9
+CREDITS_1_LIVES_1 equ $104
+CREDITS_1_LIVES_2 equ $108
+CREDITS_1_LIVES_3 equ $10C
+CREDITS_1_LIVES_4 equ $110
+CREDITS_1_LIVES_5 equ $114
+CREDITS_2_LIVES_1 equ $204
+CREDITS_2_LIVES_2 equ $208
+CREDITS_2_LIVES_3 equ $20C
+CREDITS_2_LIVES_4 equ $210
+CREDITS_2_LIVES_5 equ $214
+CREDITS_3_LIVES_1 equ $304
+CREDITS_3_LIVES_2 equ $308
+CREDITS_3_LIVES_3 equ $30C             ; XREF: Reset+7A/s
+CREDITS_3_LIVES_4 equ $310
+CREDITS_3_LIVES_5 equ $314
+CREDITS_4_LIVES_1 equ $404
+CREDITS_4_LIVES_2 equ $408
+CREDITS_4_LIVES_3 equ $40C
+CREDITS_4_LIVES_4 equ $410
+CREDITS_4_LIVES_5 equ $414
+CREDITS_5_LIVES_1 equ $504
+CREDITS_5_LIVES_2 equ $508
+CREDITS_5_LIVES_3 equ $50C
+CREDITS_5_LIVES_4 equ $510
+CREDITS_5_LIVES_5 equ $514
+NORMAL equ 0                  ; XREF: RAM:ram_difficulty/s
+HARD equ 1
+HARDEST equ 2                  ; XREF: ROM:0000AB5C/s
+STAGE_1 equ 0
+STAGE_2 equ 1                  ; XREF: RAM:ram_stage/s
+STAGE_3 equ 2
+STAGE_4 equ 3
+STAGE_5 equ 4
+WOLF equ 0
+TIGER equ 1                  ; XREF: RAM:ram_beasts/s
+BEAR equ 2
+DRAGON equ 3                  ; XREF: RAM:00FFFE0C/s
+; ----------------------------------
+
+
+
