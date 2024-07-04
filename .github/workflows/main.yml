@@ -17,7 +17,6 @@ jobs:
       - name: Prepare
         run: |
           mkdir build
-          mkdir screenshots
           echo "" > '${{github.workspace}}\build\Altered Beast (US).bin'
           echo "" > '${{github.workspace}}\build\Altered Beast (US).txt'
       - name: Execute asm68k
