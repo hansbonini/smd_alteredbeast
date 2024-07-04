@@ -20,10 +20,10 @@ jobs:
           mkdir screenshots
           echo "" > '${{github.workspace}}\build\Altered Beast (US).bin'
           echo "" > '${{github.workspace}}\build\Altered Beast (US).txt'
-          $GHWORKSPACE="${{ github.workspace }}"
-          $GHWORKSPACE=$GHWORKSPACE.replace("\", "/")
       - name: Execute asm68k
         run: |
+          $GHWORKSPACE="${{ github.workspace }}"
+          $GHWORKSPACE=$GHWORKSPACE.replace("\", "/")
           make WORKSPACE="$GHWORKSPACE" NAME="Altered Beast" VERSION="US" ASM68K_SWITCHES="//m //p //k" build
       - name: Run Blastem and record movie
         run: |
