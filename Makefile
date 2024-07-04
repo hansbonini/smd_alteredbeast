@@ -2,6 +2,7 @@
 VERSION			?= US
 NAME			?= Altered Beast
 ROM_US  		?= Altered Beast (USA, Europe).md
+SHA1			?= 38945360D824D2FB9535B4FD7F25B9AA9B32F019
 WORKSPACE		:= .
 
 # Directories
@@ -16,10 +17,15 @@ GO				:= go run
 ASM68K 			:= $(TOOLS_DIR)/asm68k/asm68k.exe
 ASM68K_SWITCHES ?= /m /p /k
 SEGARD_DECOMP	:= $(TOOLS_DIR)/segard/decomp.go
+SHA1CHECK		:= $(TOOLS_DIR)/checksum/sha1.go
 
 all: extract build
-build:
-	$(ASM68K) $(ASM68K_SWITCHES) "$(ASM_DIR)/$(NAME).asm","$(BUILD_DIR)/$(NAME) ($(VERSION)).bin",,"$(BUILD_DIR)/$(NAME) ($(VERSION)).bin"
+build: assemble sha1
+assemble:
+	$(ASM68K) $(ASM68K_SWITCHES) "$(ASM_DIR)/$(NAME).asm","$(BUILD_DIR)/$(NAME) ($(VERSION)).bin",,"$(BUILD_DIR)/$(NAME) ($(VERSION)).txt"
+sha1:
+	$(GO) $(SHA1CHECK) "$(ROM_DIR)/$(ROM_$(VERSION))" $(SHA1)
+
 extract: segard_decomp
 segard_decomp:
 	$(GO) $(SEGARD_DECOMP) "$(ROM_DIR)/$(ROM_$(VERSION))" $(GFX_DIR)/segard/00024000.smd 0x00024000

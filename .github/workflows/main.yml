@@ -1,5 +1,5 @@
-name: build-sega-genesis-asm-action
-run-name: ${{ github.actor }} is building Sega Genesis assembler code
+name: ci
+run-name: Building Sega Genesis ROM
 on:
   push:
     branches: [ master ]
@@ -22,5 +22,6 @@ jobs:
           $GHWORKSPACE="${{ github.workspace }}"
           $GHWORKSPACE=$GHWORKSPACE.replace("\", "/")
           make WORKSPACE="$GHWORKSPACE" NAME="Altered Beast" VERSION="US" ASM68K_SWITCHES="//m //p //k" build
+        
           
           
