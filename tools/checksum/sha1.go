@@ -4,7 +4,7 @@ import (
 	"crypto/sha1"
 	"encoding/hex"
 	"fmt"
-	"io/ioutil"
+	"log"
 	"os"
 	"strings"
 )
@@ -14,7 +14,7 @@ func main() {
 	rom_src := os.Args[1]
 	rom_sha1 := os.Args[2]
 
-	rom, err := ioutil.ReadFile(rom_src)
+	rom, err := os.ReadFile(rom_src)
 	if err != nil {
 		panic(err)
 	}
@@ -26,7 +26,7 @@ func main() {
 	}
 
 	if hex.EncodeToString(hasher.Sum(nil)) != strings.ToLower(rom_sha1) {
-		panic("Invalid SHA1")
+		log.Fatal("Invalid SHA1")
 	}
 
 	fmt.Print(hex.EncodeToString(hasher.Sum(nil)))
