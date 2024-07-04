@@ -24,7 +24,7 @@ build: assemble sha1
 assemble:
 	$(ASM68K) $(ASM68K_SWITCHES) "$(ASM_DIR)/$(NAME).asm","$(BUILD_DIR)/$(NAME) ($(VERSION)).bin",,"$(BUILD_DIR)/$(NAME) ($(VERSION)).txt"
 sha1:
-	$(GO) $(SHA1CHECK) "$(ROM_DIR)/$(ROM_$(VERSION))" $(SHA1)
+	$(GO) $(SHA1CHECK) "$(BUILD_DIR)/$(NAME) ($(VERSION)).bin" $(SHA1)
 
 extract: segard_decomp
 segard_decomp:
