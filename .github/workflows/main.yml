@@ -14,6 +14,8 @@ jobs:
         with:
           # Target architecture for Go to use. Examples: x86, x64. Will use system architecture by default.
           architecture: windows/amd64
+      - name: Create Build Directory
+        run: mkdir ${{ github.workspace }}/build
       - name: Execute asm68k
         run: make WORKSPACE=${{ github.workspace }} build
           
