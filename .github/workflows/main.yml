@@ -27,7 +27,7 @@ jobs:
           make WORKSPACE="$GHWORKSPACE" NAME="Altered Beast" VERSION="US" ASM68K_SWITCHES="//m //p //k" build
       - name: Run Blastem and record movie
         run: |
-          ${{github.workspace}}\tools\RetroArch-Win64\retroarch.exe --libretro=blastem_libretro.dll.dll "${{github.workspace}}\build\Altered Beast (US).bin" --record="${{github.workspace}}\screenshots\blastem.png" --appendconfig="${{github.workspace}}\retroarch.cfg"
+          ${{github.workspace}}\tools\RetroArch-Win64\retroarch.exe --libretro=blastem_libretro.dll.dll "${{github.workspace}}\build\Altered Beast (US).bin" --record="${{github.workspace}}\screenshots\blastem.png" --appendconfig="${{github.workspace}}\retroarch.cfg" --verbose
           Start-Sleep -Seconds 20
           Stop-Process $(Get-Process retroarch | select -expand id)
       - name: Run Genesis Plus GX and record movie
