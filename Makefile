@@ -19,7 +19,7 @@ SEGARD_DECOMP		:= $(TOOLS_DIR)/segard/decomp.go
 
 all: extract build
 build:
-	$(ASM68K) /m /k /p "$(WORKSPACE)/$(ASM_DIR)/$(NAME).asm","$(WORKSPACE)/$(BUILD_DIR)/$(NAME) ($(VERSION)).bin",,"$(WORKSPACE)/$(BUILD_DIR)/$(NAME) $(VERSION)_list.txt"
+	$(ASM68K) /m /k /p "$(WORKSPACE)/$(ASM_DIR)/$(NAME).asm","$(WORKSPACE)/$(BUILD_DIR)/$(NAME) ($(VERSION)).bin",,"$(WORKSPACE)/$(BUILD_DIR)/$(NAME) ($(VERSION)).bin"
 extract: segard_decomp
 segard_decomp:
 	$(GO) $(SEGARD_DECOMP) "$(WORKSPACE)/$(ROM_DIR)/$(ROM_$(VERSION))" $(WORKSPACE)/$(GFX_DIR)/segard/00024000.smd 0x00024000
