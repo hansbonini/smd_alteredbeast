@@ -19,6 +19,6 @@ jobs:
           mkdir build
           echo "" > 'build\Altered Beast (US).bin'
           echo "" > 'build\Altered Beast (US).txt'
-          make NAME="Altered Beast" VERSION="US" build
+          make NAME="Altered Beast" VERSION="US" ASM68K_SWITCHES="//m //p //k" build
           
           

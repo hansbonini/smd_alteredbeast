@@ -2,22 +2,24 @@
 VERSION			?= US
 NAME			?= Altered Beast
 ROM_US  		?= Altered Beast (USA, Europe).md
+WORKFLOW		:=
 
 # Directories
-ASM_DIR			:= asm
-BUILD_DIR		:= build
-GFX_DIR 		:= gfx
-ROM_DIR			:= rom
-TOOLS_DIR		:= tools
+ASM_DIR			:= $(WORKFLOW)/asm
+BUILD_DIR		:= $(WORKFLOW)/build
+GFX_DIR 		:= $(WORKFLOW)/gfx
+ROM_DIR			:= $(WORKFLOW)/rom
+TOOLS_DIR		:= $(WORKFLOW)/tools
 
 # Tooling
 GO				:= go run
 ASM68K 			:= $(TOOLS_DIR)/asm68k/asm68k.exe
+ASM68K_SWITCHES ?= /m /p /k
 SEGARD_DECOMP	:= $(TOOLS_DIR)/segard/decomp.go
 
 all: extract build
 build:
-	$(ASM68K) //m //k //p "$(ASM_DIR)/$(NAME).asm","$(BUILD_DIR)/$(NAME) ($(VERSION)).bin",,"$(BUILD_DIR)/$(NAME) ($(VERSION)).bin"
+	$(ASM68K) $(ASM68K_SWITCHES) "$(ASM_DIR)/$(NAME).asm","$(BUILD_DIR)/$(NAME) ($(VERSION)).bin",,"$(BUILD_DIR)/$(NAME) ($(VERSION)).bin"
 extract: segard_decomp
 segard_decomp:
 	$(GO) $(SEGARD_DECOMP) "$(ROM_DIR)/$(ROM_$(VERSION))" $(GFX_DIR)/segard/00024000.smd 0x00024000
