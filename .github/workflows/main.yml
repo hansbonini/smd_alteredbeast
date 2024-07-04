@@ -14,10 +14,18 @@ jobs:
         with:
           # Target architecture for Go to use. Examples: x86, x64. Will use system architecture by default.
           architecture: windows/amd64
-      - name: Create Build Directory
-        run: mkdir ${{ github.workspace }}/build
-      - name: List directory
-        run: dir
+      - name: Create list file
+        uses: "finnp/create-file-action@master"
+        env:
+          FILE_NAME: "build/Altered Beast US_list.txt"
+          FILE_DATA: ""
+      - name: Create ROM file
+        uses: "finnp/create-file-action@master"
+        env:
+          FILE_NAME: "build/Altered Beast (US).bin"
+          FILE_DATA: ""
       - name: Execute asm68k
-        run: make WORKSPACE=${{ github.workspace }} build
+        run: |
+          make build
+          
           
