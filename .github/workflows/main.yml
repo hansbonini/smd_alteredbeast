@@ -16,6 +16,8 @@ jobs:
           architecture: windows/amd64
       - name: Create Build Directory
         run: mkdir ${{ github.workspace }}/build
+      - name: List directory
+        run: dir
       - name: Execute asm68k
         run: make WORKSPACE=${{ github.workspace }} build
           
