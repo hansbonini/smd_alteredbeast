@@ -19,6 +19,8 @@ jobs:
           mkdir build
           echo "" > 'build\Altered Beast (US).bin'
           echo "" > 'build\Altered Beast (US).txt'
-          make WORKSPACE=${{ github.workspace }} NAME="Altered Beast" VERSION="US" ASM68K_SWITCHES="//m //p //k" build
+          $GHWORKSPACE=${{ github.workspace }}
+          $GHWORKSPACE=$GHWORKSPACE.replace("\", "/")
+          make WORKSPACE="$GHWORKSPACE" NAME="Altered Beast" VERSION="US" ASM68K_SWITCHES="//m //p //k" build
           
           
