@@ -2,14 +2,14 @@
 VERSION			?= US
 NAME			?= Altered Beast
 ROM_US  		?= Altered Beast (USA, Europe).md
-WORKFLOW		:=
+WORKSPACE		:= .
 
 # Directories
-ASM_DIR			:= $(WORKFLOW)/asm
-BUILD_DIR		:= $(WORKFLOW)/build
-GFX_DIR 		:= $(WORKFLOW)/gfx
-ROM_DIR			:= $(WORKFLOW)/rom
-TOOLS_DIR		:= $(WORKFLOW)/tools
+ASM_DIR			:= $(WORKSPACE)/asm
+BUILD_DIR		:= $(WORKSPACE)/build
+GFX_DIR 		:= $(WORKSPACE)/gfx
+ROM_DIR			:= $(WORKSPACE)/rom
+TOOLS_DIR		:= $(WORKSPACE)/tools
 
 # Tooling
 GO				:= go run
