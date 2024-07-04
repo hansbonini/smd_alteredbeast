@@ -16,8 +16,9 @@ jobs:
           architecture: windows/amd64
       - name: Execute asm68k
         run: |
-          echo "" > '.\build\Altered Beast (US).bin'
-          echo "" > '.\build\Altered Beast (US).txt'
+          mkdir build
+          echo "" > 'build\Altered Beast (US).bin'
+          echo "" > 'build\Altered Beast (US).txt'
           make NAME="Altered Beast" VERSION="US" build
           
           
