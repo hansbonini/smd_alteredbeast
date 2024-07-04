@@ -32,7 +32,7 @@ jobs:
           Register-ObjectEvent -InputObject $timer -EventName Elapsed -SourceIdentifier Timer.Output -Action { Stop-Process $(Get-Process retroarch | select -expand id) }
           $timer.Enabled = $true
           Write-Host "Running Blastem trough Retroarch"
-          Start-Process -NoNewWindow ${{github.workspace}}\tools\RetroArch-Win64\retroarch.exe --libretro=${{github.workspace}}\tools\RetroArch-Win64\picodrive_libretro.dll "${{github.workspace}}\build\Altered Beast (US).bin" --record="${{github.workspace}}\screenshots\blastem.png" --appendconfig="retroarch.cfg"
+          ${{github.workspace}}\tools\RetroArch-Win64\retroarch.exe --libretro=${{github.workspace}}\tools\RetroArch-Win64\picodrive_libretro.dll "${{github.workspace}}\build\Altered Beast (US).bin" --record="${{github.workspace}}\screenshots\blastem.png" --appendconfig="retroarch.cfg"
           Write-Host "Waiting Recording"
           while ($true) { Start-Sleep -Seconds 1 }
       - name: Run Genesis Plus GX and record movie
@@ -41,7 +41,7 @@ jobs:
           $timer.interval = 20000
           Register-ObjectEvent -InputObject $timer -EventName Elapsed -SourceIdentifier Timer.Output -Action { Stop-Process $(Get-Process retroarch | select -expand id) }
           $timer.Enabled = $true
-          Start-Process -NoNewWindow ${{github.workspace}}\tools\RetroArch-Win64\retroarch.exe --libretro=${{github.workspace}}\tools\RetroArch-Win64\picodrive_libretro.dll "${{github.workspace}}\build\Altered Beast (US).bin" --record="${{github.workspace}}\screenshots\gensplusgx.png" --appendconfig="retroarch.cfg"
+          ${{github.workspace}}\tools\RetroArch-Win64\retroarch.exe --libretro=${{github.workspace}}\tools\RetroArch-Win64\picodrive_libretro.dll "${{github.workspace}}\build\Altered Beast (US).bin" --record="${{github.workspace}}\screenshots\gensplusgx.png" --appendconfig="retroarch.cfg"
           while ($true) { Start-Sleep -Seconds 1 }
       - name: Run Picodrive and record movie
         run: |
@@ -57,5 +57,5 @@ jobs:
           git config --global user.name "Hans Bonini"
           git config --global user.email "hans@ysolutions.com.br"
           git add screenshots
-          git commit -a -m "Adding screenshots from build `${{ github.sha }}`"
+          git commit -m "Adding screenshots from build `${{ github.sha }}`"
           git push
