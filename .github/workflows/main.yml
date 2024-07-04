@@ -1,0 +1,21 @@
+name: build-sega-genesis-asm-action
+run-name: ${{ github.actor }} is building Sega Genesis assembler code
+on:
+  push:
+    branches: [ master ]
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+      - name: Setup Go environment
+        uses: actions/setup-go@v5.0.1
+        with:
+          # The Go version to download (if necessary) and use. Supports semver spec and ranges. Be sure to enclose this option in single quotation marks.
+          go-version: 1.22.4
+          # Target architecture for Go to use. Examples: x86, x64. Will use system architecture by default.
+          architecture: windows/amd64
+      - name: Execute asm68k
+        run: make build
+          
