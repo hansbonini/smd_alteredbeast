@@ -32,6 +32,7 @@ jobs:
           Register-ObjectEvent -InputObject $timer -EventName Elapsed -SourceIdentifier Timer.Output -Action { Stop-Process $(Get-Process retroarch | select -expand id) }
           $timer.Enabled = $true
           ${{github.workspace}}\tools\RetroArch-Win64\retroarch.exe --libretro=${{github.workspace}}\tools\RetroArch-Win64\picodrive_libretro.dll "${{github.workspace}}\build\Altered Beast (US).bin" --record="${{github.workspace}}\screenshots\blastem.png" --appendconfig="retroarch.cfg"
+          while ($true) { Start-Sleep -Seconds 1 }
       - name: Run Genesis Plus GX and record movie
         run: |
           $timer = New-Object timers.timer
@@ -39,6 +40,7 @@ jobs:
           Register-ObjectEvent -InputObject $timer -EventName Elapsed -SourceIdentifier Timer.Output -Action { Stop-Process $(Get-Process retroarch | select -expand id) }
           $timer.Enabled = $true
           ${{github.workspace}}\tools\RetroArch-Win64\retroarch.exe --libretro=${{github.workspace}}\tools\RetroArch-Win64\picodrive_libretro.dll "${{github.workspace}}\build\Altered Beast (US).bin" --record="${{github.workspace}}\screenshots\gensplusgx.png" --appendconfig="retroarch.cfg"
+          while ($true) { Start-Sleep -Seconds 1 }
       - name: Run Picodrive and record movie
         run: |
           $timer = New-Object timers.timer
@@ -46,6 +48,7 @@ jobs:
           Register-ObjectEvent -InputObject $timer -EventName Elapsed -SourceIdentifier Timer.Output -Action { Stop-Process $(Get-Process retroarch | select -expand id) }
           $timer.Enabled = $true
           ${{github.workspace}}\tools\RetroArch-Win64\retroarch.exe --libretro=${{github.workspace}}\tools\RetroArch-Win64\picodrive_libretro.dll "${{github.workspace}}\build\Altered Beast (US).bin" --record="${{github.workspace}}\screenshots\picodrive.png" --appendconfig="retroarch.cfg"
+          while ($true) { Start-Sleep -Seconds 1 }
       - name: GIT Commit Build Records
         if: github.event_name == 'push'
         run: |
