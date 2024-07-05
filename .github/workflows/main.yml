@@ -34,7 +34,6 @@ jobs:
       - name: Run Picodrive and record movie
         run: |
           ${{github.workspace}}\tools\RetroArch-Win64\retroarch.exe -L "${{github.workspace}}\tools\RetroArch-Win64\cores\picodrive_libretro.dll" "${{github.workspace}}\build\Altered Beast (US).bin" --record="${{github.workspace}}\screenshots\picodrive.mkv" --appendconfig="${{github.workspace}}\retroarch.cfg" --max-frames=2600 --verbose
-
       - name: GIT Commit Build Records
         if: github.event_name == 'push'
         run: |
