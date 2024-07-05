@@ -33,13 +33,8 @@ jobs:
           make WORKSPACE="$GHWORKSPACE" NAME="Altered Beast" VERSION="US" ASM68K_SWITCHES="//m //p //k" build
       - name: Run Picodrive and record movie
         run: |
-          $emu = Start-Process -filePath "${{github.workspace}}\tools\RetroArch-Win64\retroarch.exe" -ArgumentList '-L "${{github.workspace}}\tools\RetroArch-Win64\cores\picodrive_libretro.dll"','--appendconfig="${{github.workspace}}\retroarch.cfg"','--record="${{github.workspace}}\screenshots\picodrive.mkv"','"${{github.workspace}}\build\Altered Beast (US).bin"' -PassThru -WindowStyle Hidden
-          $emu | Wait-Process -Timeout 50 -ErrorAction SilentlyContinue -ErrorVariable timeouted
-          Write-Host $timeouted
-          Write-Host $emu
-          if ($timeouted) {
-            $emu | kill
-          }
+          Invoke-Expression '${{github.workspace}}\tools\RetroArch-Win64\retroarch.exe -L "${{github.workspace}}\tools\RetroArch-Win64\cores\picodrive_libretro.dll" --appendconfig="${{github.workspace}}\retroarch.cfg" --record="${{github.workspace}}\screenshots\picodrive.mkv" --max-frames=2600 "${{github.workspace}}\build\Altered Beast (US).bin"' -ErrorVariable recordingerr
+          Write-Host $recordingerr
       - name: GIT Commit Build Records
         if: github.event_name == 'push'
         run: |
