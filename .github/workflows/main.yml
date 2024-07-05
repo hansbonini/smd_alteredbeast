@@ -16,6 +16,7 @@ jobs:
           architecture: windows/amd64
       - name: Prepare
         run: |
+          rm -r -Fo screenshots/*
           mkdir build
           echo "" > '${{github.workspace}}\build\Altered Beast (US).bin'
           echo "" > '${{github.workspace}}\build\Altered Beast (US).txt'
@@ -26,7 +27,7 @@ jobs:
           make WORKSPACE="$GHWORKSPACE" NAME="Altered Beast" VERSION="US" ASM68K_SWITCHES="//m //p //k" build
       - name: Run Blastem and record movie
         run: |
-          Start-Job { ${{github.workspace}}\tools\RetroArch-Win64\retroarch.exe -L "${{github.workspace}}\tools\RetroArch-Win64\cores\blastem_libretro.dll" "${{github.workspace}}\build\Altered Beast (US).bin" --record="${{github.workspace}}\screenshots\blastem.png" --appendconfig="${{github.workspace}}\retroarch.cfg" --max-frames=2600 --verbose } | Wait-Job | Remove-Job 
+          ${{github.workspace}}\tools\RetroArch-Win64\retroarch.exe -L "${{github.workspace}}\tools\RetroArch-Win64\cores\blastem_libretro.dll" "${{github.workspace}}\build\Altered Beast (US).bin" --record="${{github.workspace}}\screenshots\blastem.png" --appendconfig="${{github.workspace}}\retroarch.cfg" --max-frames=2600 --verbose 
       - name: Run Genesis Plus GX and record movie
         run: |
           ${{github.workspace}}\tools\RetroArch-Win64\retroarch.exe -L "${{github.workspace}}\tools\RetroArch-Win64\cores\genesis_plus_gx_libretro.dll" "${{github.workspace}}\build\Altered Beast (US).bin" --record="${{github.workspace}}\screenshots\gensplusgx.png" --appendconfig="${{github.workspace}}\retroarch.cfg" --max-frames=2600 --verbose
