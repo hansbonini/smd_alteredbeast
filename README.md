@@ -14,8 +14,8 @@ It builds the following roms:
 
 - Genesis Plus Gx
 
-    ![Genesis Plus Gx running build](./screenshots/blastem.gif)
+    ![Genesis Plus Gx running build](./screenshots/genesisplusgx.gif)
 
 - Picodrive
 
-    ![Picodrive running build](./screenshots/blastem.gif)
+    ![Picodrive running build](./screenshots/picodrive.gif)
