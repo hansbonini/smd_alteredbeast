@@ -14,13 +14,18 @@ jobs:
         with:
           # Target architecture for Go to use. Examples: x86, x64. Will use system architecture by default.
           architecture: windows/amd64
-      - name: Prepare
+      - name: Prepare Build
         run: |
-          rm -r -Fo screenshots
-          mkdir screenshots
           mkdir build
           echo "" > '${{github.workspace}}\build\Altered Beast (US).bin'
           echo "" > '${{github.workspace}}\build\Altered Beast (US).txt'
+      - name: Create Screenshots directory
+        id: createscreenshotsdir
+        run: |
+          mkdir screenshots
+      - name: Remove old Screenshots directory and create a new one
+        run: |
+        if: ${{ failure() && steps.createscreenshotsdir.conclusion == 'failure' }}
       - name: Execute asm68k
         run: |
           $GHWORKSPACE="${{ github.workspace }}"
