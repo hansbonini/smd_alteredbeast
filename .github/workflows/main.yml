@@ -25,20 +25,18 @@ jobs:
           $GHWORKSPACE="${{ github.workspace }}"
           $GHWORKSPACE=$GHWORKSPACE.replace("\", "/")
           make WORKSPACE="$GHWORKSPACE" NAME="Altered Beast" VERSION="US" ASM68K_SWITCHES="//m //p //k" build
-      - name: Run Blastem and record movie
-        run: |
-          ${{github.workspace}}\tools\RetroArch-Win64\retroarch.exe -L "${{github.workspace}}\tools\RetroArch-Win64\cores\blastem_libretro.dll" "${{github.workspace}}\build\Altered Beast (US).bin" --record="${{github.workspace}}\screenshots\blastem.mkv" --appendconfig="${{github.workspace}}\retroarch.cfg" --max-frames=2600 -verbose
-      - name: Run Genesis Plus GX and record movie
-        run: |
-          ${{github.workspace}}\tools\RetroArch-Win64\retroarch.exe -L "${{github.workspace}}\tools\RetroArch-Win64\cores\genesis_plus_gx_libretro.dll" "${{github.workspace}}\build\Altered Beast (US).bin" --record="${{github.workspace}}\screenshots\gensplusgx.mkv" --appendconfig="${{github.workspace}}\retroarch.cfg" --max-frames=2600 --verbose
       - name: Run Picodrive and record movie
         run: |
-          ${{github.workspace}}\tools\RetroArch-Win64\retroarch.exe -L "${{github.workspace}}\tools\RetroArch-Win64\cores\picodrive_libretro.dll" "${{github.workspace}}\build\Altered Beast (US).bin" --appendconfig="${{github.workspace}}\retroarch.cfg" --max-frames=10000 --verbose
+          $emu = Start-Process -filePath "C:\Users\thama\Documents\ROMHACKING\SMD_ALTEREDBEAST\tools\RetroArch-Win64\retroarch.exe" -ArgumentList '-L "${{github.workspace}}\tools\RetroArch-Win64\cores\picodrive_libretro.dll"','--appendconfig="${{github.workspace}}\retroarch.cfg"','--record="${{github.workspace}}\screenshots\picodrive.mkv"','"${{github.workspace}}\build\Altered Beast (US).bin"' -PassThru -WindowStyle Hidden
+          $emu | Wait-Process -Timeout 20 -ErrorAction SilentlyContinue -ErrorVariable timeouted
+          if ($timeouted) {
+            $emu | kill
+          }
       - name: GIT Commit Build Records
         if: github.event_name == 'push'
         run: |
           git config --global user.name "Hans Bonini"
           git config --global user.email "hans@ysolutions.com.br"
-          git add screenshots screenshots/blastem.png
+          git add screenshots screenshots/*
           git commit -m "Adding screenshots from build ${{ github.sha }}"
           git push
