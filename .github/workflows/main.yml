@@ -38,6 +38,6 @@ jobs:
         run: |
           git config --global user.name "Hans Bonini"
           git config --global user.email "hans@ysolutions.com.br"
-          git add screenshots
+          git add screenshots screenshots/blastem.png
           git commit -m "Adding screenshots from build ${{ github.sha }}"
           git push
