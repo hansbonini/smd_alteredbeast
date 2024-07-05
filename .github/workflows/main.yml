@@ -33,13 +33,13 @@ jobs:
           make WORKSPACE="$GHWORKSPACE" NAME="Altered Beast" VERSION="US" ASM68K_SWITCHES="//m //p //k" build
       - name: Run Picodrive and record movie
         run: |
-          Invoke-Expression '${{github.workspace}}\tools\RetroArch-Win64\retroarch.exe -L "${{github.workspace}}\tools\RetroArch-Win64\cores\picodrive_libretro.dll" --appendconfig="${{github.workspace}}\retroarch.cfg" --record="${{github.workspace}}\screenshots\picodrive.mkv" --max-frames=2600 "${{github.workspace}}\build\Altered Beast (US).bin"' -ErrorAction SilentlyContinue -ErrorVariable recordingerr
+          Invoke-Expression '${{github.workspace}}\tools\RetroArch-Win64\retroarch.exe -L "${{github.workspace}}\tools\RetroArch-Win64\cores\picodrive_libretro.dll" --appendconfig="${{github.workspace}}\retroarch.cfg" --record="${{github.workspace}}\screenshots\picodrive.mkv" --max-frames=2600 "${{github.workspace}}\build\Altered Beast (US).bin --verbose"' -ErrorAction SilentlyContinue -ErrorVariable recordingerr
           Start-Sleep -Seconds 20
       - name: GIT Commit Build Records
         if: github.event_name == 'push'
         run: |
           git config --global user.name "Hans Bonini"
           git config --global user.email "hans@ysolutions.com.br"
-          git add screenshots screenshots/*
+          git add screenshots screenshots/\*
           git commit -m "Adding screenshots from build ${{ github.sha }}"
           git push
