@@ -22,10 +22,8 @@ jobs:
       - name: Create Screenshots directory
         id: createscreenshotsdir
         run: |
+          Remove-Item "${{github.workspace}}\screenshots" -Recurse -ErrorAction Ignore
           mkdir screenshots
-      - name: Remove old Screenshots directory and create a new one
-        run: |
-        if: ${{ failure() && steps.createscreenshotsdir.conclusion == 'failure' }}
       - name: Execute asm68k
         run: |
           $GHWORKSPACE="${{ github.workspace }}"
