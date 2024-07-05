@@ -27,13 +27,13 @@ jobs:
           make WORKSPACE="$GHWORKSPACE" NAME="Altered Beast" VERSION="US" ASM68K_SWITCHES="//m //p //k" build
       - name: Run Blastem and record movie
         run: |
-          ${{github.workspace}}\tools\RetroArch-Win64\retroarch.exe -L "${{github.workspace}}\tools\RetroArch-Win64\cores\blastem_libretro.dll" "${{github.workspace}}\build\Altered Beast (US).bin" --record="${{github.workspace}}\screenshots\blastem.png" --config="${{github.workspace}}\tools\RetroArch-Win64\retroarch.cfg" --appendconfig="${{github.workspace}}\retroarch.cfg" --max-frames=2600 --verbose 
+          ${{github.workspace}}\tools\RetroArch-Win64\retroarch.exe -L "${{github.workspace}}\tools\RetroArch-Win64\cores\blastem_libretro.dll" "${{github.workspace}}\build\Altered Beast (US).bin" --record="${{github.workspace}}\screenshots\blastem.mkv" --appendconfig="${{github.workspace}}\retroarch.cfg" --max-frames=2600 --verbose 
       - name: Run Genesis Plus GX and record movie
         run: |
-          ${{github.workspace}}\tools\RetroArch-Win64\retroarch.exe -L "${{github.workspace}}\tools\RetroArch-Win64\cores\genesis_plus_gx_libretro.dll" "${{github.workspace}}\build\Altered Beast (US).bin" --record="${{github.workspace}}\screenshots\gensplusgx.png" --config="${{github.workspace}}\tools\RetroArch-Win64\retroarch.cfg" --appendconfig="${{github.workspace}}\retroarch.cfg" --max-frames=2600 --verbose
+          ${{github.workspace}}\tools\RetroArch-Win64\retroarch.exe -L "${{github.workspace}}\tools\RetroArch-Win64\cores\genesis_plus_gx_libretro.dll" "${{github.workspace}}\build\Altered Beast (US).bin" --record="${{github.workspace}}\screenshots\gensplusgx.mkv" --appendconfig="${{github.workspace}}\retroarch.cfg" --max-frames=2600 --verbose
       - name: Run Picodrive and record movie
         run: |
-          ${{github.workspace}}\tools\RetroArch-Win64\retroarch.exe -L "${{github.workspace}}\tools\RetroArch-Win64\cores\picodrive_libretro.dll" "${{github.workspace}}\build\Altered Beast (US).bin" --record="${{github.workspace}}\screenshots\picodrive.png" --config="${{github.workspace}}\tools\RetroArch-Win64\retroarch.cfg"--appendconfig="${{github.workspace}}\retroarch.cfg" --max-frames=2600 --verbose
+          ${{github.workspace}}\tools\RetroArch-Win64\retroarch.exe -L "${{github.workspace}}\tools\RetroArch-Win64\cores\picodrive_libretro.dll" "${{github.workspace}}\build\Altered Beast (US).bin" --record="${{github.workspace}}\screenshots\picodrive.mkv" --appendconfig="${{github.workspace}}\retroarch.cfg" --max-frames=2600 --verbose
 
       - name: GIT Commit Build Records
         if: github.event_name == 'push'
