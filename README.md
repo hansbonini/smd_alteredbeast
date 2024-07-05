@@ -7,3 +7,15 @@ This is a disassembly of Altered Beast for Sega Genesis / Sega Mega Drive
 It builds the following roms:
 - Altered Beast (USA, Europe) `sha1: 38945360D824D2FB9535B4FD7F25B9AA9B32F019`
 
+## Tests
+- Blastem
+
+    <video src="screenshots/blastem.webm" type="video/webm" width="320" height="240" controls></video>
+
+- Genesis Plus Gx
+
+    <video src="screenshots/genesisplusgx.webm" type="video/webm" width="320" height="240" controls></video>
+
+- Picodrive
+
+    <video src="screenshots/picodrive.webm" type="video/webm" width="320" height="240" controls></video>
