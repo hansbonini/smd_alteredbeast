@@ -16,7 +16,8 @@ jobs:
           architecture: windows/amd64
       - name: Prepare
         run: |
-          rm -r -Fo screenshots/*
+          rm -r -Fo screenshots
+          mkdir screenshots
           mkdir build
           echo "" > '${{github.workspace}}\build\Altered Beast (US).bin'
           echo "" > '${{github.workspace}}\build\Altered Beast (US).txt'
@@ -28,7 +29,9 @@ jobs:
       - name: Run Picodrive and record movie
         run: |
           $emu = Start-Process -filePath "${{github.workspace}}\tools\RetroArch-Win64\retroarch.exe" -ArgumentList '-L "${{github.workspace}}\tools\RetroArch-Win64\cores\picodrive_libretro.dll"','--appendconfig="${{github.workspace}}\retroarch.cfg"','--record="${{github.workspace}}\screenshots\picodrive.mkv"','"${{github.workspace}}\build\Altered Beast (US).bin"' -PassThru -WindowStyle Hidden
-          $emu | Wait-Process -Timeout 20 -ErrorAction SilentlyContinue -ErrorVariable timeouted
+          $emu | Wait-Process -Timeout 50 -ErrorAction SilentlyContinue -ErrorVariable timeouted
+          Write-Host $timeouted
+          Write-Host $emu
           if ($timeouted) {
             $emu | kill
           }
