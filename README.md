@@ -10,12 +10,12 @@ It builds the following roms:
 ## Tests
 - Blastem
 
-    <video src="screenshots/blastem.webm" type="video/webm" width="320" height="240" controls></video>
+    ![Blastem running build](./screenshots/blastem.gif)
 
 - Genesis Plus Gx
 
-    <video src="screenshots/genesisplusgx.webm" type="video/webm" width="320" height="240" controls></video>
+    ![Genesis Plus Gx running build](./screenshots/blastem.gif)
 
 - Picodrive
 
-    <video src="screenshots/picodrive.webm" type="video/webm" width="320" height="240" controls></video>
+    ![Picodrive running build](./screenshots/blastem.gif)
