@@ -6,7 +6,6 @@ SHA1			?= 38945360D824D2FB9535B4FD7F25B9AA9B32F019
 WORKSPACE		:= .
 
 # Directories
-ASM_DIR			:= $(WORKSPACE)/asm
 BUILD_DIR		:= $(WORKSPACE)/build
 GFX_DIR 		:= $(WORKSPACE)/gfx
 ROM_DIR			:= $(WORKSPACE)/rom
@@ -22,7 +21,7 @@ SHA1CHECK		:= $(TOOLS_DIR)/checksum/sha1.go
 all: extract build
 build: assemble sha1
 assemble:
-	$(ASM68K) $(ASM68K_SWITCHES) "$(ASM_DIR)/$(NAME).asm","$(BUILD_DIR)/$(NAME) ($(VERSION)).bin",,"$(BUILD_DIR)/$(NAME) ($(VERSION)).txt"
+	$(ASM68K) $(ASM68K_SWITCHES) "$(NAME).asm","$(BUILD_DIR)/$(NAME) ($(VERSION)).bin",,"$(BUILD_DIR)/$(NAME) ($(VERSION)).txt"
 sha1:
 	$(GO) $(SHA1CHECK) "$(BUILD_DIR)/$(NAME) ($(VERSION)).bin" $(SHA1)
 
