@@ -66,4 +66,11 @@ segard_decomp:
 	$(GO) $(SEGARD_DECOMP) "$(ROM_DIR)/$(ROM_$(VERSION))" $(GFX_DIR)/segard/0007F4C6.smd 0x0007F4C6
 	$(GO) $(SEGARD_DECOMP) "$(ROM_DIR)/$(ROM_$(VERSION))" $(GFX_DIR)/segard/0007F8B6.smd 0x0007F8B6
 
-.PHONY: all build extract
+
+test-gens:
+	$(TOOLS_DIR)\RetroArch-Win64\retroarch.exe --libretro=genesis_plus_gx_libretro.dll "$(BUILD_DIR)/$(NAME) ($(VERSION)).bin"
+
+test-picodrive:
+	$(TOOLS_DIR)\RetroArch-Win64\retroarch.exe --libretro=picodrive_libretro.dll "$(BUILD_DIR)/$(NAME) ($(VERSION)).bin"
+
+.PHONY: all build extract test-gens
