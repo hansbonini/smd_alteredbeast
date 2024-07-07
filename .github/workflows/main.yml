@@ -17,8 +17,8 @@ jobs:
       - name: Prepare Build
         run: |
           mkdir build
-          echo "" > "${{github.workspace}}\build\Altered Beast (UE) (REV02) `[!`].bin"
-          echo "" > "${{github.workspace}}\build\Altered Beast (UE) (REV02) `[!`].txt"
+          echo "" > "${{github.workspace}}\build\Altered Beast (UE) (REV02) `[`!`].bin"
+          echo "" > "${{github.workspace}}\build\Altered Beast (UE) (REV02) `[`!`].txt"
       - name: Create Screenshots directory
         id: createscreenshotsdir
         run: |
@@ -31,15 +31,15 @@ jobs:
           make WORKSPACE="$GHWORKSPACE" NAME="Altered Beast" REGION="UE" VERSION=REV02 ASM68K_SWITCHES="//m //p //k" build
       - name: Run Picodrive and record movie
         run: |
-          Invoke-Expression '${{github.workspace}}\tools\RetroArch-Win64\retroarch.exe -L "${{github.workspace}}\tools\RetroArch-Win64\cores\picodrive_libretro.dll" --appendconfig="${{github.workspace}}\retroarch.cfg" --record="${{github.workspace}}\screenshots\picodrive.gif" --max-frames=2600 "${{github.workspace}}\build\Altered Beast (UE) (REV02) `[!`].bin" --verbose' -ErrorAction SilentlyContinue
+          Invoke-Expression '${{github.workspace}}\tools\RetroArch-Win64\retroarch.exe -L "${{github.workspace}}\tools\RetroArch-Win64\cores\picodrive_libretro.dll" --appendconfig="${{github.workspace}}\retroarch.cfg" --record="${{github.workspace}}\screenshots\picodrive.gif" --max-frames=2600 "${{github.workspace}}\build\Altered Beast (UE) (REV02) `[`!`].bin" --verbose' -ErrorAction SilentlyContinue
           Start-Sleep -Seconds 20
       - name: Run Genesis Plus Gx and record movie
         run: |
-          Invoke-Expression '${{github.workspace}}\tools\RetroArch-Win64\retroarch.exe -L "${{github.workspace}}\tools\RetroArch-Win64\cores\genesis_plus_gx_libretro.dll" --appendconfig="${{github.workspace}}\retroarch.cfg" --record="${{github.workspace}}\screenshots\genesisplusgx.gif" --max-frames=2600 "${{github.workspace}}\build\Altered Beast (UE) (REV02) `[!`].bin" --verbose' -ErrorAction SilentlyContinue
+          Invoke-Expression '${{github.workspace}}\tools\RetroArch-Win64\retroarch.exe -L "${{github.workspace}}\tools\RetroArch-Win64\cores\genesis_plus_gx_libretro.dll" --appendconfig="${{github.workspace}}\retroarch.cfg" --record="${{github.workspace}}\screenshots\genesisplusgx.gif" --max-frames=2600 "${{github.workspace}}\build\Altered Beast (UE) (REV02) `[`!`].bin" --verbose' -ErrorAction SilentlyContinue
           Start-Sleep -Seconds 20
       - name: Run Blastem and record movie
         run: |
-          Invoke-Expression '${{github.workspace}}\tools\RetroArch-Win64\retroarch.exe -L "${{github.workspace}}\tools\RetroArch-Win64\cores\blastem_libretro.dll" --appendconfig="${{github.workspace}}\retroarch.cfg" --record="${{github.workspace}}\screenshots\blastem.gif" --max-frames=2600 "${{github.workspace}}\build\Altered Beast (UE) (REV02) `[!`].bin" --verbose' -ErrorAction SilentlyContinue
+          Invoke-Expression '${{github.workspace}}\tools\RetroArch-Win64\retroarch.exe -L "${{github.workspace}}\tools\RetroArch-Win64\cores\blastem_libretro.dll" --appendconfig="${{github.workspace}}\retroarch.cfg" --record="${{github.workspace}}\screenshots\blastem.gif" --max-frames=2600 "${{github.workspace}}\build\Altered Beast (UE) (REV02) `[`!`].bin" --verbose' -ErrorAction SilentlyContinue
           Start-Sleep -Seconds 20
       - name: GIT Commit Build Records
         if: github.event_name == 'push'
