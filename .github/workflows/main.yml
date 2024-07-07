@@ -17,8 +17,8 @@ jobs:
       - name: Prepare Build
         run: |
           mkdir build
-          echo "" > "${{github.workspace}}\build\Altered\ Beast\ \(UE\)\ \(\REV02\)\ \[\!\].bin"
-          echo "" > "${{github.workspace}}\build\Altered\ Beast\ \(UE\)\ \(\REV02\)\ \[\!\].txt"
+          echo "" > "${{github.workspace}}\build\Altered Beast (UE) (REV02) [\!].bin"
+          echo "" > "${{github.workspace}}\build\Altered Beast (UE) (REV02) [\!].txt"
       - name: Create Screenshots directory
         id: createscreenshotsdir
         run: |
