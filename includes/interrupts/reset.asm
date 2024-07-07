@@ -4,7 +4,7 @@ Reset:                                  ; DATA XREF: ROM:00000004   o
                 beq.s   loc_A5EA
                 move.l  #'SEGA',(IO_TMSS).l
 loc_A5EA:                               ; CODE XREF: Reset+A   j
-                bsr.w   sub_A83A
+                bsr.w   vdp_setup
                 movea.l #RomEnd,a0
                 move.l  (a0),d1
                 addq.l  #1,d1
@@ -22,7 +22,7 @@ loc_A60A:                               ; CODE XREF: Reset+38   j
                 dbf     d1,loc_A60A
                 cmp.w   (Checksum).w,d0
                 beq.s   loc_A632
-                bsr.w   sub_A83A
+                bsr.w   vdp_setup
 loc_A61E:                               ; CODE XREF: Reset+5C   j
                 move.l  #$C0000000,(VDP_CTRL).l ; DO_WRITE_TO_CRAM_AT_$0000_ADDR
                                         ; DO_OPERATION_WITHOUT_DMA
