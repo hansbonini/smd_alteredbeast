@@ -1,23 +1,28 @@
 # Binaries	
-REGION			?= UE
-VERSION			?= REV02
-NAME			?= Altered Beast
-ROM_UE_REV02	?= Altered Beast (USA, Europe).md
-SHA1			?= 38945360D824D2FB9535B4FD7F25B9AA9B32F019
-WORKSPACE		:= .
+REGION						?= UE
+VERSION						?= REV02
+NAME						?= Altered Beast
+ROM_UE_REV02				?= Altered Beast (USA, Europe).md
+SHA1						?= 38945360D824D2FB9535B4FD7F25B9AA9B32F019
+WORKSPACE					:= .
 
 # Directories
-BUILD_DIR		:= $(WORKSPACE)/build
-GFX_DIR 		:= $(WORKSPACE)/gfx
-ROM_DIR			:= $(WORKSPACE)/rom
-TOOLS_DIR		:= $(WORKSPACE)/tools
+BUILD_DIR					:= $(WORKSPACE)/build
+GFX_DIR 					:= $(WORKSPACE)/gfx
+ROM_DIR						:= $(WORKSPACE)/rom
+TOOLS_DIR					:= $(WORKSPACE)/tools
+RETROARCH_DIR   			:= $(TOOLS_DIR)/RetroArch-Win64
 
 # Tooling
-GO				:= go run
-ASM68K 			:= $(TOOLS_DIR)/asm68k/asm68k.exe
-ASM68K_SWITCHES ?= /m /p /k
-SEGARD_DECOMP	:= $(TOOLS_DIR)/segard/decomp.go
-SHA1CHECK		:= $(TOOLS_DIR)/checksum/sha1.go
+GO							:= go run
+ASM68K 						:= $(TOOLS_DIR)/asm68k/asm68k.exe
+ASM68K_SWITCHES 			?= /m /p /k
+SEGARD_DECOMP				:= $(TOOLS_DIR)/segard/decomp.go
+SHA1CHECK					:= $(TOOLS_DIR)/checksum/sha1.go
+RETROARCH 					:= $(RETROARCH_DIR)/retroarch.exe
+RETROARCH_CORE_BLASTEM 		:= $(RETROARCH_DIR)/cores/blastem_libretro.dll
+RETROARCH_CORE_GPGX			:= $(RETROARCH_DIR)/cores/genesis_plus_gx_libretro.dll
+RETROARCH_CORE_PICODRIVE 	:= $(RETROARCH_DIR)/cores/picodrive_libretro.dll
 
 all: extract build
 build: assemble sha1
@@ -78,10 +83,13 @@ segard_decomp:
 	$(GO) $(SEGARD_DECOMP) "$(ROM_DIR)/$(ROM_$(REGION)_$(VERSION))" $(GFX_DIR)/segard/0007F8B6.smd 0x0007F8B6 # Font
 
 
+test-blastem:
+	$(RETROARCH) --libretro=$(RETROARCH_CORE_BLASTEM) "$(BUILD_DIR)/$(NAME) ($(REGION)) ($(VERSION)) [!].bin" --verbose
+
 test-gens:
-	$(TOOLS_DIR)\RetroArch-Win64\retroarch.exe --libretro=genesis_plus_gx_libretro.dll "$(BUILD_DIR)/$(NAME) ($(REGION)) ($(VERSION)) [!].bin"
+	$(RETROARCH) --libretro=$(RETROARCH_CORE_GPGX) "$(BUILD_DIR)/$(NAME) ($(REGION)) ($(VERSION)) [!].bin" --verbose
 
 test-picodrive:
-	$(TOOLS_DIR)\RetroArch-Win64\retroarch.exe --libretro=picodrive_libretro.dll "$(BUILD_DIR)/$(NAME) ($(REGION)) ($(VERSION)) [!].bin"
+	$(RETROARCH) --libretro=$(RETROARCH_CORE_PICODRIVE) "$(BUILD_DIR)/$(NAME) ($(REGION)) ($(VERSION)) [!].bin" --verbose
 
 .PHONY: all build extract test-gens
