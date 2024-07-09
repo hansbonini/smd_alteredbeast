@@ -70,4 +70,4 @@ off_AC:         dc.l Trap15
 off_F0:         dc.l Reserv3F
                 dc.l Reserv3F
                 dc.l Reserv3F
-                dc.l Reserv3F
+off_FC:         dc.l Reserv3F
