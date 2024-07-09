@@ -34,7 +34,7 @@ loc_A7C0:                               ; CODE XREF: VBLANK+4A   j
 loc_A7DA:                               ; CODE XREF: VBLANK+56   j
                                         ; VBLANK+60   j
                 clr.b   (byte_FFB154).w
-                jsr     (play_bgm).l
+                jsr     (play_sound).l
                 movem.l (sp)+,d0-d7/a0-a6
 locret_A7E8:                            ; CODE XREF: ROM:loc_A7EA   j
                 rte
