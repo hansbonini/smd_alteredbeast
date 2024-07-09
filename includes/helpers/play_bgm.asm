@@ -1,7 +1,7 @@
 play_bgm:                               ; CODE XREF: VBLANK+6E   p
                 tst.w   (dword_FFFE1A).w
                 beq.s   locret_49DA
-                bmi.s   load_dacdriver_to_z80
+                bmi.s   load_pcm
                 move.b  (dword_FFFE20).w,d0
                 andi.w  #$7F,d0
                 cmpi.w  #$F,d0
