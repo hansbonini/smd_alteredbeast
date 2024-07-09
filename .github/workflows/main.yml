@@ -1,10 +1,10 @@
-name: ci
+name: build
 run-name: Building Sega Genesis ROM
 on:
   push:
     branches: [ master ]
 jobs:
-  build:
+  ue_rev02:
     runs-on: windows-latest
     steps:
       - name: Checkout Repository

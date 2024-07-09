@@ -4,7 +4,7 @@ on:
   push:
     branches: [ master ]
 jobs:
-  build:
+  test-ue-rev02:
     runs-on: windows-latest
     steps:
       - name: Checkout Repository
@@ -37,6 +37,7 @@ jobs:
         run: |
           git config --global user.name "Hans Bonini"
           git config --global user.email "hans@ysolutions.com.br"
+          git pull
           git add screenshots screenshots/\*
-          git commit -m "Adding screenshots from build ${{ github.sha }}"
+          git commit -m "Adding genesis plus gx screenshots from test build ${{ github.sha }}"
           git push
