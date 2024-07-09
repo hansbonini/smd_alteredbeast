@@ -30,8 +30,8 @@ jobs:
           make WORKSPACE="$GHWORKSPACE" NAME="Altered Beast" REGION="UE" VERSION=REV02 ASM68K_SWITCHES="//m //p //k" build
       - name: Run Genesis Plus Gx and record movie
         run: |
-            Invoke-Expression '${{github.workspace}}\tools\RetroArch-Win64\retroarch.exe -L "${{github.workspace}}\tools\RetroArch-Win64\cores\genesis_plus_gx_libretro.dll" --appendconfig="${{github.workspace}}\retroarch.cfg" --record="${{github.workspace}}\screenshots\genesisplusgx.gif" --max-frames=5200 "${{github.workspace}}\build\Altered Beast (UE) (REV02) `[!`].bin" --verbose' -ErrorAction SilentlyContinue
-            Start-Sleep -Seconds 40
+            Invoke-Expression '${{github.workspace}}\tools\RetroArch-Win64\retroarch.exe -L "${{github.workspace}}\tools\RetroArch-Win64\cores\genesis_plus_gx_libretro.dll" --appendconfig="${{github.workspace}}\retroarch.cfg" --record="${{github.workspace}}\screenshots\genesisplusgx.gif" --max-frames=2400 "${{github.workspace}}\build\Altered Beast (UE) (REV02) `[!`].bin" --verbose' -ErrorAction SilentlyContinue
+            Start-Sleep -Seconds 180
       - name: GIT Commit Build Records
         if: github.event_name == 'push'
         run: |
