@@ -1,6 +1,6 @@
 segard_decomp:                          ; CODE XREF: ROM:00008C08   p
                                         ; ROM:00008C20   p ...
-                lea     (unk_FFF400).w,a4
+                lea     (SEGARD_DECOMP_BUFFER).w,a4
                 lea     (VDP_DATA).l,a5
 loc_46FE:                               ; CODE XREF: segard_decomp+64   j
                 moveq   #0,d0

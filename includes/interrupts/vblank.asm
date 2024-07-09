@@ -22,7 +22,7 @@ loc_A7AA:                               ; CODE XREF: VBLANK+18   j
                 tst.b   (byte_FFB154).w
                 beq.s   loc_A7C0
 loc_A7BC:                               ; CODE XREF: VBLANK+44   j
-                bsr.w   sub_483A
+                bsr.w   read_joypad
 loc_A7C0:                               ; CODE XREF: VBLANK+4A   j
                 btst    #1,(byte_FFB154).w
                 beq.s   loc_A7DA
@@ -34,7 +34,7 @@ loc_A7C0:                               ; CODE XREF: VBLANK+4A   j
 loc_A7DA:                               ; CODE XREF: VBLANK+56   j
                                         ; VBLANK+60   j
                 clr.b   (byte_FFB154).w
-                jsr     (sub_499A).l
+                jsr     (play_bgm).l
                 movem.l (sp)+,d0-d7/a0-a6
 locret_A7E8:                            ; CODE XREF: ROM:loc_A7EA   j
                 rte

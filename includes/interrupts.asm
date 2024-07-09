@@ -39,7 +39,7 @@ off_60:         dc.l Reserv3F
                 dc.l IRQ5
                 dc.l VBLANK
                 dc.l IRQ7
-                dc.l Trap15
+off_80:         dc.l Trap15
                 dc.l Trap15
                 dc.l Trap15
 off_8C:         dc.l Trap15

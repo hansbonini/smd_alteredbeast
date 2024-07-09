@@ -38,20 +38,20 @@ loc_A632:                               ; CODE XREF: Reset+44   j
 loc_A648:                               ; CODE XREF: Reset+76   j
                 move.l  d7,(a6)+
                 dbf     d6,loc_A648
-                move.w  #CREDITS_3_LIVES_3,(ram_lives).w
-                lea     (ram_beasts).w,a6
+                move.w  #CREDITS_3_LIVES_3,(LIVES).w
+                lea     (BEAST).w,a6
                 move.l  #3,(a6)+
                 move.l  #$20001,(a6)+
                 move.w  #0,(a6)+
 loc_A668:                               ; CODE XREF: Reset+66   j
-                move.l  #$A76A,(dword_FFB100).w
+                move.l  #loc_A76A,(dword_FFB100).w
                 lea     (unk_FFB000).w,a0
                 move.w  #$F7F,d0
 loc_A678:                               ; CODE XREF: Reset+A6   j
                 clr.l   (a0)+
                 dbf     d0,loc_A678
-                jsr     (sub_48F2).l
-                bsr.w   sub_4824
+                jsr     (reset_z80).l
+                bsr.w   init_joypad
                 bsr.w   sub_44FC
                 move.l  #$40000000,d7   ; DO_WRITE_TO_VRAM_AT_$0000_ADDR
                                         ; DO_OPERATION_WITHOUT_DMA
@@ -67,7 +67,7 @@ loc_A69E:                               ; CODE XREF: Reset+114   j
                 moveq   #0,d0
                 btst    #1,(byte_FFB104).w
                 bne.s   loc_A6BA
-                move.w  (word_FFB144).w,d0
+                move.w  (JOYPAD_STATE).w,d0
 loc_A6BA:                               ; CODE XREF: Reset+E0   j
                 btst    #2,(byte_FFB104).w
                 bne.s   loc_A6C6

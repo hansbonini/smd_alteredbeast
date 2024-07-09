@@ -16,7 +16,7 @@ loc_A842:                               ; CODE XREF: vdp_setup+E   j
 loc_A86E:                               ; CODE XREF: ROM:00009236   p
                                         ; ROM:00009852   p ...
                 bsr.w   sub_45BE
-                bsr.w   sub_467A
+                bsr.w   clear_vsram
                 bsr.w   sub_45CC
                 bsr.w   sub_45EE
                 bsr.w   sub_45F8

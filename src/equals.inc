@@ -34,16 +34,16 @@ CREDITS_5_LIVES_2 equ $508
 CREDITS_5_LIVES_3 equ $50C
 CREDITS_5_LIVES_4 equ $510
 CREDITS_5_LIVES_5 equ $514
-NORMAL equ 0                  ; XREF: RAM:ram_difficulty/s
+NORMAL equ 0                  ; XREF: RAM:DIFFICULTY/s
 HARD equ 1
 HARDEST equ 2                  ; XREF: ROM:0000AB5C/s
 STAGE_1 equ 0
-STAGE_2 equ 1                  ; XREF: RAM:ram_stage/s
+STAGE_2 equ 1                  ; XREF: RAM:STAGE/s
 STAGE_3 equ 2
 STAGE_4 equ 3
 STAGE_5 equ 4
 WOLF equ 0
-TIGER equ 1                  ; XREF: RAM:ram_beasts/s
+TIGER equ 1                  ; XREF: RAM:BEAST/s
 BEAR equ 2
 DRAGON equ 3                  ; XREF: RAM:00FFFE0C/s
 ; ----------------------------------

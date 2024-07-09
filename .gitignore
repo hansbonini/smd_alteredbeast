@@ -2,3 +2,4 @@ build/*
 gfx/nemesis/*.smd
 gfx/segard/*.smd
 rom/*
+smps/*
