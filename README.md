@@ -5,17 +5,11 @@
 This is a disassembly of Altered Beast for Sega Genesis / Sega Mega Drive
 
 It builds the following roms:
-- Altered Beast (UE) (REV02) [!] `sha1: 38945360D824D2FB9535B4FD7F25B9AA9B32F019`
+- Altered Beast (UE) (REV02) [!] `sha1: 38945360D824D2FB9535B4FD7F25B9AA9B32F019` [![blastem](https://github.com/hansbonini/smd_alteredbeast/actions/workflows/blastem.yml/badge.svg)](https://github.com/hansbonini/smd_alteredbeast/actions/workflows/blastem.yml) [![genesis-plus-gx](https://github.com/hansbonini/smd_alteredbeast/actions/workflows/genesis-plus-gx.yml/badge.svg)](https://github.com/hansbonini/smd_alteredbeast/actions/workflows/genesis-plus-gx.yml) [![picodrive](https://github.com/hansbonini/smd_alteredbeast/actions/workflows/picodrive.yml/badge.svg)](https://github.com/hansbonini/smd_alteredbeast/actions/workflows/picodrive.yml)
+
 
 ## Tests
-- Blastem
-
-    ![Blastem running build](./screenshots/blastem.gif)
-
-- Genesis Plus Gx
-
-    ![Genesis Plus Gx running build](./screenshots/genesisplusgx.gif)
-
-- Picodrive
-
-    ![Picodrive running build](./screenshots/picodrive.gif)
+| Region | Version | Blastem | Picodrive | Genesis Plus Gx |
+| ------ | ------- | ------- |  -------- | --------------- |
+| UE     | REV02   | ![Blastem running build](./screenshots/blastem.gif) | ![Genesis Plus Gx running build](./screenshots/picodrive.gif) | ![Picodrive running build](./screenshots/genesisplusgx.gif)
+    
