@@ -6476,8 +6476,7 @@ init_z80:                               ; CODE XREF: sub_488E+A   p
 
     include "includes/helpers/play_sound.asm"
 ; ---------------------------------------------------------------------------
-bgm_list:
-                dc.b $80
+bgm_list:       dc.b $80
                 dc.b $8A
                 dc.b $8B
                 dc.b $83
@@ -6528,6 +6527,7 @@ sub_4A9A:                               ; CODE XREF: ROM:loc_9028   p
                 move.w  #$8004,(dword_FFFE1A).w
                 rts
 ; End of function sub_4A9A
+
 
 sub_4AA8:                               ; CODE XREF: ROM:00004EEE   p
                                         ; DATA XREF: ROM:0000BF26   o
@@ -11767,7 +11767,7 @@ loc_8B7A:                               ; CODE XREF: ROM:00008B4A   j
                                         ; DO_OPERATION_WITHOUT_DMA
                 lea     (gfx_flames).l,a0
                 bsr.w   segard_decomp
-                lea     (stru_58552).l,a6
+                lea     (pal_58552).l,a6
                 bsr.w   sub_47B6
                 lea     (unk_FFA000).w,a3
                 lea     (unk_59938).l,a0
@@ -11782,14 +11782,14 @@ loc_8B7A:                               ; CODE XREF: ROM:00008B4A   j
                                         ; DO_OPERATION_WITHOUT_DMA
                 lea     (gfx_trfmtnbg).l,a0
                 bsr.w   segard_decomp
-                lea     (stru_59A64).l,a6
+                lea     (pal_59A64).l,a6
                 bsr.w   sub_47B6
                 clr.w   (word_FFB080).w
                 move.w  #5,d3
                 lea     (unk_FFA000).w,a3
 loc_8CA6:                               ; CODE XREF: ROM:00008CCA   j
                 move.w  #3,d2
-                lea     (unk_59E88).l,a1
+                lea     (word_59E88).l,a1
 loc_8CB0:                               ; CODE XREF: ROM:00008CC6   j
                 move.w  #4,d1
 loc_8CB4:                               ; CODE XREF: ROM:00008CC0   j
@@ -11831,8 +11831,8 @@ loc_8D1E:                               ; CODE XREF: sub_8D16+4   j
                 move.b  #2,(dword_FFB60A).w
                 addq.b  #1,(dword_FFB60A+1).w
                 addq.b  #1,(dword_FFB60A+3).w
-                lea     (off_8EA2).l,a1
-                move.b  byte_8EA0-off_8EA2(a1),d1
+                lea     (pallist_8EA2).l,a1
+                move.b  byte_8EA0-pallist_8EA2(a1),d1
                 cmp.b   (dword_FFB60A+1).w,d1
                 bne.s   loc_8D42
                 move.b  #0,(dword_FFB60A+1).w
@@ -11843,8 +11843,8 @@ loc_8D42:                               ; CODE XREF: sub_8D16+24   j
                 adda.l  d0,a1
                 movea.l (a1),a6
                 bsr.w   sub_47B6
-                lea     (off_8F06).l,a1
-                move.b  byte_8F04-off_8F06(a1),d1
+                lea     (pallist_8F06).l,a1
+                move.b  byte_8F04-pallist_8F06(a1),d1
                 cmp.b   (dword_FFB60A+3).w,d1
                 bne.s   loc_8D68
                 move.b  #0,(dword_FFB60A+3).w
@@ -11961,7 +11961,7 @@ loc_8E6A:                               ; CODE XREF: sub_8DC8+6   j
 ; ---------------------------------------------------------------------------
 byte_8EA0:      dc.b 7                  ; DATA XREF: sub_8D16+1C   r
                 dc.b   0
-off_8EA2:       dc.l pal_8EBE           ; DATA XREF: sub_8D16+16   o
+pallist_8EA2:   dc.l pal_8EBE           ; DATA XREF: sub_8D16+16   o
                 dc.l pal_8ECE
                 dc.l pal_8EDC
                 dc.l pal_8EE8
@@ -11977,7 +11977,7 @@ off_8EA2:       dc.l pal_8EBE           ; DATA XREF: sub_8D16+16   o
     include "includes/palettes/00008F00.asm"
 byte_8F04:      dc.b 7                  ; DATA XREF: sub_8D16+42   r
                 dc.b   0
-off_8F06:       dc.l pal_8F22           ; DATA XREF: sub_8D16+3C   o
+pallist_8F06:   dc.l pal_8F22           ; DATA XREF: sub_8D16+3C   o
                 dc.l pal_8F32
                 dc.l pal_8F42
                 dc.l pal_8F52
@@ -12208,7 +12208,7 @@ loc_922E:                               ; CODE XREF: ROM:000091B8   j
                 move.w  #$E,d5
                 lea     (unk_FFA000).w,a6
                 jsr     sub_46BA(pc)
-                lea     (unk_9CDC).l,a6
+                lea     (pal_9CDC).l,a6
                 bsr.w   load_pal
                 cmpi.w  #4,(unk_FFFE14).w
                 beq.s   loc_92A0
@@ -12239,7 +12239,7 @@ loc_92D6:                               ; CODE XREF: sub_92B6+6   j
 ; ---------------------------------------------------------------------------
 loc_92DE:                               ; CODE XREF: sub_92B6+24   j
                 move.b  #4,(byte_FFB611).w
-                lea     (off_9CE0).l,a1
+                lea     (pallist_9CE0).l,a1
                 moveq   #0,d0
                 move.b  (byte_FFB610).w,d0
                 lsl.w   #2,d0
@@ -12662,7 +12662,7 @@ loc_9836:                               ; CODE XREF: ROM:0000975E   j
                 bsr.w   load_pal
                 lea     (pal_9DD6).l,a6
                 bsr.w   load_pal
-                lea     (unk_5FF1C).l,a0
+                lea     (dword_5FF1C).l,a0
                 lea     (unk_FFA000).w,a3
                 jsr     sub_4B6E(pc)
                 move.l  #$45000003,d7   ; DO_WRITE_TO_VRAM_AT_$C500_ADDR
@@ -12671,7 +12671,7 @@ loc_9836:                               ; CODE XREF: ROM:0000975E   j
                 move.w  #$11,d5
                 lea     (unk_FFA000).w,a6
                 bsr.w   sub_9B4C
-                lea     (unk_60054).l,a0
+                lea     (dword_60054).l,a0
                 lea     (unk_FFA000).w,a3
                 jsr     sub_4B6E(pc)
                 move.l  #$45280003,d7   ; DO_WRITE_TO_VRAM_AT_$C528_ADDR
@@ -12680,7 +12680,7 @@ loc_9836:                               ; CODE XREF: ROM:0000975E   j
                 move.w  #$11,d5
                 lea     (unk_FFA000).w,a6
                 bsr.w   sub_9B4C
-                lea     (unk_5FDC8).l,a0
+                lea     (dword_5FDC8).l,a0
                 lea     (unk_FFA000).w,a3
                 jsr     sub_4B6E(pc)
                 move.l  #$45500003,d7   ; DO_WRITE_TO_VRAM_AT_$C550_ADDR
@@ -12689,7 +12689,7 @@ loc_9836:                               ; CODE XREF: ROM:0000975E   j
                 move.w  #$11,d5
                 lea     (unk_FFA000).w,a6
                 jsr     sub_9B4C(pc)
-                lea     (unk_5FE60).l,a0
+                lea     (dword_5FE60).l,a0
                 lea     (unk_FFA000).w,a3
                 jsr     sub_4B6E(pc)
                 move.l  #$45780003,d7   ; DO_WRITE_TO_VRAM_AT_$C578_ADDR
@@ -12962,11 +12962,10 @@ byte_9CC0:      dc.b $11, $E, $14, $D, 3, $FD, 2, $B, 4, 0, $11, $FD, 1
                 dc.b $E, $D, $14, $12, $FE, $1D
     dcb.b 4,$1B
                 dc.b $FD, $F, $13, $12, $FF
-unk_9CDC:       dc.b   0                ; DATA XREF: ROM:00009288   o
+pal_9CDC:       dc.b 0                  ; DATA XREF: ROM:00009288   o
                 dc.b   0
-                dc.b   8
-                dc.b $48 ; H
-off_9CE0:       dc.l pal_9D7A           ; DATA XREF: sub_92B6+2E   o
+                dc.w $848
+pallist_9CE0:   dc.l pal_9D7A           ; DATA XREF: sub_92B6+2E   o
                 dc.l pal_9D04
                 dc.l pal_9D14
                 dc.l pal_9D22
@@ -13180,14 +13179,8 @@ vdpregs_9F46:   dc.w $8004              ; DATA XREF: draw_segalogo+18   o
                                         ; MOVE_BY_0_CELLS
                 dc.w $9200              ; MOVE_WINDOW_VERT_LEFT
                                         ; MOVE_BY_0_CELLS
-pal_9F6C:       dc.w $EC0, $EA0, $E80, $E60, $E40, $E20, $E00, $C00, $A00
-                                        ; DATA XREF: draw_segalogo+DC   o
-                dc.w $800, $600, $800, $A00, $C00, $E00, $E20, $E40, $E60
-                dc.w $E80, $EA0
-pal_9F94:       dc.w 0, $EEE, $EC0, $EA0, $E80, $E60, $E40, $E20, $E00
-                                        ; DATA XREF: draw_segalogo+46   o
-                dc.w $C00, $A00, $800, $600
-                dcb.w 3,0
+    include "includes/palettes/00009F6C.asm"
+    include "includes/palettes/00009F94.asm"
 gfx_segalogo:
     incbin "gfx/00009FB4.smd"
     even
@@ -13703,14 +13696,8 @@ loc_AD38:                               ; CODE XREF: ROM:0000AC44   j
                 move.w  #0,$E(a0)
                 jmp     (load_animtbl).l
 ; ---------------------------------------------------------------------------
-pal_AD54:       dc.b 8                  ; index
-                                        ; DATA XREF: sub_AB86+40   o
-                dc.b 2                  ; size
-                dc.w 0, $EE, $E         ; colors
-pal_AD5C:       dc.b $48                ; index
-                                        ; DATA XREF: sub_AB86+4A   o
-                dc.b 2                  ; size
-                dc.w 0, $EE, $8E        ; colors
+    include "includes/palettes/0000AD54.asm"
+    include "includes/palettes/0000AD5C.asm"
 ; ---------------------------------------------------------------------------
 loc_AD64:                               ; CODE XREF: ROM:0000A71A   j
                 bset    #7,(word_FFB140+1).w
@@ -14633,68 +14620,18 @@ assettbl_stage5:dc.l gfx_stage5_elements
                 dc.l word_27726
                 dc.l off_2743C
                 dc.w $87
-pal_B7CE:       dc.b 2                  ; index
-                                        ; DATA XREF: ROM:0000B5DC   o
-                                        ; RAM:off_FFB16C   o
-                dc.b $D                 ; size
-                dc.w 0, $248, $46A, $68E, $8AE, $AEE, $AAA, 0, $248, $46A; colors
-                dc.w $68E, $8AE, $AEE, $CCC; colors
-pal_B7EC:       dc.b 2                  ; index
-                                        ; DATA XREF: ROM:0000B2BC   t
-                                        ; ROM:0000B2CA   t ...
-                dc.b $D                 ; size
-                dc.w $EEE, $ACC, $688, $466, $EEC, 0, $8C6, $6A4, $482; colors
-                dc.w $260, $AA, $A68, $806, $EE; colors
-pal_B80A:       dc.b 2                  ; index
-                                        ; DATA XREF: ROM:0000B74E   o
-                dc.b $D                 ; size
-                dc.w $640, $840, $A60, $C80, $CA0, $EC0, $EE0, 6, 8, $C; colors
-                dc.w $E, $8E, $AE, $EE  ; colors
-pal_B828:       dc.b 2                  ; index
-                                        ; DATA XREF: ROM:0000B6CC   o
-                dc.b $D                 ; size
-                dc.w $E8E, $CEE, $ACC, $8AA, $688, $466, $244, $AEE, $8CC; colors
-                dc.w $6AA, $488, $266, $A0A, $C; colors
-pal_B846:       dc.b 2                  ; index
-                                        ; DATA XREF: ROM:0000B7C0   o
-                dc.b $D                 ; size
-                dc.w $EEE, $CCC, $AAA, $888, $666, $444, 0, $EE, $CE, $AE; colors
-                dc.w $6E, $2E, 0, $E    ; colors
-pal_B864:       dc.b 0                  ; index
-                                        ; DATA XREF: ROM:0000B574   o
-                dc.b $E                 ; size
-                dc.w $E77, $EE, $8C, $48, $A48, $C6A, $E8C, $266, $488; colors
-                dc.w $8CC, $666, $AAA, $EEE, 0, $BE; colors
-pal_B884:       dc.b 0                  ; index
-                                        ; DATA XREF: ROM:0000B5F2   o
-                dc.b $E                 ; size
-                dc.w $22, $EE, $AA, $66, $A48, $C6A, $E8C, $266, $488; colors
-                dc.w $8CC, $888, $AAA, $EEE, 0, $E; colors
-pal_B8A4:       dc.b 0                  ; index
-                                        ; DATA XREF: ROM:0000B664   o
-                dc.b $E                 ; size
-                dc.w 4, $EE, $8C, $48, $A48, $C6A, $E8C, $266, $488, $8CC; colors
-                dc.w $888, $AAA, $EEE, 0, $E; colors
-pal_B8C4:       dc.b 0                  ; index
-                                        ; DATA XREF: ROM:0000B6DE   o
-                dc.b $E                 ; size
-                dc.w 0, $EE, $8C, $66, $A48, $C6A, $E8C, $266, $488, $8CC; colors
-                dc.w $666, $AAA, $EEE, 0, $E; colors
-pal_B8E4:       dc.b 0                  ; index
-                                        ; DATA XREF: ROM:0000B760   o
-                dc.b $E                 ; size
-                dc.w $6A6, $EE, $8C, $48, $A48, $C6A, $E8C, $266, $488; colors
-                dc.w $8CC, $666, $AAA, $EEE, 0, $E; colors
-pal_B904:       dc.b $34                ; index
-                                        ; DATA XREF: ROM:0000B578   o
-                                        ; ROM:0000B5F6   o ...
-                dc.b 5                  ; size
-                dc.w $ECA, $C86, $864, $642, $E, $C00; colors
-pal_B912:       dc.b $54                ; index
-                                        ; DATA XREF: ROM:0000B57C   o
-                                        ; ROM:0000B5FA   o ...
-                dc.b 4                  ; size
-                dc.w $48C, $26A, $48, $26, $EE; colors
+    include "includes/palettes/0000B7CE.asm"
+    include "includes/palettes/0000B7EC.asm"
+    include "includes/palettes/0000B80A.asm"
+    include "includes/palettes/0000B828.asm"
+    include "includes/palettes/0000B846.asm"
+    include "includes/palettes/0000B864.asm"
+    include "includes/palettes/0000B884.asm"
+    include "includes/palettes/0000B8A4.asm"
+    include "includes/palettes/0000B8C4.asm"
+    include "includes/palettes/0000B8E4.asm"
+    include "includes/palettes/0000B904.asm"
+    include "includes/palettes/0000B912.asm"
 ; ---------------------------------------------------------------------------
 screen_titlescreen:                     ; CODE XREF: ROM:0000A716   j
                 bset    #7,(word_FFB140+1).w
@@ -14983,43 +14920,15 @@ text_copyright: dc.l $7C380002          ; DATA XREF: ROM:0000BC08   o
                 dc.b '!"#$% 1988'
                 dc.b   0
                 dc.b   0
-pal_BCB4:       dc.b $42                ; index
-                                        ; DATA XREF: ROM:0000BC72   o
-                dc.b 6                  ; size
-                dc.w 0, $EE, $CE, $AE, $8E, $6E, 8; colors
-pal_BCC4:       dc.b 0                  ; index
-                                        ; DATA XREF: ROM:0000BC7A   o
-                dc.b $1F                ; size
-                dc.w $686, $686, $686, $686, $686, $686, $686, $686, $686; colors
-                dc.w $686, $686, $686, $686, $686, $686, $686, 0, $EC0; colors
-                dc.w $CA0, $C80, $C60, $840, $420, $400, $EC0, $CA0, $C80; colors
-                dc.w $C60, $840, $420, 0, 0; colors
-pal_BD06:       dc.b $22                ; index
-                                        ; DATA XREF: ROM:0000BAB8   o
-                dc.b 3                  ; size
-                dc.w $E, $C, $C, $C     ; colors
-pal_BD10:       dc.b $22                ; index
-                                        ; DATA XREF: ROM:0000BAC4   o
-                dc.b 3                  ; size
-                dc.w $EC0, $CA0, $C80, $C60; colors
-pal_BD1A:       dc.b 2                  ; index
-                                        ; DATA XREF: sub_BA42+6   o
-                dc.b 6                  ; size
-                dc.w $888, $686, $686, $686, $686, $686, $686; colors
-pal_BD2A:       dc.b 2                  ; index
-                dc.b 6                  ; size
-                dc.w $AAA, $8A8, $686, $686, $686, $686, $464; colors
-pal_BD3A:       dc.b 2                  ; index
-                dc.b 6                  ; size
-                dc.w $CCC, $ACA, $8A8, $686, $686, $464, $242; colors
-pal_BD4A:       dc.b 2                  ; index
-                dc.b 6                  ; size
-                dc.w $EEE, $CEC, $ACA, $8A8, $464, $242, $20; colors
-pal_BD5A:       dc.b 2                  ; index
-                                        ; DATA XREF: ROM:0000BA78   o
-                dc.b $A                 ; size
-                dc.w $EE0, $CE0, $AC0, $8A0, $460, $240, $20, $EA6, $C84; colors
-                dc.w $A62, $840         ; colors
+    include "includes/palettes/0000BCB4.asm"
+    include "includes/palettes/0000BCC4.asm"
+    include "includes/palettes/0000BD06.asm"
+    include "includes/palettes/0000BD10.asm"
+    include "includes/palettes/0000BD1A.asm"
+    include "includes/palettes/0000BD2A.asm"
+    include "includes/palettes/0000BD3A.asm"
+    include "includes/palettes/0000BD4A.asm"
+    include "includes/palettes/0000BD5A.asm"
 gfx_copyright:
     incbin "gfx/0000BD72.smd"
     even
@@ -36550,71 +36459,11 @@ unk_ED80:       dc.b   9
                 dc.b $66 ; f
                 dc.b $B7
                 dc.b   0
-pcm_1:          dc.b $F3,$31,$FF,$1F,$3E,  1,$32,$7F,  1,$21,$80,  1,  1
-                                        ; DATA XREF: ROM:pcm_list   o
-                dc.b $C0,$1A,$3E,$18,$32, $F,$1D,$C3,$68,  0,  0,  0,  0
-                dc.b   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
-                dc.b   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
-                dc.b   0,  0,  0,  0,$ED,$4D,  0,  0,  0,  0,  0,  0,  0
-                dc.b   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
-                dc.b   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
-                dc.b   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,$ED,$45
-                dc.b $CD,$A6,  0,$C5,$3E,$80, $E,$2B,$CD,$9B,  0,$C1,$3A
-                dc.b  $F,$1D,$C5,$47,$10,$FE,$C1,$F5,$C5,$7E, $E,$2A,$CD
-                dc.b $9B,  0,$C1,$23, $B,$78,$B1,$28,  3,$F1,$18,$E9,$AF
-                dc.b  $E,$2B,$CD,$9B,  0,$AF,$32,$7F,  1,$C3,$94,  0,$F5
-                dc.b $79,$32,  0,$40,$F1,  0,$32,  1,$40,$C9,$E5,$D5,$C5
-                dc.b   6,  7,$AF, $E,$28,$CD,$9B,  0,$3C,$10,$FA,$C1,$D1
-                dc.b $E1,$C9,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
-                dc.b   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
-                dc.b   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
-                dc.b   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
-                dc.b   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
-                dc.b   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
-                dc.b   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
-                dc.b   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
-                dc.b   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
-                dc.b   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
-                dc.b   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
-                dc.b   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
-                dc.b   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
-                dc.b   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
-                dc.b   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
-                dc.b   0,  0,  0,  0,  0,  0,  0
-    incbin "audio/pcm/000138EC.pcm"
+pcm_1:
+    incbin "z80/pcm_driver/pcm_driver1.bin"
     even
-pcm_2:          dc.b $F3,$31,$FF,$1F,$3A,$7F,  1,$B7,$CA,  4,  0,$FE,  1
-                                        ; DATA XREF: ROM:pcm_list   o
-                dc.b $CA,$68,  0,$FE,  2,$CA,$76,  0,$FE,  3,$CA,$84,  0
-                dc.b $C3,  4,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
-                dc.b   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
-                dc.b   0,  0,  0,  0,$ED,$4D,  0,  0,  0,  0,  0,  0,  0
-                dc.b   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
-                dc.b   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
-                dc.b   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,$ED,$45
-                dc.b $21,$E0,  1,  1,$78,  5,$3E,$30,$32, $F,$1D,$C3,$92
-                dc.b   0,$21,$80,  1,  1,$EB,  9,$3E,$30,$32, $F,$1D,$C3
-                dc.b $92,  0,$21,$80,  1,  1,  8,$1D,$3E,$30,$32, $F,$1D
-                dc.b $C3,$92,  0,$CD,$CF,  0,$C5,$3E,$80, $E,$2B,$CD,$C4
-                dc.b   0,$C1,$3A, $F,$1D,$C5,$47,$10,$FE,$C1,$F5,$C5,$7E
-                dc.b  $E,$2A,$CD,$C4,  0,$C1,$23, $B,$78,$B1,$28,  3,$F1
-                dc.b $18,$E9,$AF,$32,$7F,  1, $E,$2B,$CD,$C4,  0,$C3,  4
-                dc.b   0,$F5,$79,$32,  0,$40,$F1,  0,$32,  1,$40,$C9,$E5
-                dc.b $D5,$C5,  6,  7,$AF, $E,$28,$CD,$C4,  0,$3C,$10,$FA
-                dc.b $C1,$D1,$E1,$C9,$80,  0,$A0,  0,$C0,  0,$FF,  0,  0
-                dc.b   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
-                dc.b   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
-                dc.b   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
-                dc.b   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
-                dc.b   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
-                dc.b   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
-                dc.b   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
-                dc.b   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
-                dc.b   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
-                dc.b   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
-                dc.b   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
-                dc.b   0,  0,  0,  0,  0,  0,  0
-    incbin "audio/pcm/0001552C.pcm"
+pcm_2:
+    incbin "z80/pcm_driver/pcm_driver2.bin"
     even
 pcm_3:          dc.b $F3,$31,$FF,$1F,$3A,$7F,  1,$B7,$CA,  4,  0,$FE,  1
                                         ; DATA XREF: ROM:pcm_list   o
@@ -37601,6 +37450,7 @@ pcm_5:          dc.b $F3, $31, $FF, $1F, $3E, 1, $32, $7F, 1, $21, $80
                 dc.b $D1, $E1, $C9
     dcb.b $C8,0
     incbin "audio/pcm/0001EED8.pcm"
+    even
     dcb.b $3576,$FF
 gfx_titlefont:
     incbin "gfx/00024000.smd"
@@ -41525,166 +41375,67 @@ off_3F78A:      dc.l unk_3F0D8          ; DATA XREF: ROM:00006EF6   o
                 dc.l unk_3F848
 unk_3F79E:      dc.b   4                ; DATA XREF: ROM:0003F78E   o
                 dc.b   0
-                dc.l unk_3F7B0
-                dc.l unk_3F7C2
-                dc.l unk_3F7D4
-                dc.l unk_3F7C2
-unk_3F7B0:      dc.b   2                ; DATA XREF: ROM:0003F7A0   o
-                dc.b $4E ; N
-                dc.b $4E ; N
-                dc.b $CD
-                dc.b $8A
-                dc.b   2
-                dc.b $1E
-                dc.b $EF
-                dc.b $E0
-                dc.b $8B
-                dc.b   2
-                dc.b $27 ; '
-                dc.b $E8
-                dc.b $E0
-                dc.b $87
-                dc.b   2
+                dc.l dword_3F7B0
+                dc.l dword_3F7C2
+                dc.l dword_3F7D4
+                dc.l dword_3F7C2
+dword_3F7B0:    dc.l $24E4ECD           ; DATA XREF: ROM:0003F7A0   o
+                dc.l $8A021EEF
+                dc.l $E08B0227
+                dc.l $E8E08702
                 dc.b $33 ; 3
                 dc.b   0
-unk_3F7C2:      dc.b   2                ; DATA XREF: ROM:0003F7A4   o
+dword_3F7C2:    dc.l $24E4ECD           ; DATA XREF: ROM:0003F7A4   o
                                         ; ROM:0003F7AC   o ...
-                dc.b $4E ; N
-                dc.b $4E ; N
-                dc.b $CD
-                dc.b $8A
-                dc.b   2
-                dc.b $1E
-                dc.b $EF
-                dc.b $E0
-                dc.b $8B
-                dc.b   2
-                dc.b $3B ; ;
-                dc.b $E8
-                dc.b $E0
-                dc.b $87
-                dc.b   2
+                dc.l $8A021EEF
+                dc.l $E08B023B
+                dc.l $E8E08702
                 dc.b $47 ; G
                 dc.b   0
-unk_3F7D4:      dc.b   2                ; DATA XREF: ROM:0003F7A8   o
+dword_3F7D4:    dc.l $24E4ECD           ; DATA XREF: ROM:0003F7A8   o
                                         ; ROM:0003F7F0   o ...
-                dc.b $4E ; N
-                dc.b $4E ; N
-                dc.b $CD
-                dc.b $8A
-                dc.b   2
-                dc.b $1E
-                dc.b $EF
-                dc.b $E0
-                dc.b $8B
-                dc.b   2
-                dc.b $4F ; O
-                dc.b $E8
-                dc.b $E0
-                dc.b $87
-                dc.b   2
+                dc.l $8A021EEF
+                dc.l $E08B024F
+                dc.l $E8E08702
                 dc.b $5B ; [
                 dc.b   0
 unk_3F7E6:      dc.b   2                ; DATA XREF: ROM:0003F792   o
                 dc.b   0
-                dc.l unk_3F7F8
-                dc.l unk_3F80A
-                dc.l unk_3F7D4
-                dc.l unk_3F7C2
-unk_3F7F8:      dc.b   2                ; DATA XREF: ROM:0003F7E8   o
-                dc.b $4E ; N
-                dc.b $4E ; N
-                dc.b $CD
-                dc.b $8A
-                dc.b  $A
-                dc.b $1E
-                dc.b $F9
-                dc.b $E0
-                dc.b $87
-                dc.b  $A
-                dc.b $33 ; 3
-                dc.b $F0
-                dc.b $E0
-                dc.b $8B
-                dc.b  $A
+                dc.l dword_3F7F8
+                dc.l dword_3F80A
+                dc.l dword_3F7D4
+                dc.l dword_3F7C2
+dword_3F7F8:    dc.l $24E4ECD           ; DATA XREF: ROM:0003F7E8   o
+                dc.l $8A0A1EF9
+                dc.l $E0870A33
+                dc.l $F0E08B0A
                 dc.b $27 ; '
                 dc.b   0
-unk_3F80A:      dc.b   2                ; DATA XREF: ROM:0003F7EC   o
-                dc.b $4E ; N
-                dc.b $4E ; N
-                dc.b $CD
-                dc.b $8A
-                dc.b  $A
-                dc.b $1E
-                dc.b $F9
-                dc.b $E0
-                dc.b $87
-                dc.b  $A
-                dc.b $47 ; G
-                dc.b $F0
-                dc.b $E0
-                dc.b $8B
-                dc.b  $A
-                dc.b $3B ; ;
-                dc.b   0
-                dc.b   2
-                dc.b $4E ; N
-                dc.b $4E ; N
-                dc.b $CD
-                dc.b $8A
-                dc.b  $A
-                dc.b $1E
-                dc.b $F9
-                dc.b $E0
-                dc.b $87
-                dc.b  $A
-                dc.b $5B ; [
-                dc.b $F0
-                dc.b $E0
-                dc.b $8B
-                dc.b  $A
-                dc.b $4F ; O
-                dc.b   0
+dword_3F80A:    dc.l $24E4ECD           ; DATA XREF: ROM:0003F7EC   o
+                dc.l $8A0A1EF9
+                dc.l $E0870A47
+                dc.l $F0E08B0A
+                dc.l $3B00024E
+                dc.l $4ECD8A0A
+                dc.l $1EF9E087
+                dc.l $A5BF0E0
+                dc.l $8B0A4F00
 unk_3F82E:      dc.b   2                ; DATA XREF: ROM:0003F796   o
                 dc.b   0
-                dc.l unk_3F838
-                dc.l unk_3F840
-unk_3F838:      dc.b   0                ; DATA XREF: ROM:0003F830   o
-                dc.b   0
-                dc.b   0
-                dc.b $E0
-                dc.b $8B
-                dc.b   2
-                dc.b $63 ; c
-                dc.b $F4
-unk_3F840:      dc.b   0                ; DATA XREF: ROM:0003F834   o
-                dc.b   0
-                dc.b   0
-                dc.b $E4
-                dc.b $8A
-                dc.b   2
-                dc.b $6F ; o
-                dc.b $F4
+                dc.l dword_3F838
+                dc.l dword_3F840
+dword_3F838:    dc.l $E0                ; DATA XREF: ROM:0003F830   o
+                dc.l $8B0263F4
+dword_3F840:    dc.l $E4                ; DATA XREF: ROM:0003F834   o
+                dc.l $8A026FF4
 unk_3F848:      dc.b   2                ; DATA XREF: ROM:0003F79A   o
                 dc.b   0
-                dc.l unk_3F852
-                dc.l unk_3F85A
-unk_3F852:      dc.b   0                ; DATA XREF: ROM:0003F84A   o
-                dc.b   0
-                dc.b   0
-                dc.b $E0
-                dc.b $8B
-                dc.b  $A
-                dc.b $63 ; c
-                dc.b $F4
-unk_3F85A:      dc.b   0                ; DATA XREF: ROM:0003F84E   o
-                dc.b   0
-                dc.b   0
-                dc.b $E4
-                dc.b $8A
-                dc.b  $A
-                dc.b $6F ; o
-                dc.b $F4
+                dc.l dword_3F852
+                dc.l dword_3F85A
+dword_3F852:    dc.l $E0                ; DATA XREF: ROM:0003F84A   o
+                dc.l $8B0A63F4
+dword_3F85A:    dc.l $E4                ; DATA XREF: ROM:0003F84E   o
+                dc.l $8A0A6FF4
 off_3F862:      dc.l unk_3F876          ; DATA XREF: ROM:00007134   o
                 dc.l unk_3F884
                 dc.l unk_3F8DA
@@ -41692,207 +41443,75 @@ off_3F862:      dc.l unk_3F876          ; DATA XREF: ROM:00007134   o
                 dc.l unk_3F94C
 unk_3F876:      dc.b   1                ; DATA XREF: ROM:off_3F862   o
                 dc.b   0
-                dc.l unk_3F87C
-unk_3F87C:      dc.b   0                ; DATA XREF: ROM:0003F878   o
-                dc.b   0
-                dc.b   0
-                dc.b $F8
-                dc.b $85
-                dc.b   2
-                dc.b $F4
-                dc.b $F8
+                dc.l dword_3F87C
+dword_3F87C:    dc.l $F8                ; DATA XREF: ROM:0003F878   o
+                dc.l $8502F4F8
 unk_3F884:      dc.b   3                ; DATA XREF: ROM:0003F866   o
                 dc.b   0
-                dc.l unk_3F8C2
-                dc.l unk_3F8AA
-                dc.l unk_3F892
-unk_3F892:      dc.b   3                ; DATA XREF: ROM:0003F88E   o
-                dc.b $4F ; O
-                dc.b $4F ; O
-                dc.b $DC
-                dc.b $8B
-                dc.b   2
-                dc.b $DC
-                dc.b $F0
-                dc.b $DC
-                dc.b $8B
-                dc.b   2
-                dc.b $E8
-                dc.b   8
-                dc.b $E8
-                dc.b $8E
-                dc.b   2
-                dc.b $AC
-                dc.b $E0
-                dc.b $F8
-                dc.b $8C
-                dc.b   2
-                dc.b $B8
-                dc.b   0
-                dc.b   0
-unk_3F8AA:      dc.b   3                ; DATA XREF: ROM:0003F88A   o
-                dc.b $4F ; O
-                dc.b $4F ; O
-                dc.b $DC
-                dc.b $8B
-                dc.b   2
-                dc.b $DC
-                dc.b $F0
-                dc.b $DC
-                dc.b $8B
-                dc.b   2
-                dc.b $E8
-                dc.b   8
-                dc.b $E8
-                dc.b $8E
-                dc.b   2
-                dc.b $CC
-                dc.b $E0
-                dc.b $F8
-                dc.b $8C
-                dc.b   2
-                dc.b $D8
-                dc.b   0
-                dc.b   0
-unk_3F8C2:      dc.b   3                ; DATA XREF: ROM:0003F886   o
-                dc.b $4F ; O
-                dc.b $4F ; O
-                dc.b $DC
-                dc.b $8B
-                dc.b   2
-                dc.b $DC
-                dc.b $F0
-                dc.b $DC
-                dc.b $8B
-                dc.b   2
-                dc.b $E8
-                dc.b   8
-                dc.b $E8
-                dc.b $8E
-                dc.b   2
-                dc.b $BC
-                dc.b $E0
-                dc.b $F8
-                dc.b $8C
-                dc.b   2
-                dc.b $C8
-                dc.b   0
-                dc.b   0
+                dc.l dword_3F8C2
+                dc.l dword_3F8AA
+                dc.l dword_3F892
+dword_3F892:    dc.l $34F4FDC           ; DATA XREF: ROM:0003F88E   o
+                dc.l $8B02DCF0
+                dc.l $DC8B02E8
+                dc.l $8E88E02
+                dc.l $ACE0F88C
+                dc.l $2B80000
+dword_3F8AA:    dc.l $34F4FDC           ; DATA XREF: ROM:0003F88A   o
+                dc.l $8B02DCF0
+                dc.l $DC8B02E8
+                dc.l $8E88E02
+                dc.l $CCE0F88C
+                dc.l $2D80000
+dword_3F8C2:    dc.l $34F4FDC           ; DATA XREF: ROM:0003F886   o
+                dc.l $8B02DCF0
+                dc.l $DC8B02E8
+                dc.l $8E88E02
+                dc.l $BCE0F88C
+                dc.l $2C80000
 unk_3F8DA:      dc.b   3                ; DATA XREF: ROM:0003F86A   o
                 dc.b   0
-                dc.l unk_3F918
-                dc.l unk_3F900
-                dc.l unk_3F8E8
-unk_3F8E8:      dc.b   3                ; DATA XREF: ROM:0003F8E4   o
-                dc.b $4F ; O
-                dc.b $4F ; O
-                dc.b $DC
-                dc.b $8B
-                dc.b  $A
-                dc.b $DC
-                dc.b $F8
-                dc.b $DC
-                dc.b $8B
-                dc.b  $A
-                dc.b $E8
-                dc.b $E0
-                dc.b $E8
-                dc.b $8E
-                dc.b  $A
-                dc.b $AC
-                dc.b   0
-                dc.b $F8
-                dc.b $8C
-                dc.b  $A
-                dc.b $B8
-                dc.b $E0
-                dc.b   0
-unk_3F900:      dc.b   3                ; DATA XREF: ROM:0003F8E0   o
-                dc.b $4F ; O
-                dc.b $4F ; O
-                dc.b $DC
-                dc.b $8B
-                dc.b  $A
-                dc.b $DC
-                dc.b $F8
-                dc.b $DC
-                dc.b $8B
-                dc.b  $A
-                dc.b $E8
-                dc.b $E0
-                dc.b $E8
-                dc.b $8E
-                dc.b  $A
-                dc.b $CC
-                dc.b   0
-                dc.b $F8
-                dc.b $8C
-                dc.b  $A
-                dc.b $D8
-                dc.b $E0
-                dc.b   0
-unk_3F918:      dc.b   3                ; DATA XREF: ROM:0003F8DC   o
-                dc.b $4F ; O
-                dc.b $4F ; O
-                dc.b $DC
-                dc.b $8B
-                dc.b  $A
-                dc.b $DC
-                dc.b $F8
-                dc.b $DC
-                dc.b $8B
-                dc.b  $A
-                dc.b $E8
-                dc.b $E0
-                dc.b $E8
-                dc.b $8E
-                dc.b  $A
-                dc.b $BC
-                dc.b   0
-                dc.b $F8
-                dc.b $8C
-                dc.b  $A
-                dc.b $C8
-                dc.b $E0
-                dc.b   0
+                dc.l dword_3F918
+                dc.l dword_3F900
+                dc.l dword_3F8E8
+dword_3F8E8:    dc.l $34F4FDC           ; DATA XREF: ROM:0003F8E4   o
+                dc.l $8B0ADCF8
+                dc.l $DC8B0AE8
+                dc.l $E0E88E0A
+                dc.l $AC00F88C
+                dc.l $AB8E000
+dword_3F900:    dc.l $34F4FDC           ; DATA XREF: ROM:0003F8E0   o
+                dc.l $8B0ADCF8
+                dc.l $DC8B0AE8
+                dc.l $E0E88E0A
+                dc.l $CC00F88C
+                dc.l $AD8E000
+dword_3F918:    dc.l $34F4FDC           ; DATA XREF: ROM:0003F8DC   o
+                dc.l $8B0ADCF8
+                dc.l $DC8B0AE8
+                dc.l $E0E88E0A
+                dc.l $BC00F88C
+                dc.l $AC8E000
 unk_3F930:      dc.b   3                ; DATA XREF: ROM:0003F86E   o
                 dc.b   0
-                dc.l unk_3F93E
-                dc.l unk_3F93E
-                dc.l unk_3F93E
-unk_3F93E:      dc.b   1                ; DATA XREF: ROM:0003F932   o
+                dc.l dword_3F93E
+                dc.l dword_3F93E
+                dc.l dword_3F93E
+dword_3F93E:    dc.l $14F4FE0           ; DATA XREF: ROM:0003F932   o
                                         ; ROM:0003F936   o ...
-                dc.b $4F ; O
-                dc.b $4F ; O
-                dc.b $E0
-                dc.b $8B
-                dc.b   2
-                dc.b $DC
-                dc.b $F0
-                dc.b $E0
-                dc.b $8B
-                dc.b   2
-                dc.b $E8
+                dc.l $8B02DCF0
+                dc.l $E08B02E8
                 dc.b   8
                 dc.b   0
 unk_3F94C:      dc.b   3                ; DATA XREF: ROM:0003F872   o
                 dc.b   0
-                dc.l unk_3F95A
-                dc.l unk_3F95A
-                dc.l unk_3F95A
-unk_3F95A:      dc.b   1                ; DATA XREF: ROM:0003F94E   o
+                dc.l dword_3F95A
+                dc.l dword_3F95A
+                dc.l dword_3F95A
+dword_3F95A:    dc.l $14F4FE0           ; DATA XREF: ROM:0003F94E   o
                                         ; ROM:0003F952   o ...
-                dc.b $4F ; O
-                dc.b $4F ; O
-                dc.b $E0
-                dc.b $8B
-                dc.b  $A
-                dc.b $DC
-                dc.b $F8
-                dc.b $E0
-                dc.b $8B
-                dc.b  $A
-                dc.b $E8
+                dc.l $8B0ADCF8
+                dc.l $E08B0AE8
                 dc.b $E0
                 dc.b   0
 off_3F968:      dc.l unk_3F0D8          ; DATA XREF: ROM:loc_7A1A   o
@@ -41904,302 +41523,98 @@ off_3F968:      dc.l unk_3F0D8          ; DATA XREF: ROM:loc_7A1A   o
                 dc.l unk_3FABC
 unk_3F984:      dc.b   3                ; DATA XREF: ROM:0003F96C   o
                 dc.b   0
-                dc.l unk_3F992
-                dc.l unk_3F9AA
-                dc.l unk_3F9C2
-unk_3F992:      dc.b   3                ; DATA XREF: ROM:0003F986   o
-                dc.b $50 ; P
-                dc.b $50 ; P
-                dc.b $D6
-                dc.b $8A
-                dc.b   1
-                dc.b $4A ; J
-                dc.b $E8
-                dc.b $D6
-                dc.b $8A
-                dc.b   1
-                dc.b $53 ; S
-                dc.b   0
-                dc.b $EE
-                dc.b $8A
-                dc.b $19
-                dc.b $53 ; S
-                dc.b $E8
-                dc.b $EE
-                dc.b $8A
-                dc.b $19
-                dc.b $4A ; J
-                dc.b   0
-                dc.b   0
-unk_3F9AA:      dc.b   3                ; DATA XREF: ROM:0003F98A   o
-                dc.b $50 ; P
-                dc.b $50 ; P
-                dc.b $D6
-                dc.b $8A
-                dc.b   1
-                dc.b $5C ; \
-                dc.b $E8
-                dc.b $D6
-                dc.b $8A
-                dc.b   1
-                dc.b $65 ; e
-                dc.b   0
-                dc.b $EE
-                dc.b $8A
-                dc.b $19
-                dc.b $65 ; e
-                dc.b $E8
-                dc.b $EE
-                dc.b $8A
-                dc.b $19
-                dc.b $5C ; \
-                dc.b   0
-                dc.b   0
-unk_3F9C2:      dc.b   3                ; DATA XREF: ROM:0003F98E   o
-                dc.b $50 ; P
-                dc.b $50 ; P
-                dc.b $D6
-                dc.b $8A
-                dc.b   1
-                dc.b $6E ; n
-                dc.b $E8
-                dc.b $D6
-                dc.b $8A
-                dc.b   1
-                dc.b $77 ; w
-                dc.b   0
-                dc.b $EE
-                dc.b $8A
-                dc.b $19
-                dc.b $77 ; w
-                dc.b $E8
-                dc.b $EE
-                dc.b $8A
-                dc.b $19
-                dc.b $6E ; n
-                dc.b   0
-                dc.b   0
+                dc.l dword_3F992
+                dc.l dword_3F9AA
+                dc.l dword_3F9C2
+dword_3F992:    dc.l $35050D6           ; DATA XREF: ROM:0003F986   o
+                dc.l $8A014AE8
+                dc.l $D68A0153
+                dc.l $EE8A19
+                dc.l $53E8EE8A
+                dc.l $194A0000
+dword_3F9AA:    dc.l $35050D6           ; DATA XREF: ROM:0003F98A   o
+                dc.l $8A015CE8
+                dc.l $D68A0165
+                dc.l $EE8A19
+                dc.l $65E8EE8A
+                dc.l $195C0000
+dword_3F9C2:    dc.l $35050D6           ; DATA XREF: ROM:0003F98E   o
+                dc.l $8A016EE8
+                dc.l $D68A0177
+                dc.l $EE8A19
+                dc.l $77E8EE8A
+                dc.l $196E0000
 unk_3F9DA:      dc.b   3                ; DATA XREF: ROM:0003F970   o
                 dc.b   0
-                dc.l unk_3F9E8
-                dc.l unk_3FA00
-                dc.l unk_3FA18
-unk_3F9E8:      dc.b   3                ; DATA XREF: ROM:0003F9DC   o
-                dc.b $50 ; P
-                dc.b $50 ; P
-                dc.b $D6
-                dc.b $8A
-                dc.b   9
-                dc.b $53 ; S
-                dc.b $E8
-                dc.b $D6
-                dc.b $8A
-                dc.b   9
-                dc.b $4A ; J
-                dc.b   0
-                dc.b $EE
-                dc.b $8A
-                dc.b $11
-                dc.b $4A ; J
-                dc.b $E8
-                dc.b $EE
-                dc.b $8A
-                dc.b $11
-                dc.b $53 ; S
-                dc.b   0
-                dc.b   0
-unk_3FA00:      dc.b   3                ; DATA XREF: ROM:0003F9E0   o
-                dc.b $50 ; P
-                dc.b $50 ; P
-                dc.b $D6
-                dc.b $8A
-                dc.b   9
-                dc.b $65 ; e
-                dc.b $E8
-                dc.b $D6
-                dc.b $8A
-                dc.b   9
-                dc.b $5C ; \
-                dc.b   0
-                dc.b $EE
-                dc.b $8A
-                dc.b $11
-                dc.b $5C ; \
-                dc.b $E8
-                dc.b $EE
-                dc.b $8A
-                dc.b $11
-                dc.b $65 ; e
-                dc.b   0
-                dc.b   0
-unk_3FA18:      dc.b   3                ; DATA XREF: ROM:0003F9E4   o
-                dc.b $50 ; P
-                dc.b $50 ; P
-                dc.b $D6
-                dc.b $8A
-                dc.b   9
-                dc.b $77 ; w
-                dc.b $E8
-                dc.b $D6
-                dc.b $8A
-                dc.b   9
-                dc.b $6E ; n
-                dc.b   0
-                dc.b $EE
-                dc.b $8A
-                dc.b $11
-                dc.b $6E ; n
-                dc.b $E8
-                dc.b $EE
-                dc.b $8A
-                dc.b $11
-                dc.b $77 ; w
-                dc.b   0
-                dc.b   0
+                dc.l dword_3F9E8
+                dc.l dword_3FA00
+                dc.l dword_3FA18
+dword_3F9E8:    dc.l $35050D6           ; DATA XREF: ROM:0003F9DC   o
+                dc.l $8A0953E8
+                dc.l $D68A094A
+                dc.l $EE8A11
+                dc.l $4AE8EE8A
+                dc.l $11530000
+dword_3FA00:    dc.l $35050D6           ; DATA XREF: ROM:0003F9E0   o
+                dc.l $8A0965E8
+                dc.l $D68A095C
+                dc.l $EE8A11
+                dc.l $5CE8EE8A
+                dc.l $11650000
+dword_3FA18:    dc.l $35050D6           ; DATA XREF: ROM:0003F9E4   o
+                dc.l $8A0977E8
+                dc.l $D68A096E
+                dc.l $EE8A11
+                dc.l $6EE8EE8A
+                dc.l $11770000
 unk_3FA30:      dc.b   2                ; DATA XREF: ROM:0003F974   o
                 dc.b   0
-                dc.l unk_3FA3A
-                dc.l unk_3FA52
-unk_3FA3A:      dc.b   3                ; DATA XREF: ROM:0003FA32   o
-                dc.b $50 ; P
-                dc.b $50 ; P
-                dc.b $D8
-                dc.b $86
-                dc.b   1
-                dc.b $80
-                dc.b $EC
-                dc.b $D8
-                dc.b $8A
-                dc.b   1
-                dc.b $86
-                dc.b $FC
-                dc.b $F0
-                dc.b $89
-                dc.b   1
-                dc.b $8F
-                dc.b $FC
-                dc.b $F0
-                dc.b $85
-                dc.b   1
-                dc.b $95
-                dc.b $EC
-                dc.b   0
-unk_3FA52:      dc.b   3                ; DATA XREF: ROM:0003FA36   o
-                dc.b $50 ; P
-                dc.b $50 ; P
-                dc.b $D8
-                dc.b $86
-                dc.b   1
-                dc.b $80
-                dc.b $EC
-                dc.b $D8
-                dc.b $8A
-                dc.b   1
-                dc.b $86
-                dc.b $FC
-                dc.b $F0
-                dc.b $89
-                dc.b   1
-                dc.b $8F
-                dc.b $FC
-                dc.b $F0
-                dc.b $85
-                dc.b   1
-                dc.b $99
-                dc.b $EC
-                dc.b   0
+                dc.l dword_3FA3A
+                dc.l dword_3FA52
+dword_3FA3A:    dc.l $35050D8           ; DATA XREF: ROM:0003FA32   o
+                dc.l $860180EC
+                dc.l $D88A0186
+                dc.l $FCF08901
+                dc.l $8FFCF085
+                dc.l $195EC00
+dword_3FA52:    dc.l $35050D8           ; DATA XREF: ROM:0003FA36   o
+                dc.l $860180EC
+                dc.l $D88A0186
+                dc.l $FCF08901
+                dc.l $8FFCF085
+                dc.l $199EC00
 unk_3FA6A:      dc.b   2                ; DATA XREF: ROM:0003F978   o
                 dc.b   0
-                dc.l unk_3FA74
-                dc.l unk_3FA8C
-unk_3FA74:      dc.b   3                ; DATA XREF: ROM:0003FA6C   o
-                dc.b $50 ; P
-                dc.b $50 ; P
-                dc.b $D8
-                dc.b $8A
-                dc.b   9
-                dc.b $86
-                dc.b $EC
-                dc.b $D8
-                dc.b $86
-                dc.b   9
-                dc.b $80
-                dc.b   4
-                dc.b $F0
-                dc.b $89
-                dc.b   9
-                dc.b $8F
-                dc.b $EC
-                dc.b $F0
-                dc.b $85
-                dc.b   9
-                dc.b $95
-                dc.b   4
-                dc.b   0
-unk_3FA8C:      dc.b   3                ; DATA XREF: ROM:0003FA70   o
-                dc.b $50 ; P
-                dc.b $50 ; P
-                dc.b $D8
-                dc.b $8A
-                dc.b   9
-                dc.b $86
-                dc.b $EC
-                dc.b $D8
-                dc.b $86
-                dc.b   9
-                dc.b $80
-                dc.b   4
-                dc.b $F0
-                dc.b $89
-                dc.b   9
-                dc.b $8F
-                dc.b $EC
-                dc.b $F0
-                dc.b $85
-                dc.b   9
-                dc.b $99
-                dc.b   4
-                dc.b   0
+                dc.l dword_3FA74
+                dc.l dword_3FA8C
+dword_3FA74:    dc.l $35050D8           ; DATA XREF: ROM:0003FA6C   o
+                dc.l $8A0986EC
+                dc.l $D8860980
+                dc.l $4F08909
+                dc.l $8FECF085
+                dc.l $9950400
+dword_3FA8C:    dc.l $35050D8           ; DATA XREF: ROM:0003FA70   o
+                dc.l $8A0986EC
+                dc.l $D8860980
+                dc.l $4F08909
+                dc.l $8FECF085
+                dc.l $9990400
 unk_3FAA4:      dc.b   1                ; DATA XREF: ROM:0003F97C   o
                 dc.b   0
-                dc.l unk_3FAAA
-unk_3FAAA:      dc.b   2                ; DATA XREF: ROM:0003FAA6   o
-                dc.b $50 ; P
-                dc.b $50 ; P
-                dc.b $D8
-                dc.b $8A
-                dc.b   1
-                dc.b $9D
-                dc.b $E8
-                dc.b $D8
-                dc.b $8A
-                dc.b   1
-                dc.b $A6
-                dc.b   0
-                dc.b $F0
-                dc.b $8D
-                dc.b   1
+                dc.l dword_3FAAA
+dword_3FAAA:    dc.l $25050D8           ; DATA XREF: ROM:0003FAA6   o
+                dc.l $8A019DE8
+                dc.l $D88A01A6
+                dc.l $F08D01
                 dc.b $AF
                 dc.b $F0
 unk_3FABC:      dc.b   1                ; DATA XREF: ROM:0003F980   o
                 dc.b   0
-                dc.l unk_3FAC2
-unk_3FAC2:      dc.b   2                ; DATA XREF: ROM:0003FABE   o
-                dc.b $50 ; P
-                dc.b $50 ; P
-                dc.b $D8
-                dc.b $8A
-                dc.b   9
-                dc.b $A6
-                dc.b $E8
-                dc.b $D8
-                dc.b $8A
-                dc.b   9
-                dc.b $9D
-                dc.b   0
-                dc.b $F0
-                dc.b $8D
-                dc.b   9
+                dc.l dword_3FAC2
+dword_3FAC2:    dc.l $25050D8           ; DATA XREF: ROM:0003FABE   o
+                dc.l $8A09A6E8
+                dc.l $D88A099D
+                dc.l $F08D09
                 dc.b $AF
                 dc.b $F0
 off_3FAD4:      dc.l unk_3F0D8          ; DATA XREF: sub_7CEA   o
@@ -42211,112 +41626,52 @@ off_3FAD4:      dc.l unk_3F0D8          ; DATA XREF: sub_7CEA   o
                 dc.l unk_3FB5C
 unk_3FAF0:      dc.b   1                ; DATA XREF: ROM:0003FAD8   o
                 dc.b   0
-                dc.l unk_3FAF6
-unk_3FAF6:      dc.b   1                ; DATA XREF: ROM:0003FAF2   o
-                dc.b $51 ; Q
-                dc.b   0
-                dc.b $C5
-                dc.b $8F
-                dc.b   2
-                dc.b $28 ; (
-                dc.b $EC
-                dc.b $E5
-                dc.b $8B
-                dc.b   2
-                dc.b $41 ; A
+                dc.l dword_3FAF6
+dword_3FAF6:    dc.l $15100C5           ; DATA XREF: ROM:0003FAF2   o
+                dc.l $8F0228EC
+                dc.l $E58B0241
                 dc.b $F2
                 dc.b   0
 unk_3FB04:      dc.b   1                ; DATA XREF: ROM:0003FADC   o
                 dc.b   0
-                dc.l unk_3FB0A
-unk_3FB0A:      dc.b   1                ; DATA XREF: ROM:0003FB06   o
-                dc.b $51 ; Q
-                dc.b   0
-                dc.b $C5
-                dc.b $8F
-                dc.b  $A
-                dc.b $28 ; (
-                dc.b $F4
-                dc.b $E5
-                dc.b $8B
-                dc.b  $A
-                dc.b $41 ; A
+                dc.l dword_3FB0A
+dword_3FB0A:    dc.l $15100C5           ; DATA XREF: ROM:0003FB06   o
+                dc.l $8F0A28F4
+                dc.l $E58B0A41
                 dc.b $F6
                 dc.b   0
 unk_3FB18:      dc.b   1                ; DATA XREF: ROM:0003FAE0   o
                 dc.b   0
-                dc.l unk_3FB1E
-unk_3FB1E:      dc.b   2                ; DATA XREF: ROM:0003FB1A   o
-                dc.b $51 ; Q
-                dc.b $52 ; R
-                dc.b $CE
-                dc.b $8F
-                dc.b   2
-                dc.b $4D ; M
-                dc.b $EA
-                dc.b $EE
-                dc.b $8A
-                dc.b   2
-                dc.b $38 ; 8
-                dc.b $F4
-                dc.b $DB
-                dc.b $88
-                dc.b   2
+                dc.l dword_3FB1E
+dword_3FB1E:    dc.l $25152CE           ; DATA XREF: ROM:0003FB1A   o
+                dc.l $8F024DEA
+                dc.l $EE8A0238
+                dc.l $F4DB8802
                 dc.b $5D ; ]
                 dc.b $D2
 unk_3FB30:      dc.b   1                ; DATA XREF: ROM:0003FAE4   o
                 dc.b   0
-                dc.l unk_3FB36
-unk_3FB36:      dc.b   2                ; DATA XREF: ROM:0003FB32   o
-                dc.b $51 ; Q
-                dc.b $53 ; S
-                dc.b $CE
-                dc.b $8F
-                dc.b  $A
-                dc.b $4D ; M
-                dc.b $F6
-                dc.b $EE
-                dc.b $8A
-                dc.b  $A
-                dc.b $38 ; 8
-                dc.b $F4
-                dc.b $DB
-                dc.b $88
-                dc.b  $A
+                dc.l dword_3FB36
+dword_3FB36:    dc.l $25153CE           ; DATA XREF: ROM:0003FB32   o
+                dc.l $8F0A4DF6
+                dc.l $EE8A0A38
+                dc.l $F4DB880A
                 dc.b $5D ; ]
                 dc.b $16
 unk_3FB48:      dc.b   1                ; DATA XREF: ROM:0003FAE8   o
                 dc.b   0
-                dc.l unk_3FB4E
-unk_3FB4E:      dc.b   1                ; DATA XREF: ROM:0003FB4A   o
-                dc.b   0
-                dc.b   0
-                dc.b $D8
-                dc.b $89
-                dc.b   2
-                dc.b $60 ; `
-                dc.b $EE
-                dc.b $E8
-                dc.b $8E
-                dc.b   2
-                dc.b $66 ; f
+                dc.l dword_3FB4E
+dword_3FB4E:    dc.l $10000D8           ; DATA XREF: ROM:0003FB4A   o
+                dc.l $890260EE
+                dc.l $E88E0266
                 dc.b $EE
                 dc.b   0
 unk_3FB5C:      dc.b   1                ; DATA XREF: ROM:0003FAEC   o
                 dc.b   0
-                dc.l unk_3FB62
-unk_3FB62:      dc.b   1                ; DATA XREF: ROM:0003FB5E   o
-                dc.b   0
-                dc.b   0
-                dc.b $D8
-                dc.b $89
-                dc.b  $A
-                dc.b $60 ; `
-                dc.b $FA
-                dc.b $E8
-                dc.b $8E
-                dc.b  $A
-                dc.b $66 ; f
+                dc.l dword_3FB62
+dword_3FB62:    dc.l $10000D8           ; DATA XREF: ROM:0003FB5E   o
+                dc.l $890A60FA
+                dc.l $E88E0A66
                 dc.b $F2
                 dc.b   0
 off_3FB70:      dc.l unk_3F0D8          ; DATA XREF: ROM:loc_812A   o
@@ -42330,278 +41685,116 @@ off_3FB70:      dc.l unk_3F0D8          ; DATA XREF: ROM:loc_812A   o
                 dc.l unk_3FC7E
 unk_3FB94:      dc.b   4                ; DATA XREF: ROM:0003FB74   o
                 dc.b   0
-                dc.l unk_3FBA6
-                dc.l unk_3FBB4
-                dc.l unk_3FBA6
-                dc.l unk_3FBC2
-unk_3FBA6:      dc.b   1                ; DATA XREF: ROM:0003FB96   o
+                dc.l dword_3FBA6
+                dc.l dword_3FBB4
+                dc.l dword_3FBA6
+                dc.l dword_3FBC2
+dword_3FBA6:    dc.l $15400C4           ; DATA XREF: ROM:0003FB96   o
                                         ; ROM:0003FB9E   o
-                dc.b $54 ; T
-                dc.b   0
-                dc.b $C4
-                dc.b $8B
-                dc.b   0
-                dc.b $E0
-                dc.b $F0
-                dc.b $E4
-                dc.b $87
-                dc.b   0
-                dc.b $EC
+                dc.l $8B00E0F0
+                dc.l $E48700EC
                 dc.b $F7
                 dc.b   0
-unk_3FBB4:      dc.b   1                ; DATA XREF: ROM:0003FB9A   o
-                dc.b $54 ; T
-                dc.b   0
-                dc.b $C4
-                dc.b $8B
-                dc.b   0
-                dc.b $E0
-                dc.b $F0
-                dc.b $E4
-                dc.b $8F
-                dc.b   0
-                dc.b $F4
+dword_3FBB4:    dc.l $15400C4           ; DATA XREF: ROM:0003FB9A   o
+                dc.l $8B00E0F0
+                dc.l $E48F00F4
                 dc.b $EF
                 dc.b   0
-unk_3FBC2:      dc.b   1                ; DATA XREF: ROM:0003FBA2   o
-                dc.b $54 ; T
-                dc.b   0
-                dc.b $C4
-                dc.b $8B
-                dc.b   0
-                dc.b $E0
-                dc.b $F0
-                dc.b $E4
-                dc.b $8B
-                dc.b   1
-                dc.b   4
+dword_3FBC2:    dc.l $15400C4           ; DATA XREF: ROM:0003FBA2   o
+                dc.l $8B00E0F0
+                dc.l $E48B0104
                 dc.b $F3
                 dc.b   0
 unk_3FBD0:      dc.b   4                ; DATA XREF: ROM:0003FB78   o
                 dc.b   0
-                dc.l unk_3FBE2
-                dc.l unk_3FBF0
-                dc.l unk_3FBE2
-                dc.l unk_3FBFE
-unk_3FBE2:      dc.b   1                ; DATA XREF: ROM:0003FBD2   o
+                dc.l dword_3FBE2
+                dc.l dword_3FBF0
+                dc.l dword_3FBE2
+                dc.l dword_3FBFE
+dword_3FBE2:    dc.l $15400C4           ; DATA XREF: ROM:0003FBD2   o
                                         ; ROM:0003FBDA   o
-                dc.b $54 ; T
-                dc.b   0
-                dc.b $C4
-                dc.b $8B
-                dc.b   8
-                dc.b $E0
-                dc.b $F8
-                dc.b $E4
-                dc.b $87
-                dc.b   8
-                dc.b $EC
+                dc.l $8B08E0F8
+                dc.l $E48708EC
                 dc.b $F9
                 dc.b   0
-unk_3FBF0:      dc.b   1                ; DATA XREF: ROM:0003FBD6   o
-                dc.b $54 ; T
-                dc.b   0
-                dc.b $C4
-                dc.b $8B
-                dc.b   8
-                dc.b $E0
-                dc.b $F8
-                dc.b $E4
-                dc.b $8F
-                dc.b   8
-                dc.b $F4
+dword_3FBF0:    dc.l $15400C4           ; DATA XREF: ROM:0003FBD6   o
+                dc.l $8B08E0F8
+                dc.l $E48F08F4
                 dc.b $F1
                 dc.b   0
-unk_3FBFE:      dc.b   1                ; DATA XREF: ROM:0003FBDE   o
-                dc.b $54 ; T
-                dc.b   0
-                dc.b $C4
-                dc.b $8B
-                dc.b   8
-                dc.b $E0
-                dc.b $F8
-                dc.b $E4
-                dc.b $8B
-                dc.b   9
-                dc.b   4
+dword_3FBFE:    dc.l $15400C4           ; DATA XREF: ROM:0003FBDE   o
+                dc.l $8B08E0F8
+                dc.l $E48B0904
                 dc.b $F5
                 dc.b   0
 unk_3FC0C:      dc.b   1                ; DATA XREF: ROM:0003FB7C   o
                 dc.b   0
-                dc.l unk_3FC12
-unk_3FC12:      dc.b   3                ; DATA XREF: ROM:0003FC0E   o
-                dc.b $54 ; T
-                dc.b $55 ; U
-                dc.b $D8
-                dc.b $8D
-                dc.b   1
-                dc.b $10
-                dc.b $E8
-                dc.b $F8
-                dc.b $84
-                dc.b   1
-                dc.b $18
-                dc.b $D8
-                dc.b $E8
-                dc.b $8A
-                dc.b   1
-                dc.b $1A
-                dc.b $E8
-                dc.b $E8
-                dc.b $86
-                dc.b   1
-                dc.b $23 ; #
-                dc.b   0
-                dc.b   0
+                dc.l dword_3FC12
+dword_3FC12:    dc.l $35455D8           ; DATA XREF: ROM:0003FC0E   o
+                dc.l $8D0110E8
+                dc.l $F8840118
+                dc.l $D8E88A01
+                dc.l $1AE8E886
+                dc.l $1230000
 unk_3FC2A:      dc.b   1                ; DATA XREF: ROM:0003FB80   o
                 dc.b   0
-                dc.l unk_3FC30
-unk_3FC30:      dc.b   3                ; DATA XREF: ROM:0003FC2C   o
-                dc.b $54 ; T
-                dc.b $56 ; V
-                dc.b $D8
-                dc.b $8D
-                dc.b   9
-                dc.b $10
-                dc.b $F8
-                dc.b $F8
-                dc.b $84
-                dc.b   9
-                dc.b $18
-                dc.b $18
-                dc.b $E8
-                dc.b $8A
-                dc.b   9
-                dc.b $1A
-                dc.b   0
-                dc.b $E8
-                dc.b $86
-                dc.b   9
-                dc.b $23 ; #
-                dc.b $F0
-                dc.b   0
+                dc.l dword_3FC30
+dword_3FC30:    dc.l $35456D8           ; DATA XREF: ROM:0003FC2C   o
+                dc.l $8D0910F8
+                dc.l $F8840918
+                dc.l $18E88A09
+                dc.l $1A00E886
+                dc.l $923F000
 unk_3FC48:      dc.b   1                ; DATA XREF: ROM:0003FB84   o
                 dc.b   0
-                dc.l unk_3FC4E
-unk_3FC4E:      dc.b   1                ; DATA XREF: ROM:0003FC4A   o
-                dc.b   0
-                dc.b   0
-                dc.b $D8
-                dc.b $8E
-                dc.b   1
-                dc.b $29 ; )
-                dc.b $F0
-                dc.b $F0
-                dc.b $8D
-                dc.b   1
-                dc.b $35 ; 5
+                dc.l dword_3FC4E
+dword_3FC4E:    dc.l $10000D8           ; DATA XREF: ROM:0003FC4A   o
+                dc.l $8E0129F0
+                dc.l $F08D0135
                 dc.b $F0
                 dc.b   0
 unk_3FC5C:      dc.b   1                ; DATA XREF: ROM:0003FB88   o
                 dc.b   0
-                dc.l unk_3FC62
-unk_3FC62:      dc.b   1                ; DATA XREF: ROM:0003FC5E   o
-                dc.b   0
-                dc.b   0
-                dc.b $D8
-                dc.b $8E
-                dc.b   9
-                dc.b $29 ; )
-                dc.b $F0
-                dc.b $F0
-                dc.b $8D
-                dc.b   9
-                dc.b $35 ; 5
+                dc.l dword_3FC62
+dword_3FC62:    dc.l $10000D8           ; DATA XREF: ROM:0003FC5E   o
+                dc.l $8E0929F0
+                dc.l $F08D0935
                 dc.b $F0
                 dc.b   0
 unk_3FC70:      dc.b   1                ; DATA XREF: ROM:0003FB8C   o
                 dc.b   0
-                dc.l unk_3FC76
-unk_3FC76:      dc.b   0                ; DATA XREF: ROM:0003FC72   o
-                dc.b   0
-                dc.b   0
-                dc.b $E0
-                dc.b $8B
-                dc.b   1
-                dc.b $3D ; =
-                dc.b $F4
+                dc.l dword_3FC76
+dword_3FC76:    dc.l $E0                ; DATA XREF: ROM:0003FC72   o
+                dc.l $8B013DF4
 unk_3FC7E:      dc.b   1                ; DATA XREF: ROM:0003FB90   o
                 dc.b   0
-                dc.l unk_3FC84
-unk_3FC84:      dc.b   0                ; DATA XREF: ROM:0003FC80   o
-                dc.b   0
-                dc.b   0
-                dc.b $E0
-                dc.b $8B
-                dc.b   9
-                dc.b $3D ; =
-                dc.b $F4
+                dc.l dword_3FC84
+dword_3FC84:    dc.l $E0                ; DATA XREF: ROM:0003FC80   o
+                dc.l $8B093DF4
 off_3FC8C:      dc.l unk_3FCCE          ; DATA XREF: ROM:loc_823C   o
                                         ; ROM:000083DE   o
                 dc.l unk_3FC94
 unk_3FC94:      dc.b   2                ; DATA XREF: ROM:0003FC90   o
                 dc.b   0
-                dc.l unk_3FC9E
-                dc.l unk_3FCB6
-unk_3FC9E:      dc.b   3                ; DATA XREF: ROM:0003FC96   o
-                dc.b $57 ; W
-                dc.b   0
-                dc.b $C0
-                dc.b $8B
-                dc.b   2
-                dc.b $7A ; z
-                dc.b $EC
-                dc.b $C0
-                dc.b $87
-                dc.b   2
-                dc.b $86
-                dc.b   4
-                dc.b $E0
-                dc.b $8B
-                dc.b   2
-                dc.b $8E
-                dc.b $EC
-                dc.b $E0
-                dc.b $87
-                dc.b   2
-                dc.b $9A
-                dc.b   4
-                dc.b   0
-unk_3FCB6:      dc.b   3                ; DATA XREF: ROM:0003FC9A   o
-                dc.b $57 ; W
-                dc.b   0
-                dc.b $C0
-                dc.b $8B
-                dc.b   2
-                dc.b $7A ; z
-                dc.b $EE
-                dc.b $C0
-                dc.b $87
-                dc.b   2
-                dc.b $86
-                dc.b   6
-                dc.b $E0
-                dc.b $8B
-                dc.b   2
-                dc.b $8E
-                dc.b $EE
-                dc.b $E0
-                dc.b $87
-                dc.b   2
-                dc.b $9A
-                dc.b   6
-                dc.b   0
+                dc.l dword_3FC9E
+                dc.l dword_3FCB6
+dword_3FC9E:    dc.l $35700C0           ; DATA XREF: ROM:0003FC96   o
+                dc.l $8B027AEC
+                dc.l $C0870286
+                dc.l $4E08B02
+                dc.l $8EECE087
+                dc.l $29A0400
+dword_3FCB6:    dc.l $35700C0           ; DATA XREF: ROM:0003FC9A   o
+                dc.l $8B027AEE
+                dc.l $C0870286
+                dc.l $6E08B02
+                dc.l $8EEEE087
+                dc.l $29A0600
 unk_3FCCE:      dc.b   1                ; DATA XREF: ROM:off_3FC8C   o
                 dc.b   0
-                dc.l unk_3FCD4
-unk_3FCD4:      dc.b   0                ; DATA XREF: ROM:0003FCD0   o
-                dc.b   0
-                dc.b   0
-                dc.b $F4
-                dc.b $86
-                dc.b   2
-                dc.b $A2
-                dc.b $F8
+                dc.l dword_3FCD4
+dword_3FCD4:    dc.l $F4                ; DATA XREF: ROM:0003FCD0   o
+                dc.l $8602A2F8
 off_3FCDC:      dc.l unk_3F0D8          ; DATA XREF: ROM:00008686   o
                 dc.l unk_3FCF0
                 dc.l unk_3FD2C
@@ -42609,180 +41802,84 @@ off_3FCDC:      dc.l unk_3F0D8          ; DATA XREF: ROM:00008686   o
                 dc.l unk_3FD9E
 unk_3FCF0:      dc.b   4                ; DATA XREF: ROM:0003FCE0   o
                 dc.b   0
-                dc.l unk_3FD02
-                dc.l unk_3FD10
-                dc.l unk_3FD1E
-                dc.l unk_3FD10
-unk_3FD02:      dc.b   1                ; DATA XREF: ROM:0003FCF2   o
-                dc.b $58 ; X
-                dc.b   0
-                dc.b $E0
-                dc.b $8F
-                dc.b   3
-                dc.b  $C
-                dc.b $E0
-                dc.b $E0
-                dc.b $8F
-                dc.b   3
-                dc.b $1C
+                dc.l dword_3FD02
+                dc.l dword_3FD10
+                dc.l dword_3FD1E
+                dc.l dword_3FD10
+dword_3FD02:    dc.l $15800E0           ; DATA XREF: ROM:0003FCF2   o
+                dc.l $8F030CE0
+                dc.l $E08F031C
                 dc.b   0
                 dc.b   0
-unk_3FD10:      dc.b   1                ; DATA XREF: ROM:0003FCF6   o
+dword_3FD10:    dc.l $15800E0           ; DATA XREF: ROM:0003FCF6   o
                                         ; ROM:0003FCFE   o ...
-                dc.b $58 ; X
-                dc.b   0
-                dc.b $E0
-                dc.b $8F
-                dc.b   3
-                dc.b $2C ; ,
-                dc.b $E0
-                dc.b $E0
-                dc.b $8F
-                dc.b   3
-                dc.b $3C ; <
+                dc.l $8F032CE0
+                dc.l $E08F033C
                 dc.b   0
                 dc.b   0
-unk_3FD1E:      dc.b   1                ; DATA XREF: ROM:0003FCFA   o
-                dc.b $58 ; X
-                dc.b   0
-                dc.b $E0
-                dc.b $8F
-                dc.b   3
-                dc.b $4C ; L
-                dc.b $E0
-                dc.b $E0
-                dc.b $8F
-                dc.b   3
-                dc.b $5C ; \
+dword_3FD1E:    dc.l $15800E0           ; DATA XREF: ROM:0003FCFA   o
+                dc.l $8F034CE0
+                dc.l $E08F035C
                 dc.b   0
                 dc.b   0
 unk_3FD2C:      dc.b   4                ; DATA XREF: ROM:0003FCE4   o
                 dc.b   0
-                dc.l unk_3FD3E
-                dc.l unk_3FD4C
-                dc.l unk_3FD5A
-                dc.l unk_3FD4C
-unk_3FD3E:      dc.b   1                ; DATA XREF: ROM:0003FD2E   o
-                dc.b $58 ; X
-                dc.b   0
-                dc.b $E0
-                dc.b $8F
-                dc.b  $B
-                dc.b $1C
-                dc.b $E0
-                dc.b $E0
-                dc.b $8F
-                dc.b  $B
-                dc.b  $C
+                dc.l dword_3FD3E
+                dc.l dword_3FD4C
+                dc.l dword_3FD5A
+                dc.l dword_3FD4C
+dword_3FD3E:    dc.l $15800E0           ; DATA XREF: ROM:0003FD2E   o
+                dc.l $8F0B1CE0
+                dc.l $E08F0B0C
                 dc.b   0
                 dc.b   0
-unk_3FD4C:      dc.b   1                ; DATA XREF: ROM:0003FD32   o
+dword_3FD4C:    dc.l $15800E0           ; DATA XREF: ROM:0003FD32   o
                                         ; ROM:0003FD3A   o ...
-                dc.b $58 ; X
-                dc.b   0
-                dc.b $E0
-                dc.b $8F
-                dc.b  $B
-                dc.b $3C ; <
-                dc.b $E0
-                dc.b $E0
-                dc.b $8F
-                dc.b  $B
-                dc.b $2C ; ,
+                dc.l $8F0B3CE0
+                dc.l $E08F0B2C
                 dc.b   0
                 dc.b   0
-unk_3FD5A:      dc.b   1                ; DATA XREF: ROM:0003FD36   o
-                dc.b $58 ; X
-                dc.b   0
-                dc.b $E0
-                dc.b $8F
-                dc.b  $B
-                dc.b $5C ; \
-                dc.b $E0
-                dc.b $E0
-                dc.b $8F
-                dc.b  $B
-                dc.b $4C ; L
+dword_3FD5A:    dc.l $15800E0           ; DATA XREF: ROM:0003FD36   o
+                dc.l $8F0B5CE0
+                dc.l $E08F0B4C
                 dc.b   0
                 dc.b   0
 unk_3FD68:      dc.b   5                ; DATA XREF: ROM:0003FCE8   o
                 dc.b   0
-                dc.l unk_3FD10
-                dc.l unk_3FD7E
-                dc.l unk_3FD8C
-                dc.l unk_3FD8C
-                dc.l unk_3FD8C
-unk_3FD7E:      dc.b   1                ; DATA XREF: ROM:0003FD6E   o
-                dc.b $58 ; X
-                dc.b   0
-                dc.b $E0
-                dc.b $8B
-                dc.b   3
-                dc.b $6C ; l
-                dc.b $E8
-                dc.b $E0
-                dc.b $8B
-                dc.b   3
-                dc.b $78 ; x
+                dc.l dword_3FD10
+                dc.l dword_3FD7E
+                dc.l dword_3FD8C
+                dc.l dword_3FD8C
+                dc.l dword_3FD8C
+dword_3FD7E:    dc.l $15800E0           ; DATA XREF: ROM:0003FD6E   o
+                dc.l $8B036CE8
+                dc.l $E08B0378
                 dc.b   0
                 dc.b   0
-unk_3FD8C:      dc.b   2                ; DATA XREF: ROM:0003FD72   o
+dword_3FD8C:    dc.l $25859E0           ; DATA XREF: ROM:0003FD72   o
                                         ; ROM:0003FD76   o ...
-                dc.b $58 ; X
-                dc.b $59 ; Y
-                dc.b $E0
-                dc.b $8B
-                dc.b   3
-                dc.b $84
-                dc.b   8
-                dc.b $E0
-                dc.b $8F
-                dc.b   3
-                dc.b $90
-                dc.b $E8
-                dc.b $F8
-                dc.b $8C
-                dc.b   3
+                dc.l $8B038408
+                dc.l $E08F0390
+                dc.l $E8F88C03
                 dc.b $A0
                 dc.b $C8
 unk_3FD9E:      dc.b   5                ; DATA XREF: ROM:0003FCEC   o
                 dc.b   0
-                dc.l unk_3FD4C
-                dc.l unk_3FDB4
-                dc.l unk_3FDC2
-                dc.l unk_3FDC2
-                dc.l unk_3FDC2
-unk_3FDB4:      dc.b   1                ; DATA XREF: ROM:0003FDA4   o
-                dc.b $58 ; X
-                dc.b   0
-                dc.b $E0
-                dc.b $8B
-                dc.b  $B
-                dc.b $78 ; x
-                dc.b $E8
-                dc.b $E0
-                dc.b $8B
-                dc.b  $B
-                dc.b $6C ; l
+                dc.l dword_3FD4C
+                dc.l dword_3FDB4
+                dc.l dword_3FDC2
+                dc.l dword_3FDC2
+                dc.l dword_3FDC2
+dword_3FDB4:    dc.l $15800E0           ; DATA XREF: ROM:0003FDA4   o
+                dc.l $8B0B78E8
+                dc.l $E08B0B6C
                 dc.b   0
                 dc.b   0
-unk_3FDC2:      dc.b   2                ; DATA XREF: ROM:0003FDA8   o
+dword_3FDC2:    dc.l $2585AE0           ; DATA XREF: ROM:0003FDA8   o
                                         ; ROM:0003FDAC   o ...
-                dc.b $58 ; X
-                dc.b $5A ; Z
-                dc.b $E0
-                dc.b $8B
-                dc.b  $B
-                dc.b $84
-                dc.b $E0
-                dc.b $E0
-                dc.b $8F
-                dc.b  $B
-                dc.b $90
-                dc.b $F8
-                dc.b $F8
-                dc.b $8C
-                dc.b  $B
+                dc.l $8B0B84E0
+                dc.l $E08F0B90
+                dc.l $F8F88C0B
                 dc.b $A0
                 dc.b $18
 off_3FDD4:      dc.l unk_3F0D8          ; DATA XREF: ROM:0000751C   o
@@ -47885,7 +46982,7 @@ byte_53162:     dc.b 8                  ; DATA XREF: sub_90C4+C   o
                 dc.b $11
                 dc.b $FF
                 dc.b   0
-stru_531A0:     dc.b 0                  ; index
+pal_531A0:      dc.b 0                  ; index
                                         ; DATA XREF: ROM:000582F4   o
                                         ; ROM:00058306   o ...
                 dc.b $E                 ; size
@@ -68668,26 +67765,26 @@ off_582E2:      dc.l unk_582F2          ; DATA XREF: ROM:00008BC0   o
                 dc.l unk_58304
 unk_582F2:      dc.b   1                ; DATA XREF: ROM:off_582E2   o
                 dc.b   0
-                dc.l stru_531A0
+                dc.l pal_531A0
                 dc.l unk_531FA
                 dc.l unk_53BD0
                 dc.l off_58342
 unk_58304:      dc.b   2                ; DATA XREF: ROM:000582EE   o
                 dc.b   1
-                dc.l stru_531A0
+                dc.l pal_531A0
                 dc.l unk_531C0
                 dc.l unk_531FA
                 dc.l unk_55E34
                 dc.l off_5836C
 unk_5831A:      dc.b   1                ; DATA XREF: ROM:000582EA   o
                 dc.b   0
-                dc.l stru_531A0
+                dc.l pal_531A0
                 dc.l unk_531FA
                 dc.l unk_56976
                 dc.l off_5837A
 unk_5832C:      dc.b   2                ; DATA XREF: ROM:000582E6   o
                 dc.b   1
-                dc.l stru_531A0
+                dc.l pal_531A0
                 dc.l unk_531DE
                 dc.l unk_531FA
                 dc.l unk_577E6
@@ -69169,7 +68266,7 @@ unk_58526:      dc.b   7                ; DATA XREF: ROM:00058392   o
                 dc.b $CA
                 dc.b $40 ; @
                 dc.b   0
-stru_58552:     dc.b $62                ; index
+pal_58552:      dc.b $62                ; index
                                         ; DATA XREF: ROM:00008C4E   o
                 dc.b 6                  ; size
                 dc.w $EE, $CE, $AE, $8E, $6E, $4E, $E; colors
@@ -69476,7 +68573,7 @@ unk_59938:      dc.b $60 ; `            ; DATA XREF: ROM:00008C5C   o
                 dc.b $39 ; 9
                 dc.b $73 ; s
                 dc.b   0
-stru_59A64:     dc.b $42                ; index
+pal_59A64:      dc.b $42                ; index
                                         ; DATA XREF: ROM:00008C90   o
                 dc.b 6                  ; size
                 dc.w $400, $600, $800, $A00, $C00, $E20, $E40; colors
@@ -69484,102 +68581,54 @@ gfx_trfmtnbg:
     incbin "gfx/00059A74.smd"
     even
 
-unk_59E88:      dc.b $42 ; B            ; DATA XREF: ROM:00008CAA   o
-                dc.b $E0
-                dc.b $42 ; B
-                dc.b $E1
-                dc.b $42 ; B
-                dc.b $E2
-                dc.b $42 ; B
-                dc.b $E3
-                dc.b $42 ; B
-                dc.b $E4
-                dc.b $42 ; B
-                dc.b $E5
-                dc.b $42 ; B
-                dc.b $E6
-                dc.b $42 ; B
-                dc.b $E7
-                dc.b $42 ; B
-                dc.b $E8
-                dc.b $42 ; B
-                dc.b $E9
-                dc.b $42 ; B
-                dc.b $EA
-                dc.b $42 ; B
-                dc.b $EB
-                dc.b $42 ; B
-                dc.b $EC
-                dc.b $42 ; B
-                dc.b $ED
-                dc.b $42 ; B
-                dc.b $EE
-                dc.b $42 ; B
-                dc.b $EF
-                dc.b $42 ; B
-                dc.b $F0
-                dc.b $42 ; B
-                dc.b $F1
-                dc.b $42 ; B
-                dc.b $F2
-                dc.b $42 ; B
-                dc.b $F3
-                dc.b $42 ; B
-                dc.b $F4
-                dc.b $42 ; B
-                dc.b $F5
-                dc.b $42 ; B
-                dc.b $F6
-                dc.b $42 ; B
-                dc.b $F7
-                dc.b $42 ; B
-                dc.b $F8
-                dc.b $42 ; B
-                dc.b $F9
-                dc.b $42 ; B
-                dc.b $FA
-                dc.b $42 ; B
-                dc.b $FB
-                dc.b $42 ; B
-                dc.b $FC
-                dc.b $42 ; B
-                dc.b $FD
-                dc.b $42 ; B
-                dc.b $FE
-                dc.b $42 ; B
-                dc.b $FF
-                dc.b $60 ; `
-                dc.b  $E
-                dc.b   8
-                dc.b $48 ; H
-                dc.b  $E
-                dc.b $EE
-                dc.b  $E
-                dc.b $CE
-                dc.b  $E
-                dc.b $AE
-                dc.b  $E
-                dc.b $8E
-                dc.b  $E
-                dc.b  $E
-                dc.b  $C
-                dc.b  $C
-                dc.b  $A
-                dc.b  $A
-                dc.b  $E
-                dc.b $EE
-                dc.b  $E
-                dc.b $CE
-                dc.b  $E
-                dc.b $AE
-                dc.b  $E
-                dc.b $8E
-                dc.b  $E
-                dc.b  $E
-                dc.b  $C
-                dc.b  $C
-                dc.b  $A
-                dc.b  $A
+word_59E88:     dc.w $42E0              ; DATA XREF: ROM:00008CAA   o
+                dc.w $42E1
+                dc.w $42E2
+                dc.w $42E3
+                dc.w $42E4
+                dc.w $42E5
+                dc.w $42E6
+                dc.w $42E7
+                dc.w $42E8
+                dc.w $42E9
+                dc.w $42EA
+                dc.w $42EB
+                dc.w $42EC
+                dc.w $42ED
+                dc.w $42EE
+                dc.w $42EF
+                dc.w $42F0
+                dc.w $42F1
+                dc.w $42F2
+                dc.w $42F3
+                dc.w $42F4
+                dc.w $42F5
+                dc.w $42F6
+                dc.w $42F7
+                dc.w $42F8
+                dc.w $42F9
+                dc.w $42FA
+                dc.w $42FB
+                dc.w $42FC
+                dc.w $42FD
+                dc.w $42FE
+                dc.w $42FF
+                dc.w $600E
+                dc.w $848
+                dc.w $EEE
+                dc.w $ECE
+                dc.w $EAE
+                dc.w $E8E
+                dc.w $E0E
+                dc.w $C0C
+                dc.w $A0A
+                dc.w $EEE
+                dc.w $ECE
+                dc.w $EAE
+                dc.w $E8E
+                dc.w $E0E
+                dc.w $C0C
+                dc.w $A0A
 gfx_portrait:
     incbin "gfx/00059EE8.smd"
     even
@@ -70350,257 +69399,95 @@ unk_5F3F4:      dc.b   6                ; DATA XREF: ROM:0005F1CE   o
 animtbl_5F4C8:  dc.l unk_5F4CC          ; DATA XREF: ROM:00009736   o
 unk_5F4CC:      dc.b   1                ; DATA XREF: ROM:animtbl_5F4C8   o
                 dc.b   0
-                dc.l unk_5F4D2
-unk_5F4D2:      dc.b   3                ; DATA XREF: ROM:0005F4CE   o
-                dc.b   0
-                dc.b   0
-                dc.b   0
-                dc.b  $F
-                dc.b   0
-                dc.b   1
-                dc.b   8
-                dc.b   8
-                dc.b   2
-                dc.b   0
-                dc.b $11
-                dc.b   0
-                dc.b $20
-                dc.b  $D
-                dc.b   0
-                dc.b $14
-                dc.b   0
-                dc.b $20
-                dc.b   0
-                dc.b   0
-                dc.b $1C
-                dc.b $20
-                dc.b   0
+                dc.l dword_5F4D2
+dword_5F4D2:    dc.l $3000000           ; DATA XREF: ROM:0005F4CE   o
+                dc.l $F000108
+                dc.l $8020011
+                dc.l $200D00
+                dc.l $14002000
+                dc.l $1C2000
 animtbl_5F4EA:  dc.l unk_5F4F2          ; DATA XREF: ROM:000095A4   o
                 dc.l unk_5F510
 unk_5F4F2:      dc.b   7                ; DATA XREF: ROM:animtbl_5F4EA   o
                 dc.b   0
-                dc.l unk_5F52E
-                dc.l unk_5F53C
-                dc.l unk_5F54E
-                dc.l unk_5F566
-                dc.l unk_5F582
-                dc.l unk_5F5A4
-                dc.l unk_5F5CA
+                dc.l dword_5F52E
+                dc.l dword_5F53C
+                dc.l dword_5F54E
+                dc.l dword_5F566
+                dc.l dword_5F582
+                dc.l dword_5F5A4
+                dc.l dword_5F5CA
 unk_5F510:      dc.b   7                ; DATA XREF: ROM:0005F4EE   o
                 dc.b   0
-                dc.l unk_5F5A4
-                dc.l unk_5F582
-                dc.l unk_5F566
-                dc.l unk_5F54E
-                dc.l unk_5F53C
-                dc.l unk_5F52E
+                dc.l dword_5F5A4
+                dc.l dword_5F582
+                dc.l dword_5F566
+                dc.l dword_5F54E
+                dc.l dword_5F53C
+                dc.l dword_5F52E
                 dc.l unk_5F600
-unk_5F52E:      dc.b   1                ; DATA XREF: ROM:0005F4F4   o
+dword_5F52E:    dc.l $10000F8           ; DATA XREF: ROM:0005F4F4   o
                                         ; ROM:0005F526   o
+                dc.l $1DF8
+                dc.l $F800081D
                 dc.b   0
                 dc.b   0
-                dc.b $F8
-                dc.b   0
-                dc.b   0
-                dc.b $1D
-                dc.b $F8
-                dc.b $F8
-                dc.b   0
-                dc.b   8
-                dc.b $1D
-                dc.b   0
-                dc.b   0
-unk_5F53C:      dc.b   2                ; DATA XREF: ROM:0005F4F8   o
+dword_5F53C:    dc.l $20000F8           ; DATA XREF: ROM:0005F4F8   o
                                         ; ROM:0005F522   o
-                dc.b   0
-                dc.b   0
-                dc.b $F8
-                dc.b   0
-                dc.b   0
-                dc.b $1D
-                dc.b $F4
-                dc.b $F8
-                dc.b   0
-                dc.b   0
-                dc.b $1E
-                dc.b $FC
-                dc.b $F8
-                dc.b   0
-                dc.b   8
+                dc.l $1DF4
+                dc.l $F800001E
+                dc.l $FCF80008
                 dc.b $1D
                 dc.b   4
-unk_5F54E:      dc.b   3                ; DATA XREF: ROM:0005F4FC   o
+dword_5F54E:    dc.l $30000F8           ; DATA XREF: ROM:0005F4FC   o
                                         ; ROM:0005F51E   o
-                dc.b   0
-                dc.b   0
-                dc.b $F8
-                dc.b   0
-                dc.b   0
-                dc.b $1D
-                dc.b $F0
-                dc.b $F8
-                dc.b   0
-                dc.b   0
-                dc.b $1E
-                dc.b $F8
-                dc.b $F8
-                dc.b   0
-                dc.b   0
-                dc.b $1E
-                dc.b   0
-                dc.b $F8
-                dc.b   0
-                dc.b   8
-                dc.b $1D
-                dc.b   8
-                dc.b   0
-unk_5F566:      dc.b   4                ; DATA XREF: ROM:0005F500   o
+                dc.l $1DF0
+                dc.l $F800001E
+                dc.l $F8F80000
+                dc.l $1E00F800
+                dc.l $81D0800
+dword_5F566:    dc.l $40000F8           ; DATA XREF: ROM:0005F500   o
                                         ; ROM:0005F51A   o
-                dc.b   0
-                dc.b   0
-                dc.b $F8
-                dc.b   0
-                dc.b   0
-                dc.b $1D
-                dc.b $EC
-                dc.b $F8
-                dc.b   0
-                dc.b   0
-                dc.b $1E
-                dc.b $F4
-                dc.b $F8
-                dc.b   0
-                dc.b   0
-                dc.b $1E
-                dc.b $FC
-                dc.b $F8
-                dc.b   0
-                dc.b   0
-                dc.b $1E
-                dc.b   4
-                dc.b $F8
-                dc.b   0
-                dc.b   8
-                dc.b $1D
-                dc.b  $C
-unk_5F582:      dc.b   5                ; DATA XREF: ROM:0005F504   o
+                dc.l $1DEC
+                dc.l $F800001E
+                dc.l $F4F80000
+                dc.l $1EFCF800
+                dc.l $1E04F8
+                dc.l $81D0C
+dword_5F582:    dc.l $50000F8           ; DATA XREF: ROM:0005F504   o
                                         ; ROM:0005F516   o
-                dc.b   0
-                dc.b   0
-                dc.b $F8
-                dc.b   0
-                dc.b   0
-                dc.b $1D
-                dc.b $E8
-                dc.b $F8
-                dc.b   0
-                dc.b   0
-                dc.b $1E
-                dc.b $F0
-                dc.b $F8
-                dc.b   0
-                dc.b   0
-                dc.b $1E
-                dc.b $F8
-                dc.b $F8
-                dc.b   0
-                dc.b   0
-                dc.b $1E
-                dc.b   0
-                dc.b $F8
-                dc.b   0
-                dc.b   0
-                dc.b $1E
-                dc.b   8
-                dc.b $F8
-                dc.b   0
-                dc.b   8
-                dc.b $1D
+                dc.l $1DE8
+                dc.l $F800001E
+                dc.l $F0F80000
+                dc.l $1EF8F800
+                dc.l $1E00F8
+                dc.l $1E08
+                dc.l $F800081D
                 dc.b $10
                 dc.b   0
-unk_5F5A4:      dc.b   6                ; DATA XREF: ROM:0005F508   o
+dword_5F5A4:    dc.l $60000F8           ; DATA XREF: ROM:0005F508   o
                                         ; ROM:0005F512   o
-                dc.b   0
-                dc.b   0
-                dc.b $F8
-                dc.b   0
-                dc.b   0
-                dc.b $1D
-                dc.b $E4
-                dc.b $F8
-                dc.b   0
-                dc.b   0
-                dc.b $1E
-                dc.b $EC
-                dc.b $F8
-                dc.b   0
-                dc.b   0
-                dc.b $1E
-                dc.b $F4
-                dc.b $F8
-                dc.b   0
-                dc.b   0
-                dc.b $1E
-                dc.b $FC
-                dc.b $F8
-                dc.b   0
-                dc.b   0
-                dc.b $1E
-                dc.b   4
-                dc.b $F8
-                dc.b   0
-                dc.b   0
-                dc.b $1E
-                dc.b  $C
-                dc.b $F8
-                dc.b   0
-                dc.b   8
+                dc.l $1DE4
+                dc.l $F800001E
+                dc.l $ECF80000
+                dc.l $1EF4F800
+                dc.l $1EFCF8
+                dc.l $1E04
+                dc.l $F800001E
+                dc.l $CF80008
                 dc.b $1D
                 dc.b $14
-unk_5F5CA:      dc.b   7                ; DATA XREF: ROM:0005F50C   o
-                dc.b   0
-                dc.b   0
-                dc.b $F8
-                dc.b   0
-                dc.b   0
-                dc.b $1D
-                dc.b $E0
-                dc.b $F8
-                dc.b   0
-                dc.b   0
-                dc.b $1E
-                dc.b $E8
-                dc.b $F8
-                dc.b   0
-                dc.b   0
-                dc.b $1E
-                dc.b $F0
-                dc.b $F8
-                dc.b   0
-                dc.b   0
-                dc.b $1E
-                dc.b $F8
-                dc.b $F8
-                dc.b   0
-                dc.b   0
-                dc.b $1E
-                dc.b   0
-                dc.b $F8
-                dc.b   0
-                dc.b   0
-                dc.b $1E
-                dc.b   8
-                dc.b $F8
-                dc.b   0
-                dc.b   0
-                dc.b $1E
-                dc.b $10
-                dc.b $F8
-                dc.b   0
-                dc.b   8
-                dc.b $1D
-                dc.b $18
-                dc.b   0
+dword_5F5CA:    dc.l $70000F8           ; DATA XREF: ROM:0005F50C   o
+                dc.l $1DE0
+                dc.l $F800001E
+                dc.l $E8F80000
+                dc.l $1EF0F800
+                dc.l $1EF8F8
+                dc.l $1E00
+                dc.l $F800001E
+                dc.l $8F80000
+                dc.l $1E10F800
+                dc.l $81D1800
 animtbl_5F5F6:  dc.l unk_5F5FA          ; DATA XREF: ROM:00009674   o
 unk_5F5FA:      dc.b   1                ; DATA XREF: ROM:animtbl_5F5F6   o
                 dc.b   0
@@ -72556,1050 +71443,262 @@ unk_5FDBA:      dc.b   1                ; DATA XREF: ROM:0005FDB6   o
                 dc.b $53 ; S
                 dc.b $F8
                 dc.b   0
-unk_5FDC8:      dc.b $7F ;             ; DATA XREF: ROM:0000991C   o
-                dc.b $E1
-                dc.b $7F ; 
-                dc.b $E1
-                dc.b $6A ; j
-                dc.b $E1
-                dc.b   0
-                dc.b $10
-                dc.b $50 ; P
-                dc.b $C4
-                dc.b $51 ; Q
-                dc.b  $C
-                dc.b $50 ; P
-                dc.b $C8
-                dc.b $55 ; U
-                dc.b   9
-                dc.b $50 ; P
-                dc.b $CB
-                dc.b $5D ; ]
-                dc.b   7
-                dc.b $50 ; P
-                dc.b $CD
-                dc.b $68 ; h
-                dc.b   5
-                dc.b $50 ; P
-                dc.b $CB
-                dc.b $75 ; u
-                dc.b   4
-                dc.b $80
-                dc.b   4
-                dc.b $50 ; P
-                dc.b $C9
-                dc.b $81
-                dc.b   7
-                dc.b $80
-                dc.b   3
-                dc.b $50 ; P
-                dc.b $C9
-                dc.b $8A
-                dc.b   8
-                dc.b $80
-                dc.b   2
-                dc.b $50 ; P
-                dc.b $C3
-                dc.b $8A
-                dc.b $C5
-                dc.b $93
-                dc.b  $A
-                dc.b $80
-                dc.b $86
-                dc.b $50 ; P
-                dc.b $98
-                dc.b $8B
-                dc.b $83
-                dc.b $99
-                dc.b $94
-                dc.b $C3
-                dc.b $9A
-                dc.b  $B
-                dc.b $80
-                dc.b $81
-                dc.b $50 ; P
-                dc.b $C4
-                dc.b $9D
-                dc.b $81
-                dc.b $9A
-                dc.b $C3
-                dc.b $A1
-                dc.b  $B
-                dc.b $80
-                dc.b $81
-                dc.b $50 ; P
-                dc.b $C4
-                dc.b $A4
-                dc.b $81
-                dc.b $A1
-                dc.b $C3
-                dc.b $A8
-                dc.b  $B
-                dc.b $80
-                dc.b $84
-                dc.b $50 ; P
-                dc.b $A4
-                dc.b $AB
-                dc.b $AC
-                dc.b   2
-                dc.b $A1
-                dc.b $C3
-                dc.b $AD
-                dc.b  $B
-                dc.b $80
-                dc.b $84
-                dc.b $B0
-                dc.b $9E
-                dc.b $B1
-                dc.b $B2
-                dc.b   2
-                dc.b $A1
-                dc.b $C3
-                dc.b $B3
-                dc.b  $B
-                dc.b $80
-                dc.b $C4
-                dc.b $B6
-                dc.b   2
-                dc.b $A1
-                dc.b $C5
-                dc.b $BA
-                dc.b   9
-                dc.b $80
-                dc.b $C4
-                dc.b $BF
-                dc.b   2
-                dc.b $A1
-                dc.b $C8
-                dc.b $C3
-                dc.b   6
-                dc.b $80
-                dc.b $C4
-                dc.b $CB
-                dc.b   2
-                dc.b $A1
-                dc.b $CB
-                dc.b $CF
-                dc.b   2
-                dc.b $DA
-                dc.b $82
-                dc.b $DB
-                dc.b $CB
-                dc.b $C4
-                dc.b $DC
-                dc.b   2
-                dc.b $A1
-                dc.b $CA
-                dc.b $E0
-                dc.b   3
-                dc.b $EA
-                dc.b $81
-                dc.b $CB
-                dc.b $C4
-                dc.b $EB
-                dc.b   3
-                dc.b $A1
-                dc.b $C4
-                dc.b $EF
-                dc.b $81
-                dc.b $CB
-                dc.b $C4
-                dc.b $F3
-                dc.b   3
-                dc.b $50 ; P
-                dc.b   0
-unk_5FE60:      dc.b   9                ; DATA XREF: ROM:00009940   o
-                dc.b $E1
-                dc.b   3
-                dc.b $E2
-                dc.b   8
-                dc.b $E1
-                dc.b $81
-                dc.b $E2
-                dc.b $16
-                dc.b $E1
-                dc.b   4
-                dc.b $E2
-                dc.b $10
-                dc.b $E1
-                dc.b   7
-                dc.b $E2
-                dc.b  $E
-                dc.b $E1
-                dc.b   7
-                dc.b $E2
-                dc.b $10
-                dc.b $E1
-                dc.b   5
-                dc.b $E2
-                dc.b $10
-                dc.b $E1
-                dc.b   3
-                dc.b $E2
-                dc.b $12
-                dc.b $E1
-                dc.b   3
-                dc.b $E2
-                dc.b $11
-                dc.b $E1
-                dc.b   3
-                dc.b $E2
-                dc.b $11
-                dc.b $E1
-                dc.b   2
-                dc.b $E2
-                dc.b $11
-                dc.b $E1
-                dc.b   3
-                dc.b $E2
-                dc.b $10
-                dc.b $E1
-                dc.b   4
-                dc.b $E2
-                dc.b  $F
-                dc.b $E1
-                dc.b   4
-                dc.b $E2
-                dc.b  $F
-                dc.b $E1
-                dc.b   4
-                dc.b $E2
-                dc.b  $D
-                dc.b $E1
-                dc.b   7
-                dc.b $E2
-                dc.b  $B
-                dc.b $E1
-                dc.b  $B
-                dc.b $E2
-                dc.b  $A
-                dc.b $E1
-                dc.b  $C
-                dc.b $E2
-                dc.b  $C
-                dc.b $E1
-                dc.b  $A
-                dc.b $E2
-                dc.b   5
-                dc.b $E1
-                dc.b   0
-                dc.b $CC
-                dc.b $F7
-                dc.b   8
-                dc.b $A1
-                dc.b $81
-                dc.b   3
-                dc.b $13
-                dc.b $A1
-                dc.b   3
-                dc.b $67 ; g
-                dc.b $C4
-                dc.b   4
-                dc.b  $D
-                dc.b $A1
-                dc.b   3
-                dc.b $74 ; t
-                dc.b $C7
-                dc.b   8
-                dc.b  $A
-                dc.b $A1
-                dc.b   4
-                dc.b $80
-                dc.b $C7
-                dc.b  $F
-                dc.b   9
-                dc.b $A1
-                dc.b   7
-                dc.b $80
-                dc.b $C5
-                dc.b $16
-                dc.b   8
-                dc.b $A1
-                dc.b   8
-                dc.b $80
-                dc.b $C3
-                dc.b $1B
-                dc.b   9
-                dc.b $A1
-                dc.b   9
-                dc.b $80
-                dc.b $C3
-                dc.b $1E
-                dc.b   8
-                dc.b $A1
-                dc.b   9
-                dc.b $80
-                dc.b $C3
-                dc.b $21 ; !
-                dc.b   8
-                dc.b $A1
-                dc.b   9
-                dc.b $80
-                dc.b $C2
-                dc.b $24 ; $
-                dc.b   9
-                dc.b $A1
-                dc.b   8
-                dc.b $80
-                dc.b $C3
-                dc.b $26 ; &
-                dc.b   9
-                dc.b $A1
-                dc.b   7
-                dc.b $80
-                dc.b $C4
-                dc.b $29 ; )
-                dc.b   9
-                dc.b $A1
-                dc.b   6
-                dc.b $80
-                dc.b $C4
-                dc.b $2D ; -
-                dc.b  $A
-                dc.b $A1
-                dc.b   5
-                dc.b $80
-                dc.b $C4
-                dc.b $31 ; 1
-                dc.b  $B
-                dc.b $A1
-                dc.b   2
-                dc.b $80
-                dc.b $C7
-                dc.b $35 ; 5
-                dc.b  $B
-                dc.b $A1
-                dc.b $C6
-                dc.b $3C ; <
-                dc.b   2
-                dc.b $42 ; B
-                dc.b $C3
-                dc.b $43 ; C
-                dc.b   9
-                dc.b $A1
-                dc.b $81
-                dc.b $E9
-                dc.b $C7
-                dc.b $46 ; F
-                dc.b   2
-                dc.b $42 ; B
-                dc.b $C3
-                dc.b $4D ; M
-                dc.b   7
-                dc.b $A1
-                dc.b   6
-                dc.b $50 ; P
-                dc.b $C7
-                dc.b $51 ; Q
-                dc.b   2
-                dc.b $58 ; X
-                dc.b   5
-                dc.b $A1
-                dc.b   0
-unk_5FF1C:      dc.b   4                ; DATA XREF: ROM:000098D4   o
-                dc.b $C1
-                dc.b $10
-                dc.b $C2
-                dc.b   4
-                dc.b $C1
-                dc.b $10
-                dc.b $C2
-                dc.b   4
-                dc.b $C1
-                dc.b $10
-                dc.b $C2
-                dc.b   5
-                dc.b $C1
-                dc.b  $F
-                dc.b $C2
-                dc.b   7
-                dc.b $C1
-                dc.b   3
-                dc.b $C2
-                dc.b $C2
-                dc.b $C1
-                dc.b   2
-                dc.b $C1
-                dc.b   2
-                dc.b $C2
-                dc.b  $B
-                dc.b $C1
-                dc.b   2
-                dc.b $C2
-                dc.b $81
-                dc.b $CA
-                dc.b   3
-                dc.b $C1
-                dc.b   2
-                dc.b $C2
-                dc.b  $D
-                dc.b $C1
-                dc.b   4
-                dc.b $C2
-                dc.b $C2
-                dc.b $C1
-                dc.b  $F
-                dc.b $C1
-                dc.b   3
-                dc.b $C2
-                dc.b $C2
-                dc.b $C1
-                dc.b  $F
-                dc.b $C1
-                dc.b   3
-                dc.b $C2
-                dc.b $C2
-                dc.b $C1
-                dc.b  $F
-                dc.b $C1
-                dc.b   6
-                dc.b $C2
-                dc.b  $C
-                dc.b $C1
-                dc.b   6
-                dc.b $C2
-                dc.b $C2
-                dc.b $C1
-                dc.b  $C
-                dc.b $C1
-                dc.b   9
-                dc.b $C2
-                dc.b  $A
-                dc.b $C1
-                dc.b  $A
-                dc.b $C2
-                dc.b  $A
-                dc.b $C1
-                dc.b  $B
-                dc.b $C2
-                dc.b   9
-                dc.b $C1
-                dc.b $84
-                dc.b $C2
-                dc.b $D2
-                dc.b $D2
-                dc.b $DA
-                dc.b   9
-                dc.b $C2
-                dc.b   6
-                dc.b $C1
-                dc.b $82
-                dc.b $C2
-                dc.b $D2
-                dc.b   4
-                dc.b $C2
-                dc.b $81
-                dc.b $D2
-                dc.b   8
-                dc.b $C2
-                dc.b   5
-                dc.b $C1
-                dc.b  $F
-                dc.b $C2
-                dc.b   5
-                dc.b $C1
-                dc.b  $F
-                dc.b $C2
-                dc.b   0
-                dc.b   4
-                dc.b $A1
-                dc.b $C2
-                dc.b $59 ; Y
-                dc.b  $C
-                dc.b $42 ; B
-                dc.b $C2
-                dc.b $5B ; [
-                dc.b   4
-                dc.b $A1
-                dc.b   2
-                dc.b $5D ; ]
-                dc.b $81
-                dc.b $5E ; ^
-                dc.b  $D
-                dc.b $42 ; B
-                dc.b   4
-                dc.b $A1
-                dc.b $88
-                dc.b $5F ; _
-                dc.b $5A ; Z
-                dc.b $5D ; ]
-                dc.b $60 ; `
-                dc.b $61 ; a
-                dc.b $60 ; `
-                dc.b $62 ; b
-                dc.b $61 ; a
-                dc.b   2
-                dc.b $60 ; `
-                dc.b $C6
-                dc.b $63 ; c
-                dc.b   5
-                dc.b $A1
-                dc.b $87
-                dc.b $5F ; _
-                dc.b $5D ; ]
-                dc.b $5A ; Z
-                dc.b $69 ; i
-                dc.b $5D ; ]
-                dc.b $5A ; Z
-                dc.b $6A ; j
-                dc.b   2
-                dc.b $5A ; Z
-                dc.b $C6
-                dc.b $6B ; k
-                dc.b   7
-                dc.b $A1
-                dc.b $C3
-                dc.b $71 ; q
-                dc.b $86
-                dc.b $A1
-                dc.b $74 ; t
-                dc.b $A1
-                dc.b $A1
-                dc.b $75 ; u
-                dc.b $76 ; v
-                dc.b   4
-                dc.b $80
-                dc.b   7
-                dc.b $A1
-                dc.b $83
-                dc.b $5F ; _
-                dc.b $77 ; w
-                dc.b $5F ; _
-                dc.b   3
-                dc.b $A1
-                dc.b $C2
-                dc.b $78 ; x
-                dc.b   5
-                dc.b $80
-                dc.b   8
-                dc.b $A1
-                dc.b $86
-                dc.b $5F ; _
-                dc.b $5A ; Z
-                dc.b $5D ; ]
-                dc.b $7A ; z
-                dc.b $A1
-                dc.b $7B ; {
-                dc.b   6
-                dc.b $80
-                dc.b   9
-                dc.b $A1
-                dc.b $85
-                dc.b $5D ; ]
-                dc.b $5A ; Z
-                dc.b $7C ; |
-                dc.b $A1
-                dc.b $7D ; }
-                dc.b   6
-                dc.b $80
-                dc.b   9
-                dc.b $A1
-                dc.b $85
-                dc.b $7E ; ~
-                dc.b $5A ; Z
-                dc.b $5A ; Z
-                dc.b $A1
-                dc.b $7F ; 
-                dc.b   6
-                dc.b $80
-                dc.b   9
-                dc.b $A1
-                dc.b $C6
-                dc.b $80
-                dc.b   5
-                dc.b $80
-                dc.b   7
-                dc.b $A1
-                dc.b $88
-                dc.b $86
-                dc.b $87
-                dc.b $5D ; ]
-                dc.b $5A ; Z
-                dc.b $81
-                dc.b $88
-                dc.b $A1
-                dc.b $89
-                dc.b   5
-                dc.b $80
-                dc.b   7
-                dc.b $A1
-                dc.b $C3
-                dc.b $8A
-                dc.b $86
-                dc.b $5A ; Z
-                dc.b $8D
-                dc.b $8E
-                dc.b $83
-                dc.b $8F
-                dc.b $90
-                dc.b   4
-                dc.b $80
-                dc.b   6
-                dc.b $A1
-                dc.b $87
-                dc.b $91
-                dc.b $5A ; Z
-                dc.b $92
-                dc.b $93
-                dc.b $5A ; Z
-                dc.b $5E ; ^
-                dc.b $42 ; B
-                dc.b $C3
-                dc.b $94
-                dc.b   4
-                dc.b $80
-                dc.b   6
-                dc.b $A1
-                dc.b $C5
-                dc.b $97
-                dc.b $81
-                dc.b $5A ; Z
-                dc.b   2
-                dc.b $42 ; B
-                dc.b $C3
-                dc.b $9C
-                dc.b   3
-                dc.b $80
-                dc.b   6
-                dc.b $A1
-                dc.b $81
-                dc.b $9F
-                dc.b   3
-                dc.b $61 ; a
-                dc.b $C3
-                dc.b $A0
-                dc.b   2
-                dc.b $42 ; B
-                dc.b $C4
-                dc.b $A3
-                dc.b $81
-                dc.b $80
-                dc.b   5
-                dc.b $A1
-                dc.b $82
-                dc.b $A7
-                dc.b $61 ; a
-                dc.b   4
-                dc.b $42 ; B
-                dc.b $83
-                dc.b $60 ; `
-                dc.b $A8
-                dc.b $A9
-                dc.b   2
-                dc.b $42 ; B
-                dc.b $C4
-                dc.b $AA
-                dc.b   5
-                dc.b $A1
-                dc.b $81
-                dc.b $5A ; Z
-                dc.b   7
-                dc.b $42 ; B
-                dc.b $81
-                dc.b $AE
-                dc.b   3
-                dc.b $42 ; B
-                dc.b $C3
-                dc.b $AF
-                dc.b   5
-                dc.b $A1
-                dc.b $81
-                dc.b $5A ; Z
-                dc.b  $E
-                dc.b $42 ; B
-                dc.b   0
-unk_60054:      dc.b   5                ; DATA XREF: ROM:000098F8   o
-                dc.b $C2
-                dc.b  $D
-                dc.b $C1
-                dc.b   5
-                dc.b $C2
-                dc.b $81
-                dc.b $C9
-                dc.b   3
-                dc.b $C2
-                dc.b  $B
-                dc.b $C1
-                dc.b   4
-                dc.b $C2
-                dc.b $81
-                dc.b $CA
-                dc.b   6
-                dc.b $C2
-                dc.b   9
-                dc.b $C1
-                dc.b   6
-                dc.b $C2
-                dc.b $81
-                dc.b $C1
-                dc.b   6
-                dc.b $C2
-                dc.b   7
-                dc.b $C1
-                dc.b   2
-                dc.b $C2
-                dc.b   4
-                dc.b $C1
-                dc.b   2
-                dc.b $C2
-                dc.b $81
-                dc.b $C1
-                dc.b   6
-                dc.b $C2
-                dc.b   5
-                dc.b $C1
-                dc.b   2
-                dc.b $C2
-                dc.b   5
-                dc.b $C1
-                dc.b   2
-                dc.b $C2
-                dc.b $81
-                dc.b $C1
-                dc.b   6
-                dc.b $C2
-                dc.b   4
-                dc.b $C1
-                dc.b   2
-                dc.b $C2
-                dc.b   6
-                dc.b $C1
-                dc.b   2
-                dc.b $DA
-                dc.b $81
-                dc.b $C1
-                dc.b   6
-                dc.b $C2
-                dc.b   3
-                dc.b $C1
-                dc.b   2
-                dc.b $C2
-                dc.b   7
-                dc.b $C1
-                dc.b $82
-                dc.b $C2
-                dc.b $C1
-                dc.b   7
-                dc.b $C2
-                dc.b   2
-                dc.b $C1
-                dc.b   2
-                dc.b $C2
-                dc.b   7
-                dc.b $C1
-                dc.b   2
-                dc.b $C2
-                dc.b $81
-                dc.b $C1
-                dc.b   7
-                dc.b $C2
-                dc.b $81
-                dc.b $C1
-                dc.b   2
-                dc.b $C2
-                dc.b   8
-                dc.b $C1
-                dc.b $82
-                dc.b $C2
-                dc.b $C1
-                dc.b   7
-                dc.b $C2
-                dc.b $81
-                dc.b $C1
-                dc.b   2
-                dc.b $C2
-                dc.b   8
-                dc.b $C1
-                dc.b $82
-                dc.b $C2
-                dc.b $C1
-                dc.b   7
-                dc.b $C2
-                dc.b $81
-                dc.b $C1
-                dc.b   2
-                dc.b $C2
-                dc.b   7
-                dc.b $C1
-                dc.b   2
-                dc.b $C3
-                dc.b $81
-                dc.b $C2
-                dc.b   6
-                dc.b $C3
-                dc.b $84
-                dc.b $C1
-                dc.b $C3
-                dc.b $C3
-                dc.b $C2
-                dc.b   7
-                dc.b $C1
-                dc.b   9
-                dc.b $C3
-                dc.b $81
-                dc.b $C1
-                dc.b   3
-                dc.b $C3
-                dc.b   5
-                dc.b $C1
-                dc.b   5
-                dc.b $C3
-                dc.b $81
-                dc.b $C1
-                dc.b   4
-                dc.b $C3
-                dc.b $81
-                dc.b $C1
-                dc.b   4
-                dc.b $C3
-                dc.b   2
-                dc.b $C1
-                dc.b $81
-                dc.b $D2
-                dc.b  $C
-                dc.b $C3
-                dc.b $81
-                dc.b $C1
-                dc.b   3
-                dc.b $C3
-                dc.b $81
-                dc.b $C1
-                dc.b $13
-                dc.b $C3
-                dc.b $81
-                dc.b $C1
-                dc.b  $C
-                dc.b $C3
-                dc.b $81
-                dc.b $C2
-                dc.b   5
-                dc.b $C3
-                dc.b   2
-                dc.b $C1
-                dc.b   5
-                dc.b $C2
-                dc.b   7
-                dc.b $C3
-                dc.b $C2
-                dc.b $C2
-                dc.b   2
-                dc.b $C2
-                dc.b   2
-                dc.b $C3
-                dc.b   2
-                dc.b $C1
-                dc.b   0
-                dc.b $C5
-                dc.b $B2
-                dc.b  $D
-                dc.b $9E
-                dc.b $C2
-                dc.b $B7
-                dc.b   3
-                dc.b $42 ; B
-                dc.b $C4
-                dc.b $B8
-                dc.b  $B
-                dc.b $9E
-                dc.b $85
-                dc.b $B7
-                dc.b $B8
-                dc.b $BC
-                dc.b $BD
-                dc.b $68 ; h
-                dc.b $C3
-                dc.b $BE
-                dc.b $83
-                dc.b $42 ; B
-                dc.b $C1
-                dc.b $C2
-                dc.b   9
-                dc.b $9E
-                dc.b $C2
-                dc.b $B7
-                dc.b $C4
-                dc.b $C3
-                dc.b $81
-                dc.b $A1
-                dc.b $C3
-                dc.b $C7
-                dc.b $83
-                dc.b $42 ; B
-                dc.b $CA
-                dc.b $CB
-                dc.b   7
-                dc.b $9E
-                dc.b $C2
-                dc.b $B7
-                dc.b   4
-                dc.b $80
-                dc.b $86
-                dc.b $CC
-                dc.b $CD
-                dc.b $A1
-                dc.b $CE
-                dc.b $CF
-                dc.b $42 ; B
-                dc.b $C3
-                dc.b $D0
-                dc.b   5
-                dc.b $9E
-                dc.b $C2
-                dc.b $B7
-                dc.b   5
-                dc.b $80
-                dc.b $86
-                dc.b $D3
-                dc.b $D4
-                dc.b $A1
-                dc.b $D5
-                dc.b $D6
-                dc.b $42 ; B
-                dc.b $C3
-                dc.b $D7
-                dc.b   4
-                dc.b $9E
-                dc.b $C2
-                dc.b $B7
-                dc.b   6
-                dc.b $80
-                dc.b $83
-                dc.b $90
-                dc.b $8F
-                dc.b $A1
-                dc.b $C6
-                dc.b $DA
-                dc.b   3
-                dc.b $9E
-                dc.b $C2
-                dc.b $B7
-                dc.b   7
-                dc.b $80
-                dc.b $82
-                dc.b $E0
-                dc.b $A1
-                dc.b $C7
-                dc.b $E1
-                dc.b   2
-                dc.b $9E
-                dc.b $C2
-                dc.b $B7
-                dc.b   7
-                dc.b $80
-                dc.b $85
-                dc.b $E8
-                dc.b $E9
-                dc.b $A1
-                dc.b $EA
-                dc.b $42 ; B
-                dc.b $C5
-                dc.b $EB
-                dc.b $83
-                dc.b $9E
-                dc.b $B7
-                dc.b $B8
-                dc.b   8
-                dc.b $80
-                dc.b $82
-                dc.b $F0
-                dc.b $A1
-                dc.b $C7
-                dc.b $F1
-                dc.b $83
-                dc.b $9E
-                dc.b $B7
-                dc.b $B8
-                dc.b   8
-                dc.b $80
-                dc.b $82
-                dc.b $F8
-                dc.b $A1
-                dc.b $C7
-                dc.b $F9
-                dc.b $83
-                dc.b $9E
-                dc.b $B7
-                dc.b $B8
-                dc.b   7
-                dc.b $80
-                dc.b $83
-                dc.b   0
-                dc.b   1
-                dc.b $E9
-                dc.b $C6
-                dc.b   2
-                dc.b $84
-                dc.b $9E
-                dc.b   8
-                dc.b   9
-                dc.b $B8
-                dc.b   7
-                dc.b $80
-                dc.b $C9
-                dc.b  $A
-                dc.b $84
-                dc.b $9E
-                dc.b   9
-                dc.b $13
-                dc.b $14
-                dc.b   5
-                dc.b $80
-                dc.b $C5
-                dc.b $15
-                dc.b $81
-                dc.b $A1
-                dc.b $C4
-                dc.b $1A
-                dc.b $81
-                dc.b $9E
-                dc.b $C4
-                dc.b $1E
-                dc.b   2
-                dc.b $80
-                dc.b $81
-                dc.b $C3
-                dc.b $CC
-                dc.b $22 ; "
-                dc.b $85
-                dc.b $9E
-                dc.b   9
-                dc.b $2E ; .
-                dc.b $2F ; /
-                dc.b $CB
-                dc.b   2
-                dc.b $30 ; 0
-                dc.b $CD
-                dc.b $31 ; 1
-                dc.b $81
-                dc.b $1E
-                dc.b $C3
-                dc.b $3E ; >
-                dc.b $81
-                dc.b $CB
-                dc.b $CC
-                dc.b $41 ; A
-                dc.b $86
-                dc.b $42 ; B
-                dc.b $4D ; M
-                dc.b $4E ; N
-                dc.b   9
-                dc.b $4F ; O
-                dc.b $50 ; P
-                dc.b   2
-                dc.b $CB
-                dc.b   5
-                dc.b $42 ; B
-                dc.b $C7
-                dc.b $51 ; Q
-                dc.b $86
-                dc.b $42 ; B
-                dc.b $58 ; X
-                dc.b $B7
-                dc.b $B8
-                dc.b $59 ; Y
-                dc.b $5A ; Z
-                dc.b   2
-                dc.b $CB
+dword_5FDC8:    dc.l $7FE17FE1          ; DATA XREF: ROM:0000991C   o
+                dc.l $6AE10010
+                dc.l $50C4510C
+                dc.l $50C85509
+                dc.l $50CB5D07
+                dc.l $50CD6805
+                dc.l $50CB7504
+                dc.l $800450C9
+                dc.l $81078003
+                dc.l $50C98A08
+                dc.l $800250C3
+                dc.l $8AC5930A
+                dc.l $80865098
+                dc.l $8B839994
+                dc.l $C39A0B80
+                dc.l $8150C49D
+                dc.l $819AC3A1
+                dc.l $B808150
+                dc.l $C4A481A1
+                dc.l $C3A80B80
+                dc.l $8450A4AB
+                dc.l $AC02A1C3
+                dc.l $AD0B8084
+                dc.l $B09EB1B2
+                dc.l $2A1C3B3
+                dc.l $B80C4B6
+                dc.l $2A1C5BA
+                dc.l $980C4BF
+                dc.l $2A1C8C3
+                dc.l $680C4CB
+                dc.l $2A1CBCF
+                dc.l $2DA82DB
+                dc.l $CBC4DC02
+                dc.l $A1CAE003
+                dc.l $EA81CBC4
+                dc.l $EB03A1C4
+                dc.l $EF81CBC4
+                dc.l $F3035000
+dword_5FE60:    dc.l $9E103E2           ; DATA XREF: ROM:00009940   o
+                dc.l $8E181E2
+                dc.l $16E104E2
+                dc.l $10E107E2
+                dc.l $EE107E2
+                dc.l $10E105E2
+                dc.l $10E103E2
+                dc.l $12E103E2
+                dc.l $11E103E2
+                dc.l $11E102E2
+                dc.l $11E103E2
+                dc.l $10E104E2
+                dcb.l 2,$FE104E2
+                dc.l $DE107E2
+                dc.l $BE10BE2
+                dc.l $AE10CE2
+                dc.l $CE10AE2
+                dc.l $5E100CC
+                dc.l $F708A181
+                dc.l $313A103
+                dc.l $67C4040D
+                dc.l $A10374C7
+                dc.l $80AA104
+                dc.l $80C70F09
+                dc.l $A10780C5
+                dc.l $1608A108
+                dc.l $80C31B09
+                dc.l $A10980C3
+                dc.l $1E08A109
+                dc.l $80C32108
+                dc.l $A10980C2
+                dc.l $2409A108
+                dc.l $80C32609
+                dc.l $A10780C4
+                dc.l $2909A106
+                dc.l $80C42D0A
+                dc.l $A10580C4
+                dc.l $310BA102
+                dc.l $80C7350B
+                dc.l $A1C63C02
+                dc.l $42C34309
+                dc.l $A181E9C7
+                dc.l $460242C3
+                dc.l $4D07A106
+                dc.l $50C75102
+                dc.l $5805A100
+dword_5FF1C:    dcb.l 3,$4C110C2        ; DATA XREF: ROM:000098D4   o
+                dc.l $5C10FC2
+                dc.l $7C103C2
+                dc.l $C2C102C1
+                dc.l $2C20BC1
+                dc.l $2C281CA
+                dc.l $3C102C2
+                dc.l $DC104C2
+                dc.l $C2C10FC1
+                dc.l $3C2C2C1
+                dc.l $FC103C2
+                dc.l $C2C10FC1
+                dc.l $6C20CC1
+                dc.l $6C2C2C1
+                dc.l $CC109C2
+                dc.l $AC10AC2
+                dc.l $AC10BC2
+                dc.l $9C184C2
+                dc.l $D2D2DA09
+                dc.l $C206C182
+                dc.l $C2D204C2
+                dc.l $81D208C2
+                dcb.l 2,$5C10FC2
+                dc.l $4A1C2
+                dc.l $590C42C2
+                dc.l $5B04A102
+                dc.l $5D815E0D
+                dc.l $4204A188
+                dc.l $5F5A5D60
+                dc.l $61606261
+                dc.l $260C663
+                dc.l $5A1875F
+                dc.l $5D5A695D
+                dc.l $5A6A025A
+                dc.l $C66B07A1
+                dc.l $C37186A1
+                dc.l $74A1A175
+                dc.l $76048007
+                dc.l $A1835F77
+                dc.l $5F03A1C2
+                dc.l $78058008
+                dc.l $A1865F5A
+                dc.l $5D7AA17B
+                dc.l $68009A1
+                dc.l $855D5A7C
+                dc.l $A17D0680
+                dc.l $9A1857E
+                dc.l $5A5AA17F
+                dc.l $68009A1
+                dc.l $C6800580
+                dc.l $7A18886
+                dc.l $875D5A81
+                dc.l $88A18905
+                dc.l $8007A1C3
+                dc.l $8A865A8D
+                dc.l $8E838F90
+                dc.l $48006A1
+                dc.l $87915A92
+                dc.l $935A5E42
+                dc.l $C3940480
+                dc.l $6A1C597
+                dc.l $815A0242
+                dc.l $C39C0380
+                dc.l $6A1819F
+                dc.l $361C3A0
+                dc.l $242C4A3
+                dc.l $818005A1
+                dc.l $82A76104
+                dc.l $428360A8
+                dc.l $A90242C4
+                dc.l $AA05A181
+                dc.l $5A074281
+                dc.l $AE0342C3
+                dc.l $AF05A181
+                dc.l $5A0E4200
+dword_60054:    dc.l $5C20DC1           ; DATA XREF: ROM:000098F8   o
+                dc.l $5C281C9
+                dc.l $3C20BC1
+                dc.l $4C281CA
+                dc.l $6C209C1
+                dc.l $6C281C1
+                dc.l $6C207C1
+                dc.l $2C204C1
+                dc.l $2C281C1
+                dc.l $6C205C1
+                dc.l $2C205C1
+                dc.l $2C281C1
+                dc.l $6C204C1
+                dc.l $2C206C1
+                dc.l $2DA81C1
+                dc.l $6C203C1
+                dc.l $2C207C1
+                dc.l $82C2C107
+                dc.l $C202C102
+                dc.l $C207C102
+                dc.l $C281C107
+                dc.l $C281C102
+                dc.l $C208C182
+                dc.l $C2C107C2
+                dc.l $81C102C2
+                dc.l $8C182C2
+                dc.l $C107C281
+                dc.l $C102C207
+                dc.l $C102C381
+                dc.l $C206C384
+                dc.l $C1C3C3C2
+                dc.l $7C109C3
+                dc.l $81C103C3
+                dc.l $5C105C3
+                dcb.l 2,$81C104C3
+                dc.l $2C181D2
+                dc.l $CC381C1
+                dc.l $3C381C1
+                dc.l $13C381C1
+                dc.l $CC381C2
+                dc.l $5C302C1
+                dc.l $5C207C3
+                dc.l $C2C202C2
+                dc.l $2C302C1
+                dc.l $C5B20D
+                dc.l $9EC2B703
+                dc.l $42C4B80B
+                dc.l $9E85B7B8
+                dc.l $BCBD68C3
+                dc.l $BE8342C1
+                dc.l $C2099EC2
+                dc.l $B7C4C381
+                dc.l $A1C3C783
+                dc.l $42CACB07
+                dc.l $9EC2B704
+                dc.l $8086CCCD
+                dc.l $A1CECF42
+                dc.l $C3D0059E
+                dc.l $C2B70580
+                dc.l $86D3D4A1
+                dc.l $D5D642C3
+                dc.l $D7049EC2
+                dc.l $B7068083
+                dc.l $908FA1C6
+                dc.l $DA039EC2
+                dc.l $B7078082
+                dc.l $E0A1C7E1
+                dc.l $29EC2B7
+                dc.l $78085E8
+                dc.l $E9A1EA42
+                dc.l $C5EB839E
+                dc.l $B7B80880
+                dc.l $82F0A1C7
+                dc.l $F1839EB7
+                dc.l $B8088082
+                dc.l $F8A1C7F9
+                dc.l $839EB7B8
+                dc.l $7808300
+                dc.l $1E9C602
+                dc.l $849E0809
+                dc.l $B80780C9
+                dc.l $A849E09
+                dc.l $13140580
+                dc.l $C51581A1
+                dc.l $C41A819E
+                dc.l $C41E0280
+                dc.l $81C3CC22
+                dc.l $859E092E
+                dc.l $2FCB0230
+                dc.l $CD31811E
+                dc.l $C33E81CB
+                dc.l $CC418642
+                dc.l $4D4E094F
+                dc.l $5002CB05
+                dc.l $42C75186
+                dc.l $4258B7B8
+                dc.l $595A02CB
                 dc.b   0
                 dc.b   0
 animtbl_601DE:  dc.l unk_601EC          ; DATA XREF: ROM:00009B14   o
@@ -73781,22 +71880,22 @@ gfx_eyes_cutscene2:
                 dc.b $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
                 dc.b $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
                 dc.b $FF
-off_63200:      dc.l unk_633A8          ; DATA XREF: sub_3F76+10   o
-                dc.l unk_633AE
-                dc.l unk_633C6
-                dc.l unk_633D0
-                dc.l unk_633FA
-                dc.l unk_6340A
-                dc.l unk_6341C
-                dc.l unk_6342E
-                dc.l unk_63446
+off_63200:      dc.l word_633A8         ; DATA XREF: sub_3F76+10   o
+                dc.l word_633AE
+                dc.l word_633C6
+                dc.l word_633D0
+                dc.l word_633FA
+                dc.l word_6340A
+                dc.l word_6341C
+                dc.l word_6342E
+                dc.l word_63446
                 dc.l word_63456
-                dc.l unk_6348E
-                dc.l unk_63494
-                dc.l unk_634A0
-                dc.l unk_634B0
-                dc.l unk_634C0
-                dc.l unk_634CC
+                dc.l word_6348E
+                dc.l word_63494
+                dc.l word_634A0
+                dc.l word_634B0
+                dc.l word_634C0
+                dc.l word_634CC
                 dc.l unk_634E0
                 dc.l unk_634EC
                 dc.l unk_634F8
@@ -73887,180 +71986,93 @@ off_63200:      dc.l unk_633A8          ; DATA XREF: sub_3F76+10   o
                 dc.l unk_63B6E
                 dc.l unk_63B74
                 dc.l unk_63B34
-unk_633A8:      dc.b   0                ; DATA XREF: ROM:off_63200   o
-                dc.b   0
-                dc.b   0
-                dc.b $18
-                dc.b   0
-                dc.b $20
-unk_633AE:      dc.b   0                ; DATA XREF: ROM:00063204   o
-                dc.b   6
-                dc.b   0
-                dc.b   8
-                dc.b   3
-                dc.b $40 ; @
-                dc.b $80
-                dc.b   2
-                dc.b   0
-                dc.b   0
-                dc.b   4
-                dc.b $60 ; `
-                dc.b $80
-                dc.b   0
-                dc.b   0
-                dc.b   4
-                dc.b   4
-                dc.b $80
-                dc.b $80
-                dc.b   1
-                dc.b   0
-                dc.b   9
-                dc.b   5
-                dc.b $20
-unk_633C6:      dc.b   0                ; DATA XREF: ROM:00063208   o
-                dc.b   1
-                dc.b   0
-                dc.b   0
-                dc.b   3
-                dc.b $40 ; @
-                dc.b   0
-                dc.b  $F
-                dc.b   6
-                dc.b $60 ; `
-unk_633D0:      dc.b   0                ; DATA XREF: ROM:0006320C   o
-                dc.b  $B
-                dc.b   0
-                dc.b   0
-                dc.b   3
-                dc.b $40 ; @
-                dc.b   0
-                dc.b   3
-                dc.b   8
-                dc.b $60 ; `
-                dc.b   0
-                dc.b   0
-                dc.b   6
-                dc.b $E0
-                dc.b   0
-                dc.b   2
-                dc.b   8
-                dc.b $E0
-                dc.b $80
-                dc.b   1
-                dc.b   0
-                dc.b   7
-                dc.b   9
-                dc.b $40 ; @
-                dc.b $80
-                dc.b   1
-                dc.b   0
-                dc.b   3
-                dc.b  $A
-                dc.b $40 ; @
-                dc.b $80
-                dc.b   0
-                dc.b   0
-                dc.b   0
-                dc.b  $A
-                dc.b $C0
-                dc.b $80
-                dc.b   0
-                dc.b   0
-                dc.b   2
-                dc.b  $A
-                dc.b $E0
-unk_633FA:      dc.b   0                ; DATA XREF: ROM:00063210   o
-                dc.b   3
-                dc.b   0
-                dc.b   0
-                dc.b   3
-                dc.b $40 ; @
-                dc.b   0
-                dc.b   8
-                dc.b  $B
-                dc.b $40 ; @
-                dc.b $80
-                dc.b   0
-                dc.b   0
-                dc.b   9
-                dc.b  $C
-                dc.b $60 ; `
-unk_6340A:      dc.b   0                ; DATA XREF: ROM:00063214   o
-                dc.b   4
-                dc.b   0
-                dc.b $13
-                dc.b  $D
-                dc.b $A0
-                dc.b $80
-                dc.b   0
-                dc.b   0
-                dc.b   3
-                dc.b $10
-                dc.b $20
-                dc.b $80
-                dc.b   0
-                dc.b   0
-                dc.b   0
-                dc.b $10
-                dc.b $A0
-unk_6341C:      dc.b   0                ; DATA XREF: ROM:00063218   o
-                dc.b   4
-                dc.b   0
-                dc.b $15
-                dc.b $10
-                dc.b $C0
-                dc.b $80
-                dc.b   0
-                dc.b   0
-                dc.b   5
-                dc.b $13
-                dc.b $80
-                dc.b $80
-                dc.b   0
-                dc.b   0
-                dc.b   1
-                dc.b $14
-                dc.b $40 ; @
-unk_6342E:      dc.b   0                ; DATA XREF: ROM:0006321C   o
-                dc.b   6
-                dc.b   0
-                dc.b   0
-                dc.b   3
-                dc.b $40 ; @
-                dc.b $80
-                dc.b   0
-                dc.b   0
-                dc.b $18
-                dc.b $14
-                dc.b $80
-                dc.b $80
-                dc.b   0
-                dc.b   0
-                dc.b   3
-                dc.b $17
-                dc.b $A0
-                dc.b $80
-                dc.b   0
-                dc.b   0
-                dc.b   1
-                dc.b $18
-                dc.b $20
-unk_63446:      dc.b   0                ; DATA XREF: ROM:00063220   o
-                dc.b   3
-                dc.b   0
-                dc.b   0
-                dc.b   3
-                dc.b $40 ; @
-                dc.b   0
-                dc.b $18
-                dc.b $18
-                dc.b $60 ; `
-                dc.b $80
-                dc.b   1
-                dc.b   0
-                dc.b   3
-                dc.b $1B
-                dc.b $80
+word_633A8:     dc.w 0                  ; DATA XREF: ROM:off_63200   o
+                dc.w $18
+                dc.w $20
+word_633AE:     dc.w 6                  ; DATA XREF: ROM:00063204   o
+                dc.w 8
+                dc.w $340
+                dc.w $8002
+                dc.w 0
+                dc.w $460
+                dc.w $8000
+                dc.w 4
+                dc.w $480
+                dc.w $8001
+                dc.w 9
+                dc.w $520
+word_633C6:     dc.w 1                  ; DATA XREF: ROM:00063208   o
+                dc.w 0
+                dc.w $340
+                dc.w $F
+                dc.w $660
+word_633D0:     dc.w $B                 ; DATA XREF: ROM:0006320C   o
+                dc.w 0
+                dc.w $340
+                dc.w 3
+                dc.w $860
+                dc.w 0
+                dc.w $6E0
+                dc.w 2
+                dc.w $8E0
+                dc.w $8001
+                dc.w 7
+                dc.w $940
+                dc.w $8001
+                dc.w 3
+                dc.w $A40
+                dc.w $8000
+                dc.w 0
+                dc.w $AC0
+                dc.w $8000
+                dc.w 2
+                dc.w $AE0
+word_633FA:     dc.w 3                  ; DATA XREF: ROM:00063210   o
+                dc.w 0
+                dc.w $340
+                dc.w 8
+                dc.w $B40
+                dc.w $8000
+                dc.w 9
+                dc.w $C60
+word_6340A:     dc.w 4                  ; DATA XREF: ROM:00063214   o
+                dc.w $13
+                dc.w $DA0
+                dc.w $8000
+                dc.w 3
+                dc.w $1020
+                dc.w $8000
+                dc.w 0
+                dc.w $10A0
+word_6341C:     dc.w 4                  ; DATA XREF: ROM:00063218   o
+                dc.w $15
+                dc.w $10C0
+                dc.w $8000
+                dc.w 5
+                dc.w $1380
+                dc.w $8000
+                dc.w 1
+                dc.w $1440
+word_6342E:     dc.w 6                  ; DATA XREF: ROM:0006321C   o
+                dc.w 0
+                dc.w $340
+                dc.w $8000
+                dc.w $18
+                dc.w $1480
+                dc.w $8000
+                dc.w 3
+                dc.w $17A0
+                dc.w $8000
+                dc.w 1
+                dc.w $1820
+word_63446:     dc.w 3                  ; DATA XREF: ROM:00063220   o
+                dc.w 0
+                dc.w $340
+                dc.w $18
+                dc.w $1860
+                dc.w $8001
+                dc.w 3
+                dc.w $1B80
 word_63456:     dc.w $E                 ; DATA XREF: ROM:00063224   o
                 dc.w 0
                 dc.w $340
@@ -74089,88 +72101,47 @@ word_63456:     dc.w $E                 ; DATA XREF: ROM:00063224   o
                 dc.w $1EC0
                 dc.w 0
                 dc.w $1840
-unk_6348E:      dc.b   0                ; DATA XREF: ROM:00063228   o
-                dc.b   0
-                dc.b   0
-                dc.b $1E
-                dc.b $1F
-                dc.b $20
-unk_63494:      dc.b   0                ; DATA XREF: ROM:0006322C   o
-                dc.b   2
-                dc.b   0
-                dc.b $1C
-                dc.b $23 ; #
-                dc.b   0
-                dc.b $80
-                dc.b   0
-                dc.b   0
-                dc.b   0
-                dc.b $26 ; &
-                dc.b $A0
-unk_634A0:      dc.b   0                ; DATA XREF: ROM:00063230   o
-                dc.b   3
-                dc.b   0
-                dc.b   0
-                dc.b   3
-                dc.b $40 ; @
-                dc.b   0
-                dc.b $17
-                dc.b $26 ; &
-                dc.b $C0
-                dc.b $80
-                dc.b   1
-                dc.b   0
-                dc.b   0
-                dc.b $29 ; )
-                dc.b $C0
-unk_634B0:      dc.b   0                ; DATA XREF: ROM:00063234   o
-                dc.b   3
-                dc.b   0
-                dc.b   0
-                dc.b   3
-                dc.b $40 ; @
-                dc.b   0
-                dc.b  $A
-                dc.b $29 ; )
-                dc.b $E0
-                dc.b $80
-                dc.b   0
-                dc.b   0
-                dc.b $15
-                dc.b $2B ; +
-                dc.b $40 ; @
-unk_634C0:      dc.b   0                ; DATA XREF: ROM:00063238   o
-                dc.b   2
-                dc.b   0
-                dc.b $17
-                dc.b $2E ; .
-                dc.b   0
-                dc.b $80
-                dc.b   0
-                dc.b   0
-                dc.b   0
-                dc.b $31 ; 1
-                dc.b   0
-unk_634CC:      dc.b   0                ; DATA XREF: ROM:0006323C   o
-                dc.b   5
-                dc.b $80
-                dc.b   0
-                dc.b   0
-                dc.b   1
-                dc.b $31 ; 1
-                dc.b $20
-                dc.b $80
-                dc.b   0
-                dc.b   0
-                dc.b $18
-                dc.b $31 ; 1
-                dc.b $60 ; `
-                dc.b $80
-                dc.b   0
-                dc.b   0
-                dc.b   0
-                dc.b $34 ; 4
-                dc.b $80
+word_6348E:     dc.w 0                  ; DATA XREF: ROM:00063228   o
+                dc.w $1E
+                dc.w $1F20
+word_63494:     dc.w 2                  ; DATA XREF: ROM:0006322C   o
+                dc.w $1C
+                dc.w $2300
+                dc.w $8000
+                dc.w 0
+                dc.w $26A0
+word_634A0:     dc.w 3                  ; DATA XREF: ROM:00063230   o
+                dc.w 0
+                dc.w $340
+                dc.w $17
+                dc.w $26C0
+                dc.w $8001
+                dc.w 0
+                dc.w $29C0
+word_634B0:     dc.w 3                  ; DATA XREF: ROM:00063234   o
+                dc.w 0
+                dc.w $340
+                dc.w $A
+                dc.w $29E0
+                dc.w $8000
+                dc.w $15
+                dc.w $2B40
+word_634C0:     dc.w 2                  ; DATA XREF: ROM:00063238   o
+                dc.w $17
+                dc.w $2E00
+                dc.w $8000
+                dc.w 0
+                dc.w $3100
+word_634CC:     dc.w 5                  ; DATA XREF: ROM:0006323C   o
+                dc.w $8000
+                dc.w 1
+                dc.w $3120
+                dc.w $8000
+                dc.w $18
+                dc.w $3160
+                dc.w $8000
+                dc.w 0
+                dc.w $3480
 unk_634E0:      dc.b   0                ; DATA XREF: ROM:00063240   o
                 dc.b   2
                 dc.b   0

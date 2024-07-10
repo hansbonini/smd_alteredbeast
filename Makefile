@@ -11,22 +11,27 @@ BUILD_DIR					:= $(WORKSPACE)/build
 GFX_DIR 					:= $(WORKSPACE)/gfx
 ROM_DIR						:= $(WORKSPACE)/rom
 TOOLS_DIR					:= $(WORKSPACE)/tools
+Z80_DIR						:= $(WORKSPACE)/z80
 RETROARCH_DIR   			:= $(TOOLS_DIR)/RetroArch-Win64
 
 # Tooling
-GO							:= go run
 ASM68K 						:= $(TOOLS_DIR)/asm68k/asm68k.exe
 ASM68K_SWITCHES 			?= /m /p /k
+GO							:= go run
 SEGARD_DECOMP				:= $(TOOLS_DIR)/segard/decomp.go
 SHA1CHECK					:= $(TOOLS_DIR)/checksum/sha1.go
 RETROARCH 					:= $(RETROARCH_DIR)/retroarch.exe
 RETROARCH_CORE_BLASTEM 		:= $(RETROARCH_DIR)/cores/blastem_libretro.dll
 RETROARCH_CORE_GPGX			:= $(RETROARCH_DIR)/cores/genesis_plus_gx_libretro.dll
 RETROARCH_CORE_PICODRIVE 	:= $(RETROARCH_DIR)/cores/picodrive_libretro.dll
+SJASMPLUS					:= $(TOOLS_DIR)/sjasmplus/sjasmplus.exe
 
 all: extract build
-build: assemble sha1
-assemble:
+build: z80_assemble 68k_assemble sha1
+z80_assemble:
+	$(SJASMPLUS) --raw="$(Z80_DIR)/pcm_driver/pcm_driver1.bin" --lst="$(Z80_DIR)/pcm_driver/pcm_driver1.txt" "$(Z80_DIR)/pcm_driver/pcm_driver1.asm"
+	$(SJASMPLUS) --raw="$(Z80_DIR)/pcm_driver/pcm_driver2.bin" --lst="$(Z80_DIR)/pcm_driver/pcm_driver2.txt" "$(Z80_DIR)/pcm_driver/pcm_driver2.asm"
+68k_assemble:
 	$(ASM68K) $(ASM68K_SWITCHES) "$(NAME).asm","$(BUILD_DIR)/$(NAME) ($(REGION)) ($(VERSION)) [!].bin",,"$(BUILD_DIR)/$(NAME) ($(REGION)) ($(VERSION)) [!].txt"
 sha1:
 	$(GO) $(SHA1CHECK) "$(BUILD_DIR)/$(NAME) ($(REGION)) ($(VERSION)) [!].bin" $(SHA1)

@@ -1,9 +1,9 @@
 Reset:                                  ; DATA XREF: ROM:00000004   o
                 move.b  (IO_PCBVER+1).l,d0
                 andi.b  #$F,d0
-                beq.s   loc_A5EA
+                beq.s   SkipSecurity
                 move.l  #'SEGA',(IO_TMSS).l
-loc_A5EA:                               ; CODE XREF: Reset+A   j
+SkipSecurity:                           ; CODE XREF: Reset+A   j
                 bsr.w   vdp_setup
                 movea.l #RomEnd,a0
                 move.l  (a0),d1
@@ -15,21 +15,21 @@ loc_A5EA:                               ; CODE XREF: Reset+A   j
                 subq.w  #1,d2
                 swap    d1
                 moveq   #0,d0
-loc_A60A:                               ; CODE XREF: Reset+38   j
+ChecksumLoop:                           ; CODE XREF: Reset+38   j
                                         ; Reset+3C   j
                 add.w   (a0)+,d0
-                dbf     d2,loc_A60A
-                dbf     d1,loc_A60A
+                dbf     d2,ChecksumLoop
+                dbf     d1,ChecksumLoop
                 cmp.w   (Checksum).w,d0
-                beq.s   loc_A632
+                beq.s   ChecksumOk
                 bsr.w   vdp_setup
-loc_A61E:                               ; CODE XREF: Reset+5C   j
+ChecksumError:                          ; CODE XREF: Reset+5C   j
                 move.l  #$C0000000,(VDP_CTRL).l ; DO_WRITE_TO_CRAM_AT_$0000_ADDR
                                         ; DO_OPERATION_WITHOUT_DMA
                 move.w  #$E00,(VDP_DATA).l
-                bra.s   loc_A61E
+                bra.s   ChecksumError
 ; ---------------------------------------------------------------------------
-loc_A632:                               ; CODE XREF: Reset+44   j
+ChecksumOk:                             ; CODE XREF: Reset+44   j
                 btst    #6,(IO_EXT_CTRL+1).l
                 bne.w   loc_A668
                 lea     (unk_FFFE00).w,a6

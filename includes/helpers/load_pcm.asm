@@ -8,9 +8,9 @@ load_pcm:                               ; CODE XREF: play_sound+6   j
                 move.w  (a5)+,d0
                 movea.l (a5),a5
                 move.w  (unk_FFFE1E).w,d7
-                move.w  #$100,(IO_Z80BUS).l
+                move.w  #$100,(IO_Z80BUS).l ; Send the Z80 a bus request
 loc_4A12:                               ; CODE XREF: play_sound+80   j
-                btst    #0,(IO_Z80BUS).l
+                btst    #0,(IO_Z80BUS).l ; Give the Z80 the bus back
                 bne.s   loc_4A12
                 lea     (Z80_RAM).l,a6
 loc_4A22:                               ; CODE XREF: play_sound+A8   j

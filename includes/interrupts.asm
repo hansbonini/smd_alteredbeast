@@ -22,7 +22,7 @@ off_20:         dc.l Reserv3F
                 dc.l Reserv3F
                 dc.l Reserv3F
                 dc.l Reserv3F
-                dc.l Reserv3F
+off_40:         dc.l Reserv3F
                 dc.l Reserv3F
                 dc.l Reserv3F
                 dc.l Reserv3F
@@ -66,7 +66,7 @@ off_AC:         dc.l Trap15
                 dc.l Reserv3F
                 dc.l Reserv3F
                 dc.l Reserv3F
-                dc.l Reserv3F
+off_F0:         dc.l Reserv3F
                 dc.l Reserv3F
                 dc.l Reserv3F
 off_FC:         dc.l Reserv3F

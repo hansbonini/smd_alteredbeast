@@ -1,4 +1,4 @@
-vdp_setup:                              ; CODE XREF: Reset:loc_A5EA   p
+vdp_setup:                              ; CODE XREF: Reset:SkipSecurity   p
                                         ; Reset+46   p ...
                 lea     (vdpregs_A892).l,a0
                 moveq   #$10,d0
