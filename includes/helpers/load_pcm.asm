@@ -7,7 +7,7 @@ load_pcm:                               ; CODE XREF: play_sound+6   j
                 lea     loc_4A46+4(pc,d0.w),a5
                 move.w  (a5)+,d0
                 movea.l (a5),a5
-                move.w  (word_FFFE1E).w,d7
+                move.w  (unk_FFFE1E).w,d7
                 move.w  #$100,(IO_Z80BUS).l
 loc_4A12:                               ; CODE XREF: play_sound+80   j
                 btst    #0,(IO_Z80BUS).l

@@ -1,5 +1,5 @@
 EXT:                                    ; CODE XREF: EXT   j
-                                        ; DATA XREF: ROM:00000068   o
+                                        ; DATA XREF: ROM:off_68   o
                 bra.s   EXT
 ; End of function EXT
 ; ---------------------------------------------------------------------------

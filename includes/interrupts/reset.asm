@@ -32,7 +32,7 @@ loc_A61E:                               ; CODE XREF: Reset+5C   j
 loc_A632:                               ; CODE XREF: Reset+44   j
                 btst    #6,(IO_EXT_CTRL+1).l
                 bne.w   loc_A668
-                lea     (dword_FFFE00).w,a6
+                lea     (unk_FFFE00).w,a6
                 moveq   #0,d7
                 move.w  #$7F,d6
 loc_A648:                               ; CODE XREF: Reset+76   j
