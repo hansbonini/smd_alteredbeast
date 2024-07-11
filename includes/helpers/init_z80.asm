@@ -4,7 +4,7 @@ loc_4924:                               ; CODE XREF: reset_z80+3A   j
 transfer_sounddriver_to_z80:            ; CODE XREF: reset_z80+28   j
                                         ; play_sound+34   j
                 clr.l   (dword_FFFE1A).w
-                clr.w   (unk_FFFE26).w
+                clr.w   (word_FFFE26).w
                 lea     (z80snd_driver).l,a5
                 lea     (Z80_RAM).l,a6
                 move.w  #$1CB,d0
@@ -27,7 +27,7 @@ loc_4946:                               ; CODE XREF: reset_z80+74   j
                 move.b  (a5)+,(a6)+
                 dbf     d0,loc_4946
                 lea     (byte_A01D03).l,a6
-                lea     (unk_FFFE20).w,a5
+                lea     (dword_FFFE20).w,a5
                 move.b  (a5),(a6)+
                 move.b  (a5),(a6)+
 loc_4978:                               ; CODE XREF: play_sound+B2   j

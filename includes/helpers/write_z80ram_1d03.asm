@@ -9,6 +9,6 @@ loc_4AD4:                               ; CODE XREF: write_z80ram_1d03+16   j
                 move.b  d7,(byte_A01D03).l
                 move.w  #0,(IO_Z80BUS).l ; Give the Z80 the bus back
 loc_4AEC:                               ; CODE XREF: write_z80ram_1d03+4   j
-                move.b  d7,(unk_FFFE20).w
+                move.b  d7,(dword_FFFE20).w
                 rts
 ; End of function write_z80ram_1d03

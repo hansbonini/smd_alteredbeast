@@ -348,7 +348,7 @@ loc_554:                                ; CODE XREF: ROM:000044D4   j
                 bclr    #5,-$7D(a0)
                 tst.b   $10(a0)
                 beq.w   sub_4120
-                cmpi.w  #2,(unk_FFFE14).w
+                cmpi.w  #2,(word_FFFE14).w
                 bne.s   loc_578
                 bset    #5,-$7D(a0)
 loc_578:                                ; CODE XREF: ROM:00000570   j
@@ -3983,7 +3983,7 @@ loc_2F8A:                               ; CODE XREF: ROM:00002F76   j
 ; ---------------------------------------------------------------------------
 loc_2F98:                               ; CODE XREF: ROM:00002F6E   j
                                         ; ROM:00002F82   j
-                move.b  (unk_FFFE07).w,-$F0(a0)
+                move.b  (LIVES+1).w,-$F0(a0)
                 ori.b   #$13,3(a0)
                 move.b  #$3C,$34(a0) ; '<'
                 move.w  #$100,$18(a0)
@@ -4027,7 +4027,7 @@ sub_301E:                               ; CODE XREF: ROM:loc_2C4E   p
                 move.l  off_306A(pc,d0.w),$26(a0)
                 cmpi.w  #$C,d0
                 bne.s   loc_3048
-                cmpi.w  #4,(unk_FFFE14).w
+                cmpi.w  #4,(word_FFFE14).w
                 bne.s   loc_3048
                 move.w  #$1C,d0
 loc_3048:                               ; CODE XREF: sub_301E+1C   j
@@ -6434,7 +6434,7 @@ sub_480A:                               ; CODE XREF: ROM:00008B7E   p
 
 sub_488E:                               ; CODE XREF: Reset:loc_A6DA   p
                                         ; DATA XREF: Reset:loc_A6DA   o
-                move.b  (unk_FFFE20).w,d6
+                move.b  (dword_FFFE20).w,d6
                 tst.w   (dword_FFFE1A).w
                 beq.s   loc_489C
                 bsr.w   init_z80
@@ -6445,14 +6445,14 @@ loc_48A4:                               ; CODE XREF: sub_488E+1E   j
                 bne.s   loc_48A4
                 move.b  #1,(a1)
                 move.w  #0,(IO_Z80BUS).l ; Give the Z80 the bus back
-                move.b  d6,(unk_FFFE20).w
+                move.b  d6,(dword_FFFE20).w
                 rts
 ; End of function sub_488E
 
 
 sub_48C0:                               ; CODE XREF: ROM:00004EE8   p
                                         ; ROM:000060E0   p ...
-                move.l  #$E2000000,(unk_FFFE20).w ; DO_WRITE_TO_CRAM_AT_$2200_ADDR
+                move.l  #$E2000000,(dword_FFFE20).w ; DO_WRITE_TO_CRAM_AT_$2200_ADDR
                                         ; DO_OPERATION_WITHOUT_DMA
                 tst.w   (dword_FFFE1A).w
                 bne.s   init_z80
@@ -6498,7 +6498,7 @@ bgm_list:       dc.b $80
 
 sub_4A74:                               ; CODE XREF: ROM:loc_3714   p
                                         ; DATA XREF: ROM:loc_3714   o ...
-                move.w  #1,(unk_FFFE1E).w
+                move.w  #1,(word_FFFE1E).w
                 move.w  #$8001,(dword_FFFE1A).w
                 rts
 ; End of function sub_4A74
@@ -6507,7 +6507,7 @@ sub_4A74:                               ; CODE XREF: ROM:loc_3714   p
 sub_4A82:                               ; CODE XREF: ROM:00002DF0   p
                                         ; ROM:00002F42   j
                                         ; DATA XREF: ...
-                move.w  d7,(unk_FFFE1E).w
+                move.w  d7,(word_FFFE1E).w
                 move.w  #$8002,(dword_FFFE1A).w
                 rts
 ; End of function sub_4A82
@@ -6515,7 +6515,7 @@ sub_4A82:                               ; CODE XREF: ROM:00002DF0   p
 
 sub_4A8E:                               ; CODE XREF: ROM:00008CEA   p
                                         ; DATA XREF: ROM:0000BEF6   o ...
-                move.w  d7,(unk_FFFE1E).w
+                move.w  d7,(word_FFFE1E).w
                 move.w  #$8003,(dword_FFFE1A).w
                 rts
 ; End of function sub_4A8E
@@ -6523,7 +6523,7 @@ sub_4A8E:                               ; CODE XREF: ROM:00008CEA   p
 
 sub_4A9A:                               ; CODE XREF: ROM:loc_9028   p
                                         ; DATA XREF: ROM:0000BF1E   o
-                move.w  #1,(unk_FFFE1E).w
+                move.w  #1,(word_FFFE1E).w
                 move.w  #$8004,(dword_FFFE1A).w
                 rts
 ; End of function sub_4A9A
@@ -6531,7 +6531,7 @@ sub_4A9A:                               ; CODE XREF: ROM:loc_9028   p
 
 sub_4AA8:                               ; CODE XREF: ROM:00004EEE   p
                                         ; DATA XREF: ROM:0000BF26   o
-                move.w  #1,(unk_FFFE1E).w
+                move.w  #1,(word_FFFE1E).w
                 move.w  #$8005,(dword_FFFE1A).w
                 rts
 ; End of function sub_4AA8
@@ -6539,7 +6539,7 @@ sub_4AA8:                               ; CODE XREF: ROM:00004EEE   p
 
 sub_4AB6:                               ; CODE XREF: ROM:0000971C   p
                                         ; DATA XREF: ROM:0000BF16   o
-                move.w  #1,(unk_FFFE1E).w
+                move.w  #1,(word_FFFE1E).w
                 move.w  #$8006,(dword_FFFE1A).w
                 rts
 ; End of function sub_4AB6
@@ -6968,16 +6968,16 @@ loc_4F02:                               ; CODE XREF: ROM:00004EFE   j
                 bset    #0,(word_FFB15E).w
                 bsr.w   sub_4120
                 move.b  #$20,d1 ; ' '
-                cmpi.w  #0,(unk_FFFE14).w
+                cmpi.w  #0,(word_FFFE14).w
                 beq.s   loc_4F46
                 move.b  #$22,d1 ; '"'
-                cmpi.w  #2,(unk_FFFE14).w
+                cmpi.w  #2,(word_FFFE14).w
                 beq.s   loc_4F46
                 move.b  #$23,d1 ; '#'
-                cmpi.w  #3,(unk_FFFE14).w
+                cmpi.w  #3,(word_FFFE14).w
                 beq.s   loc_4F46
                 move.b  #$24,d1 ; '$'
-                cmpi.w  #4,(unk_FFFE14).w
+                cmpi.w  #4,(word_FFFE14).w
                 beq.s   loc_4F46
                 move.b  #$26,d1 ; '&'
                 move.b  #$21,(byte_FFE380).w ; '!'
@@ -8323,7 +8323,7 @@ loc_60DC:                               ; CODE XREF: ROM:00000958   j
                 jsr     (sub_48C0).l
                 moveq   #$FFFFFFC1,d7
                 jsr     (write_z80ram_1d06).l
-                cmpi.w  #1,(unk_FFFE14).w
+                cmpi.w  #1,(word_FFFE14).w
                 beq.s   loc_610A
                 add.w   d1,$14(a0)
                 add.w   d2,$18(a0)
@@ -10982,7 +10982,7 @@ loc_8194:                               ; DATA XREF: ROM:loc_8188   o
 ; ---------------------------------------------------------------------------
 loc_81A0:                               ; CODE XREF: ROM:loc_8194   j
                 bset    #7,2(a0)
-                cmpi.w  #2,(unk_FFFE14).w
+                cmpi.w  #2,(word_FFFE14).w
                 bne.s   loc_81B4
                 move.b  #$60,$13(a0) ; '`'
 loc_81B4:                               ; CODE XREF: ROM:000081AC   j
@@ -12160,15 +12160,15 @@ loc_91B2:                               ; CODE XREF: ROM:0000A722   j
 ; ---------------------------------------------------------------------------
 loc_91DC:                               ; CODE XREF: ROM:000091C2   j
                                         ; ROM:000091CC   j ...
-                cmpi.w  #4,(unk_FFFE14).w
+                cmpi.w  #4,(word_FFFE14).w
                 bne.s   loc_91F2
                 move.b  #$14,(word_FFB140).w
-                move.w  #0,(unk_FFFE14).w
+                move.w  #0,(word_FFFE14).w
                 bra.s   loc_91FC
 ; ---------------------------------------------------------------------------
 loc_91F2:                               ; CODE XREF: ROM:000091E2   j
                 move.b  #8,(word_FFB140).w
-                addq.w  #1,(unk_FFFE14).w
+                addq.w  #1,(word_FFFE14).w
 loc_91FC:                               ; CODE XREF: ROM:000091F0   j
                 move.b  #0,(byte_FFB605).w
                 move.b  #0,(byte_FFB610).w
@@ -12196,7 +12196,7 @@ loc_922E:                               ; CODE XREF: ROM:000091B8   j
                 lea     (pal_9D7A).l,a6
                 bsr.w   load_pal
                 moveq   #0,d0
-                move.w  (unk_FFFE14).w,d0
+                move.w  (word_FFFE14).w,d0
                 lsl.w   #2,d0
                 lea     (off_5F1BE).l,a1
                 adda.l  d0,a1
@@ -12210,7 +12210,7 @@ loc_922E:                               ; CODE XREF: ROM:000091B8   j
                 jsr     sub_46BA(pc)
                 lea     (pal_9CDC).l,a6
                 bsr.w   load_pal
-                cmpi.w  #4,(unk_FFFE14).w
+                cmpi.w  #4,(word_FFFE14).w
                 beq.s   loc_92A0
                 moveq   #$FFFFFF89,d7
                 bsr.w   write_z80ram_1d03
@@ -12385,7 +12385,7 @@ loc_94CC:                               ; CODE XREF: ROM:000044E0   j
 ; ---------------------------------------------------------------------------
 loc_94F6:                               ; CODE XREF: ROM:000094F2   j
                 bsr.w   sub_4120
-                move.w  (unk_FFFE14).w,d0
+                move.w  (word_FFFE14).w,d0
                 andi.w  #$F,d0
                 cmpi.w  #4,d0
                 beq.s   loc_9528
@@ -12414,7 +12414,7 @@ loc_954E:                               ; CODE XREF: ROM:000094EA   j
                 bne.s   locret_9574
                 move.b  #1,1(a0)
                 bsr.w   sub_4CBA
-                cmpi.w  #4,(unk_FFFE14).w
+                cmpi.w  #4,(word_FFFE14).w
                 bne.s   loc_9576
                 move.b  #$2F,0(a6) ; '/'
                 bset    #2,(byte_FFB612).w
@@ -12430,7 +12430,7 @@ loc_957E:                               ; CODE XREF: ROM:000094D2   j
                 bsr.w   write_z80ram_1d06
                 move.w  #$198,$18(a0)
                 moveq   #0,d0
-                move.w  (unk_FFFE14).w,d0
+                move.w  (word_FFFE14).w,d0
                 lsl.w   #1,d0
                 lea     (word_95CA).l,a1
                 adda.l  d0,a1
@@ -13348,7 +13348,7 @@ draw_gameover:                          ; CODE XREF: sub_A8E8+6   j
                 ori     #$700,sr
                 move.w  #$83,d7
                 jsr     write_z80ram_1d03(pc)
-                move.w  (unk_FFFE14).w,(STAGE).w
+                move.w  (word_FFFE14).w,(STAGE).w
                 move.l  #$4E000003,(VDP_CTRL).l ; DO_WRITE_TO_VRAM_AT_$CE00_ADDR
                                         ; DO_OPERATION_WITHOUT_DMA
                 lea     (gfx_gameover).l,a0
@@ -13405,8 +13405,8 @@ loc_A9B2:                               ; CODE XREF: ROM:0000A732   j
                 jmp     sub_A81A(pc)
 ; ---------------------------------------------------------------------------
 loc_A9CA:                               ; CODE XREF: ROM:0000A9B8   j
-                addq.w  #1,(unk_FFFE12).w
-                move.w  (unk_FFFE12).w,d0
+                addq.w  #1,(word_FFFE12).w
+                move.w  (word_FFFE12).w,d0
                 andi.w  #3,d0
                 bne.s   loc_A9E0
                 move.b  #$18,(word_FFB140).w
@@ -13415,7 +13415,7 @@ loc_A9CA:                               ; CODE XREF: ROM:0000A9B8   j
 loc_A9E0:                               ; CODE XREF: ROM:0000A9D6   j
                 asl.w   #4,d0
                 lea     loc_AA38+2(pc,d0.w),a1
-                move.w  (a1)+,(unk_FFFE14).w
+                move.w  (a1)+,(word_FFFE14).w
                 move.w  (a1)+,(word_FFB174).w
                 move.l  (a1)+,(off_FFB180).w
                 move.l  (a1)+,(off_FFB186).w
@@ -13545,7 +13545,7 @@ loc_AB44:                               ; CODE XREF: ROM:0000AB2C   j
                 move.w  #HARDEST,(DIFFICULTY).w
 loc_AB6A:                               ; CODE XREF: ROM:0000AB62   j
                 move.w  (DIFFICULTY).w,(word_FFB12C).w
-                clr.w   (unk_FFFE14).w
+                clr.w   (word_FFFE14).w
                 clr.w   (STAGE).w
                 bclr    #6,(byte_FFB104).w
                 move.b  #8,(word_FFB140).w
@@ -13554,7 +13554,7 @@ loc_AB6A:                               ; CODE XREF: ROM:0000AB62   j
 
 sub_AB86:                               ; CODE XREF: ROM:0000AB14   p
                 move.w  #$80,(dword_FFB624+2).w
-                clr.w   (unk_FFFE14).w
+                clr.w   (word_FFFE14).w
                 ori.b   #$C0,(byte_FFB104).w
                 jsr     sub_ADA4(pc)
                 clr.w   (word_FFB800).w
@@ -13730,13 +13730,13 @@ loc_ADB8:                               ; CODE XREF: sub_ADA4+E   j
                 bsr.w   loc_A86E
                 btst    #7,(byte_FFB104).w
                 bne.s   loc_ADE2
-                move.w  (unk_FFFE14).w,d0
+                move.w  (word_FFFE14).w,d0
                 beq.s   loc_ADCE
                 move.w  d0,(STAGE).w
 loc_ADCE:                               ; CODE XREF: sub_ADA4+24   j
                 clr.b   (byte_FFB621).w
                 lea     (BEAST).w,a0
-                move.w  (unk_FFFE14).w,d0
+                move.w  (word_FFFE14).w,d0
                 add.w   d0,d0
                 move.w  (a0,d0.w),(word_FFB174).w
 loc_ADE2:                               ; CODE XREF: sub_ADA4+1E   j
@@ -13795,7 +13795,7 @@ loc_AEA0:                               ; CODE XREF: sub_AE6A+2C   j
                 move.w  (LIVES).w,d0
                 move.w  d0,(word_FFB120).w
                 move.w  d0,(word_FFB126).w
-                tst.w   (unk_FFFE14).w
+                tst.w   (word_FFFE14).w
                 bne.s   loc_AEC0
                 move.b  #$2C,(byte_FFE340).w ; ','
                 andi.b  #$9F,(byte_FFB15C).w
@@ -13965,7 +13965,7 @@ sub_B074:                               ; CODE XREF: ROM:loc_A8BE   p
                 asl.w   #2,d0
                 move.l  dword_B0FC(pc,d0.w),d0
                 move.l  d0,(dword_FFB210).w
-                move.w  (unk_FFFE14).w,d1
+                move.w  (word_FFFE14).w,d1
                 beq.s   loc_B0CE
                 cmpi.w  #3,d1
                 beq.s   loc_B0A4
@@ -14385,7 +14385,7 @@ locret_B528:                            ; CODE XREF: sub_B492+8E   j
 
 draw_stage:                             ; CODE XREF: ROM:0000B3B4   p
                                         ; sub_B492   p
-                move.w  (unk_FFFE14).w,d0
+                move.w  (word_FFFE14).w,d0
                 asl.w   #2,d0
                 movea.l assettbl_stages(pc,d0.w),a5
 loc_B534:                               ; CODE XREF: draw_stage+14   j
@@ -14693,11 +14693,11 @@ load_gamecfg:                           ; CODE XREF: ROM:0000B92E   j
                 cmpi.b  #$C0,(word_FFB146).w
                 bne.s   load_gamecfg_options
 load_gamecfg_stage:                     ; CODE XREF: ROM:0000B9A6   j
-                move.w  (STAGE).w,(unk_FFFE14).w
+                move.w  (STAGE).w,(word_FFFE14).w
 load_gamecfg_options:                   ; CODE XREF: ROM:0000B9A4   j
                                         ; ROM:0000B9B4   j
-                move.b  (unk_FFFE07).w,(word_FFB120+1).w
-                move.b  (unk_FFFE07).w,(word_FFB126+1).w
+                move.b  (LIVES+1).w,(word_FFB120+1).w
+                move.b  (LIVES+1).w,(word_FFB126+1).w
                 move.w  (DIFFICULTY).w,(word_FFB12C).w
                 jsr     sub_48C0(pc)
                 move.b  #8,(word_FFB140).w
@@ -14709,7 +14709,7 @@ loc_B9D8:                               ; CODE XREF: ROM:0000B996   j
                 rts
 ; ---------------------------------------------------------------------------
 loc_B9EE:                               ; CODE XREF: ROM:0000B96C   j
-                move.w  (unk_FFFE12).w,d0
+                move.w  (word_FFFE12).w,d0
                 addq.w  #1,d0
                 andi.w  #3,d0
                 beq.s   loc_BA00
@@ -14795,7 +14795,7 @@ loc_BACC:                               ; CODE XREF: ROM:0000BAB6   j
 ; ---------------------------------------------------------------------------
 draw_titlescreen:                       ; CODE XREF: ROM:0000B924   j
                 ori     #$700,sr
-                move.l  #$87000000,(unk_FFFE20).w ; SET_BG_AS_1PAL_1TH_COLOR
+                move.l  #$87000000,(dword_FFFE20).w ; SET_BG_AS_1PAL_1TH_COLOR
                 jsr     loc_48FA(pc)
                 move.w  #1,(dword_FFFE1A+2).w
                 bsr.w   sub_46E4
@@ -14804,7 +14804,7 @@ draw_titlescreen:                       ; CODE XREF: ROM:0000B924   j
                                         ; MOVE_BY_0_CELLS
                 bsr.w   sub_480A
                 move.w  #$12C,(word_FFB150).w
-                clr.w   (unk_FFFE14).w
+                clr.w   (word_FFFE14).w
                 clr.b   (byte_FFB18E).w
                 clr.b   (byte_FFB152).w
                 clr.w   (word_FFB280).w
@@ -14987,7 +14987,7 @@ loc_BE9E:                               ; CODE XREF: ROM:0000BE88   j
 loc_BEAE:                               ; CODE XREF: ROM:0000BEA2   j
                 jsr     sub_48C0(pc)
                 jsr     write_z80ram_1d03(pc)
-                move.l  #$80000000,(unk_FFFE20).w
+                move.l  #$80000000,(dword_FFFE20).w
 loc_BEBE:                               ; CODE XREF: ROM:0000BEC8   j
                 jmp     sub_A81A(pc)
 ; ---------------------------------------------------------------------------
@@ -15141,7 +15141,7 @@ loc_C01E:                               ; CODE XREF: sub_BFCC+46   j
                 rts
 ; ---------------------------------------------------------------------------
 loc_C024:                               ; CODE XREF: sub_BFCC+24   j
-                lea     (unk_FFFE07).w,a0
+                lea     ((LIVES+1)).w,a0
                 asl.w   #2,d1
                 add.b   d1,(a0)
                 beq.s   loc_C03A
@@ -15190,7 +15190,7 @@ loc_C068:                               ; CODE XREF: ROM:0000A812   j
                 move.w  d0,-(sp)
                 lea     dword_C11E(pc),a0
                 moveq   #0,d0
-                move.b  (unk_FFFE07).w,d0
+                move.b  (LIVES+1).w,d0
                 lea     (VDP_DATA).l,a5
                 jsr     sub_B230(pc)
                 move.w  #$100,(word_FFB800).w
@@ -36465,97 +36465,20 @@ pcm_1:
 pcm_2:
     incbin "z80/pcm_driver/pcm_driver2.bin"
     even
-pcm_3:          dc.b $F3,$31,$FF,$1F,$3A,$7F,  1,$B7,$CA,  4,  0,$FE,  1
-                                        ; DATA XREF: ROM:pcm_list   o
-                dc.b $CA,$68,  0,$FE,  2,$CA,$76,  0,$FE,  3,$CA,$84,  0
-                dc.b $FE,  4,$CA,$92,  0,$C3,  4,  0,  0,  0,  0,  0,  0
-                dc.b   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
-                dc.b   0,  0,  0,  0,$ED,$4D,  0,  0,  0,  0,  0,  0,  0
-                dc.b   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
-                dc.b   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
-                dc.b   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,$ED,$45
-                dc.b $21,$80,  1,  1,$E9,$1D,$3E,$50,$32, $F,$1D,$C3,$A0
-                dc.b   0,$21,$80,  1,  1,$E9,$1D,$3E,$68,$32, $F,$1D,$C3
-                dc.b $A0,  0,$21,$80,  1,  1,$E9,$1D,$3E,$80,$32, $F,$1D
-                dc.b $C3,$A0,  0,$21,$80,  1,  1,$E9,$1D,$3E,$98,$32, $F
-                dc.b $1D,$C3,$A0,  0,$CD,$DD,  0,$C5,$3E,$80, $E,$2B,$CD
-                dc.b $D2,  0,$C1,$3A, $F,$1D,$C5,$47,$10,$FE,$C1,$F5,$C5
-                dc.b $7E, $E,$2A,$CD,$D2,  0,$C1,$23, $B,$78,$B1,$28,  3
-                dc.b $F1,$18,$E9,$AF,$32,$7F,  1, $E,$2B,$CD,$D2,  0,$C3
-                dc.b   4,  0,$F5,$79,$32,  0,$40,$F1,  0,$32,  1,$40,$C9
-                dc.b $E5,$D5,$C5,  6,  7,$AF, $E,$28,$CD,$D2,  0,$3C,$10
-                dc.b $FA,$C1,$D1,$E1,$C9,  0,  0,  0,  0,  0,  0,  0,  0
-                dc.b   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
-                dc.b   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
-                dc.b   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
-                dc.b   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
-                dc.b   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
-                dc.b   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
-                dc.b   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
-                dc.b   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
-                dc.b   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
-                dc.b   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
-                dc.b   0,  0,  0,  0,  0,  0,  0
-    incbin "audio/pcm/000173B4.pcm"
+pcm_3:
+    incbin "z80/pcm_driver/pcm_driver3.bin"
     even
 z80snd_driver:
     incbin "z80/sounddriver.bin"
     even
-pcm_6:          dc.b $F3, $31, $FF, $1F, $3E, 1, $32, $7F, 1, $21, $80
-                                        ; DATA XREF: ROM:pcm_list   o
-    dcb.b 3,1
-                dc.b $1E, $3E, $30, $32, $F, $1D, $C3, $68
-    dcb.b $22,0
-                dc.b $ED, $4D
-    dcb.b $2C,0
-                dc.b $ED, $45, $CD, $A6, 0, $C5, $3E, $80, $E, $2B, $CD
-                dc.b $9B, 0, $C1, $3A, $F, $1D, $C5, $47, $10, $FE, $C1
-                dc.b $F5, $C5, $7E, $E, $2A, $CD, $9B, 0, $C1, $23, $B
-                dc.b $78, $B1, $28, 3, $F1, $18, $E9, $AF, $E, $2B, $CD
-                dc.b $9B, 0, $AF, $32, $7F, 1, $C3, $94, 0, $F5, $79, $32
-                dc.b 0, $40, $F1, 0, $32, 1, $40, $C9, $E5, $D5, $C5, 6
-                dc.b 7, $AF, $E, $28, $CD, $9B, 0, $3C, $10, $FA, $C1
-                dc.b $D1, $E1, $C9
-    dcb.b $C8,0
-    incbin "audio/pcm/0001AFD4.pcm"
+pcm_6:
+    incbin "z80/pcm_driver/pcm_driver6.bin"
     even
-pcm_4:          dc.b $F3, $31, $FF, $1F, $3E, 1, $32, $7F, 1, $21, $80
-                                        ; DATA XREF: ROM:pcm_list   o
-    dcb.b 3,1
-                dc.b $1E, $3E
-    dcb.b 2,$32
-                dc.b $F, $1D, $C3, $68
-    dcb.b $22,0
-                dc.b $ED, $4D
-    dcb.b $2C,0
-                dc.b $ED, $45, $CD, $A6, 0, $C5, $3E, $80, $E, $2B, $CD
-                dc.b $9B, 0, $C1, $3A, $F, $1D, $C5, $47, $10, $FE, $C1
-                dc.b $F5, $C5, $7E, $E, $2A, $CD, $9B, 0, $C1, $23, $B
-                dc.b $78, $B1, $28, 3, $F1, $18, $E9, $AF, $E, $2B, $CD
-                dc.b $9B, 0, $AF, $32, $7F, 1, $C3, $94, 0, $F5, $79, $32
-                dc.b 0, $40, $F1, 0, $32, 1, $40, $C9, $E5, $D5, $C5, 6
-                dc.b 7, $AF, $E, $28, $CD, $9B, 0, $3C, $10, $FA, $C1
-                dc.b $D1, $E1, $C9
-    dcb.b $C8,0
-    incbin "audio/pcm/0001CF56.pcm"
+pcm_4:
+    incbin "z80/pcm_driver/pcm_driver4.bin"
     even
-pcm_5:          dc.b $F3, $31, $FF, $1F, $3E, 1, $32, $7F, 1, $21, $80
-                                        ; DATA XREF: ROM:pcm_list   o
-    dcb.b 2,1
-                dc.b $B1, $1B, $3E, $30, $32, $F, $1D, $C3, $68
-    dcb.b $22,0
-                dc.b $ED, $4D
-    dcb.b $2C,0
-                dc.b $ED, $45, $CD, $A6, 0, $C5, $3E, $80, $E, $2B, $CD
-                dc.b $9B, 0, $C1, $3A, $F, $1D, $C5, $47, $10, $FE, $C1
-                dc.b $F5, $C5, $7E, $E, $2A, $CD, $9B, 0, $C1, $23, $B
-                dc.b $78, $B1, $28, 3, $F1, $18, $E9, $AF, $E, $2B, $CD
-                dc.b $9B, 0, $AF, $32, $7F, 1, $C3, $94, 0, $F5, $79, $32
-                dc.b 0, $40, $F1, 0, $32, 1, $40, $C9, $E5, $D5, $C5, 6
-                dc.b 7, $AF, $E, $28, $CD, $9B, 0, $3C, $10, $FA, $C1
-                dc.b $D1, $E1, $C9
-    dcb.b $C8,0
-    incbin "audio/pcm/0001EED8.pcm"
+pcm_5:
+    incbin "z80/pcm_driver/pcm_driver5.bin"
     even
     dcb.b $3576,$FF
 gfx_titlefont:

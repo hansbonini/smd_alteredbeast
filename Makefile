@@ -31,8 +31,13 @@ SJASMPLUS					:= $(TOOLS_DIR)/sjasmplus/sjasmplus.exe
 all: extract build
 build: z80_assemble 68k_assemble sha1
 z80_assemble:
+	$(SJASMPLUS) --raw="$(Z80_DIR)/sounddriver.bin" --lst="$(Z80_DIR)/sounddriver.txt" "$(Z80_DIR)/sounddriver.asm"
 	$(SJASMPLUS) --raw="$(Z80_DIR)/pcm_driver/pcm_driver1.bin" --lst="$(Z80_DIR)/pcm_driver/pcm_driver1.txt" "$(Z80_DIR)/pcm_driver/pcm_driver1.asm"
 	$(SJASMPLUS) --raw="$(Z80_DIR)/pcm_driver/pcm_driver2.bin" --lst="$(Z80_DIR)/pcm_driver/pcm_driver2.txt" "$(Z80_DIR)/pcm_driver/pcm_driver2.asm"
+	$(SJASMPLUS) --raw="$(Z80_DIR)/pcm_driver/pcm_driver3.bin" --lst="$(Z80_DIR)/pcm_driver/pcm_driver3.txt" "$(Z80_DIR)/pcm_driver/pcm_driver3.asm"
+	$(SJASMPLUS) --raw="$(Z80_DIR)/pcm_driver/pcm_driver4.bin" --lst="$(Z80_DIR)/pcm_driver/pcm_driver4.txt" "$(Z80_DIR)/pcm_driver/pcm_driver4.asm"
+	$(SJASMPLUS) --raw="$(Z80_DIR)/pcm_driver/pcm_driver5.bin" --lst="$(Z80_DIR)/pcm_driver/pcm_driver5.txt" "$(Z80_DIR)/pcm_driver/pcm_driver5.asm"
+	$(SJASMPLUS) --raw="$(Z80_DIR)/pcm_driver/pcm_driver6.bin" --lst="$(Z80_DIR)/pcm_driver/pcm_driver6.txt" "$(Z80_DIR)/pcm_driver/pcm_driver6.asm"
 68k_assemble:
 	$(ASM68K) $(ASM68K_SWITCHES) "$(NAME).asm","$(BUILD_DIR)/$(NAME) ($(REGION)) ($(VERSION)) [!].bin",,"$(BUILD_DIR)/$(NAME) ($(REGION)) ($(VERSION)) [!].txt"
 sha1:
