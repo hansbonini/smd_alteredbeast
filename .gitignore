@@ -1,3 +1,4 @@
+audio/pcm/*.wav
 build/*
 gfx/nemesis/*.smd
 gfx/segard/*.smd

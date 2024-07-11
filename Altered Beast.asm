@@ -1520,7 +1520,7 @@ loc_14A6:                               ; CODE XREF: sub_12FA+92   j
                 subi.w  #$58,d0 ; 'X'
                 move.w  d0,$18(a0)
                 move.b  #3,1(a0)
-                move.l  #gfx_titlefont,$1C(a0)
+                move.l  #$24000,$1C(a0)
                 move.w  #$2020,$34(a0)
                 move.l  #$FFFFD000,$30(a0)
                 move.l  #$FFFD8000,$20(a0)

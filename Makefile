@@ -7,6 +7,7 @@ SHA1						?= 38945360D824D2FB9535B4FD7F25B9AA9B32F019
 WORKSPACE					:= .
 
 # Directories
+AUDIO_DIR					:= $(WORKSPACE)/audio
 BUILD_DIR					:= $(WORKSPACE)/build
 GFX_DIR 					:= $(WORKSPACE)/gfx
 ROM_DIR						:= $(WORKSPACE)/rom
@@ -17,6 +18,7 @@ RETROARCH_DIR   			:= $(TOOLS_DIR)/RetroArch-Win64
 # Tooling
 ASM68K 						:= $(TOOLS_DIR)/asm68k/asm68k.exe
 ASM68K_SWITCHES 			?= /m /p /k
+FFMPEG 						:= $(TOOLS_DIR)/ffmpeg/ffmpeg.exe
 GO							:= go run
 SEGARD_DECOMP				:= $(TOOLS_DIR)/segard/decomp.go
 SHA1CHECK					:= $(TOOLS_DIR)/checksum/sha1.go
@@ -36,7 +38,7 @@ z80_assemble:
 sha1:
 	$(GO) $(SHA1CHECK) "$(BUILD_DIR)/$(NAME) ($(REGION)) ($(VERSION)) [!].bin" $(SHA1)
 
-extract: segard_decomp
+extract: dpcm2wav segard_decomp
 segard_decomp:
 	$(GO) $(SEGARD_DECOMP) "$(ROM_DIR)/$(ROM_$(REGION)_$(VERSION))" $(GFX_DIR)/segard/00024000.smd 0x00024000 # Game Font
 	$(GO) $(SEGARD_DECOMP) "$(ROM_DIR)/$(ROM_$(REGION)_$(VERSION))" $(GFX_DIR)/segard/00027DDA.smd 0x00027DDA # Stage 1 background elements
@@ -45,14 +47,14 @@ segard_decomp:
 	$(GO) $(SEGARD_DECOMP) "$(ROM_DIR)/$(ROM_$(REGION)_$(VERSION))" $(GFX_DIR)/segard/0002F1F4.smd 0x0002F1F4 # Stage 4 background elements
 	$(GO) $(SEGARD_DECOMP) "$(ROM_DIR)/$(ROM_$(REGION)_$(VERSION))" $(GFX_DIR)/segard/00030E70.smd 0x00030E70 # Stage 5 background elements
 	$(GO) $(SEGARD_DECOMP) "$(ROM_DIR)/$(ROM_$(REGION)_$(VERSION))" $(GFX_DIR)/segard/00033AAA.smd 0x00033AAA # Boss Stage 2
+	$(GO) $(SEGARD_DECOMP) "$(ROM_DIR)/$(ROM_$(REGION)_$(VERSION))" $(GFX_DIR)/segard/0003565C.smd 0x0003565C # Boss Stage 5
 	$(GO) $(SEGARD_DECOMP) "$(ROM_DIR)/$(ROM_$(REGION)_$(VERSION))" $(GFX_DIR)/segard/00038A2E.smd 0x00038A2E # Boss Stage 1
 	$(GO) $(SEGARD_DECOMP) "$(ROM_DIR)/$(ROM_$(REGION)_$(VERSION))" $(GFX_DIR)/segard/0003BA00.smd 0x0003BA00 # Boss Stage 3
 	$(GO) $(SEGARD_DECOMP) "$(ROM_DIR)/$(ROM_$(REGION)_$(VERSION))" $(GFX_DIR)/segard/0003DFE0.smd 0x0003DFE0 # Boss Stage 4
-	$(GO) $(SEGARD_DECOMP) "$(ROM_DIR)/$(ROM_$(REGION)_$(VERSION))" $(GFX_DIR)/segard/0003565C.smd 0x0003565C # Boss Stage 5
 	$(GO) $(SEGARD_DECOMP) "$(ROM_DIR)/$(ROM_$(REGION)_$(VERSION))" $(GFX_DIR)/segard/00040A1C.smd 0x00040A1C # Boss normal form and Dogs
 	$(GO) $(SEGARD_DECOMP) "$(ROM_DIR)/$(ROM_$(REGION)_$(VERSION))" $(GFX_DIR)/segard/0004195C.smd 0x0004195C # Power Ups
-	$(GO) $(SEGARD_DECOMP) "$(ROM_DIR)/$(ROM_$(REGION)_$(VERSION))" $(GFX_DIR)/segard/00041EC8.smd 0x00041EC8 # Enemy Headless Horror 2
 	$(GO) $(SEGARD_DECOMP) "$(ROM_DIR)/$(ROM_$(REGION)_$(VERSION))" $(GFX_DIR)/segard/00041AB8.smd 0x00041AB8 # Grave
+	$(GO) $(SEGARD_DECOMP) "$(ROM_DIR)/$(ROM_$(REGION)_$(VERSION))" $(GFX_DIR)/segard/00041EC8.smd 0x00041EC8 # Enemy Headless Horror 2
 	$(GO) $(SEGARD_DECOMP) "$(ROM_DIR)/$(ROM_$(REGION)_$(VERSION))" $(GFX_DIR)/segard/0004270A.smd 0x0004270A # Enemy Rattle Tail
 	$(GO) $(SEGARD_DECOMP) "$(ROM_DIR)/$(ROM_$(REGION)_$(VERSION))" $(GFX_DIR)/segard/00042E7C.smd 0x00042E7C # Enemy Round Leech
 	$(GO) $(SEGARD_DECOMP) "$(ROM_DIR)/$(ROM_$(REGION)_$(VERSION))" $(GFX_DIR)/segard/000435E2.smd 0x000435E2 # Fossils
@@ -77,8 +79,8 @@ segard_decomp:
 	$(GO) $(SEGARD_DECOMP) "$(ROM_DIR)/$(ROM_$(REGION)_$(VERSION))" $(GFX_DIR)/segard/00058562.smd 0x00058562 # Flames 
 	$(GO) $(SEGARD_DECOMP) "$(ROM_DIR)/$(ROM_$(REGION)_$(VERSION))" $(GFX_DIR)/segard/00059A74.smd 0x00059A74 # Transformation background
 	$(GO) $(SEGARD_DECOMP) "$(ROM_DIR)/$(ROM_$(REGION)_$(VERSION))" $(GFX_DIR)/segard/00059EE8.smd 0x00059EE8 # Portrait
-	$(GO) $(SEGARD_DECOMP) "$(ROM_DIR)/$(ROM_$(REGION)_$(VERSION))" $(GFX_DIR)/segard/00060B66.smd 0x00060B66 # Eyes Custscene
 	$(GO) $(SEGARD_DECOMP) "$(ROM_DIR)/$(ROM_$(REGION)_$(VERSION))" $(GFX_DIR)/segard/00060280.smd 0x00060280 # Eyes Custscene 2
+	$(GO) $(SEGARD_DECOMP) "$(ROM_DIR)/$(ROM_$(REGION)_$(VERSION))" $(GFX_DIR)/segard/00060B66.smd 0x00060B66 # Eyes Custscene
 	$(GO) $(SEGARD_DECOMP) "$(ROM_DIR)/$(ROM_$(REGION)_$(VERSION))" $(GFX_DIR)/segard/0007E370.smd 0x0007E370 # Fireball
 	$(GO) $(SEGARD_DECOMP) "$(ROM_DIR)/$(ROM_$(REGION)_$(VERSION))" $(GFX_DIR)/segard/0007E5EC.smd 0x0007E5EC # Fireball 2
 	$(GO) $(SEGARD_DECOMP) "$(ROM_DIR)/$(ROM_$(REGION)_$(VERSION))" $(GFX_DIR)/segard/0007EA8C.smd 0x0007EA8C # Fireball 3
@@ -86,7 +88,13 @@ segard_decomp:
 	$(GO) $(SEGARD_DECOMP) "$(ROM_DIR)/$(ROM_$(REGION)_$(VERSION))" $(GFX_DIR)/segard/0007F00E.smd 0x0007F00E # Bolts
 	$(GO) $(SEGARD_DECOMP) "$(ROM_DIR)/$(ROM_$(REGION)_$(VERSION))" $(GFX_DIR)/segard/0007F4C6.smd 0x0007F4C6 # Game Over
 	$(GO) $(SEGARD_DECOMP) "$(ROM_DIR)/$(ROM_$(REGION)_$(VERSION))" $(GFX_DIR)/segard/0007F8B6.smd 0x0007F8B6 # Font
-
+dpcm2wav:
+	$(FFMPEG) -y -f u8 -ar 8000 -ac 1 -i "$(AUDIO_DIR)/pcm/000138EC.pcm" -c:a pcm_u8 $(AUDIO_DIR)/pcm/000138EC.wav
+	$(FFMPEG) -y -f u8 -ar 4000 -ac 1 -i "$(AUDIO_DIR)/pcm/0001552C.pcm" -c:a pcm_u8 $(AUDIO_DIR)/pcm/0001552C.wav
+	$(FFMPEG) -y -f u8 -ar 4000 -ac 1 -i "$(AUDIO_DIR)/pcm/000173B4.pcm" -c:a pcm_u8 $(AUDIO_DIR)/pcm/000173B4.wav
+	$(FFMPEG) -y -f u8 -ar 4000 -ac 1 -i "$(AUDIO_DIR)/pcm/0001AFD4.pcm" -c:a pcm_u8 $(AUDIO_DIR)/pcm/0001AFD4.wav
+	$(FFMPEG) -y -f u8 -ar 4000 -ac 1 -i "$(AUDIO_DIR)/pcm/0001CF56.pcm" -c:a pcm_u8 $(AUDIO_DIR)/pcm/0001CF56.wav
+	$(FFMPEG) -y -f u8 -ar 4000 -ac 1 -i "$(AUDIO_DIR)/pcm/0001EED8.pcm" -c:a pcm_u8 $(AUDIO_DIR)/pcm/0001EED8.wav
 
 test-blastem:
 	$(RETROARCH) --libretro=$(RETROARCH_CORE_BLASTEM) "$(BUILD_DIR)/$(NAME) ($(REGION)) ($(VERSION)) [!].bin" --verbose
