@@ -10,6 +10,7 @@ WORKSPACE					:= .
 AUDIO_DIR					:= $(WORKSPACE)/audio
 BUILD_DIR					:= $(WORKSPACE)/build
 GFX_DIR 					:= $(WORKSPACE)/gfx
+INCLUDES_DIR				:= $(WORKSPACE)/includes
 ROM_DIR						:= $(WORKSPACE)/rom
 TOOLS_DIR					:= $(WORKSPACE)/tools
 Z80_DIR						:= $(WORKSPACE)/z80
@@ -18,18 +19,27 @@ RETROARCH_DIR   			:= $(TOOLS_DIR)/RetroArch-Win64
 # Tooling
 ASM68K 						:= $(TOOLS_DIR)/asm68k/asm68k.exe
 ASM68K_SWITCHES 			?= /m /p /k
-FFMPEG 						:= $(TOOLS_DIR)/ffmpeg/ffmpeg.exe
 GO							:= go run
+GRPDMP						:= $(TOOLS_DIR)/grpdmp/grpdmp.exe
 SEGARD_DECOMP				:= $(TOOLS_DIR)/segard/decomp.go
+PCM2WAV						:= $(TOOLS_DIR)/pcm2wav/pcm2wav.go
 SHA1CHECK					:= $(TOOLS_DIR)/checksum/sha1.go
 RETROARCH 					:= $(RETROARCH_DIR)/retroarch.exe
 RETROARCH_CORE_BLASTEM 		:= $(RETROARCH_DIR)/cores/blastem_libretro.dll
 RETROARCH_CORE_GPGX			:= $(RETROARCH_DIR)/cores/genesis_plus_gx_libretro.dll
 RETROARCH_CORE_PICODRIVE 	:= $(RETROARCH_DIR)/cores/picodrive_libretro.dll
 SJASMPLUS					:= $(TOOLS_DIR)/sjasmplus/sjasmplus.exe
+WAV2PCM						:= $(TOOLS_DIR)/wav2pcm/wav2pcm.go
 
 all: extract build
-build: z80_assemble 68k_assemble sha1
+build: wav2pcm z80_assemble 68k_assemble sha1
+wav2pcm:
+	$(GO) $(WAV2PCM) "$(AUDIO_DIR)/pcm/000138EC.wav" $(AUDIO_DIR)/pcm/000138EC.pcm 8000
+	$(GO) $(WAV2PCM) "$(AUDIO_DIR)/pcm/0001552C.wav" $(AUDIO_DIR)/pcm/0001552C.pcm 4000
+	$(GO) $(WAV2PCM) "$(AUDIO_DIR)/pcm/000173B4.wav" $(AUDIO_DIR)/pcm/000173B4.pcm 4000
+	$(GO) $(WAV2PCM) "$(AUDIO_DIR)/pcm/0001AFD4.wav" $(AUDIO_DIR)/pcm/0001AFD4.pcm 4000
+	$(GO) $(WAV2PCM) "$(AUDIO_DIR)/pcm/0001CF56.wav" $(AUDIO_DIR)/pcm/0001CF56.pcm 4000
+	$(GO) $(WAV2PCM) "$(AUDIO_DIR)/pcm/0001EED8.wav" $(AUDIO_DIR)/pcm/0001EED8.pcm 4000
 z80_assemble:
 	$(SJASMPLUS) --raw="$(Z80_DIR)/sounddriver.bin" --lst="$(Z80_DIR)/sounddriver.txt" "$(Z80_DIR)/sounddriver.asm"
 	$(SJASMPLUS) --raw="$(Z80_DIR)/pcm_driver/pcm_driver1.bin" --lst="$(Z80_DIR)/pcm_driver/pcm_driver1.txt" "$(Z80_DIR)/pcm_driver/pcm_driver1.asm"
@@ -43,7 +53,7 @@ z80_assemble:
 sha1:
 	$(GO) $(SHA1CHECK) "$(BUILD_DIR)/$(NAME) ($(REGION)) ($(VERSION)) [!].bin" $(SHA1)
 
-extract: dpcm2wav segard_decomp
+extract: pcm2wav segard_decomp gfx2png
 segard_decomp:
 	$(GO) $(SEGARD_DECOMP) "$(ROM_DIR)/$(ROM_$(REGION)_$(VERSION))" $(GFX_DIR)/segard/00024000.smd 0x00024000 # Game Font
 	$(GO) $(SEGARD_DECOMP) "$(ROM_DIR)/$(ROM_$(REGION)_$(VERSION))" $(GFX_DIR)/segard/00027DDA.smd 0x00027DDA # Stage 1 background elements
@@ -93,13 +103,16 @@ segard_decomp:
 	$(GO) $(SEGARD_DECOMP) "$(ROM_DIR)/$(ROM_$(REGION)_$(VERSION))" $(GFX_DIR)/segard/0007F00E.smd 0x0007F00E # Bolts
 	$(GO) $(SEGARD_DECOMP) "$(ROM_DIR)/$(ROM_$(REGION)_$(VERSION))" $(GFX_DIR)/segard/0007F4C6.smd 0x0007F4C6 # Game Over
 	$(GO) $(SEGARD_DECOMP) "$(ROM_DIR)/$(ROM_$(REGION)_$(VERSION))" $(GFX_DIR)/segard/0007F8B6.smd 0x0007F8B6 # Font
-dpcm2wav:
-	$(FFMPEG) -y -f u8 -ar 8000 -ac 1 -i "$(AUDIO_DIR)/pcm/000138EC.pcm" -c:a pcm_u8 $(AUDIO_DIR)/pcm/000138EC.wav
-	$(FFMPEG) -y -f u8 -ar 4000 -ac 1 -i "$(AUDIO_DIR)/pcm/0001552C.pcm" -c:a pcm_u8 $(AUDIO_DIR)/pcm/0001552C.wav
-	$(FFMPEG) -y -f u8 -ar 4000 -ac 1 -i "$(AUDIO_DIR)/pcm/000173B4.pcm" -c:a pcm_u8 $(AUDIO_DIR)/pcm/000173B4.wav
-	$(FFMPEG) -y -f u8 -ar 4000 -ac 1 -i "$(AUDIO_DIR)/pcm/0001AFD4.pcm" -c:a pcm_u8 $(AUDIO_DIR)/pcm/0001AFD4.wav
-	$(FFMPEG) -y -f u8 -ar 4000 -ac 1 -i "$(AUDIO_DIR)/pcm/0001CF56.pcm" -c:a pcm_u8 $(AUDIO_DIR)/pcm/0001CF56.wav
-	$(FFMPEG) -y -f u8 -ar 4000 -ac 1 -i "$(AUDIO_DIR)/pcm/0001EED8.pcm" -c:a pcm_u8 $(AUDIO_DIR)/pcm/0001EED8.wav
+pcm2wav:
+	$(GO) $(PCM2WAV) "$(AUDIO_DIR)/pcm/000138EC.pcm" $(AUDIO_DIR)/pcm/000138EC.wav 8000
+	$(GO) $(PCM2WAV) "$(AUDIO_DIR)/pcm/0001552C.pcm" $(AUDIO_DIR)/pcm/0001552C.wav 4000
+	$(GO) $(PCM2WAV) "$(AUDIO_DIR)/pcm/000173B4.pcm" $(AUDIO_DIR)/pcm/000173B4.wav 4000
+	$(GO) $(PCM2WAV) "$(AUDIO_DIR)/pcm/0001AFD4.pcm" $(AUDIO_DIR)/pcm/0001AFD4.wav 4000
+	$(GO) $(PCM2WAV) "$(AUDIO_DIR)/pcm/0001CF56.pcm" $(AUDIO_DIR)/pcm/0001CF56.wav 4000
+	$(GO) $(PCM2WAV) "$(AUDIO_DIR)/pcm/0001EED8.pcm" $(AUDIO_DIR)/pcm/0001EED8.wav 4000
+gfx2png:
+	$(GRPDMP) $(GFX_DIR)/00009FB4.smd $(GFX_DIR)/00009FB4.png -p $(INCLUDES_DIR)/palettes/00009F6C.bin
+
 
 test-blastem:
 	$(RETROARCH) --libretro=$(RETROARCH_CORE_BLASTEM) "$(BUILD_DIR)/$(NAME) ($(REGION)) ($(VERSION)) [!].bin" --verbose

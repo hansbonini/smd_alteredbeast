@@ -1,6 +1,9 @@
-audio/pcm/*.wav
+audio/pcm/*.pcm
 build/*
 gfx/nemesis/*.smd
 gfx/segard/*.smd
 rom/*
 smps/*
+z80/*.bin
+z80/pcm_driver/*.bin
+
