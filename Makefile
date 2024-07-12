@@ -28,6 +28,7 @@ RETROARCH 					:= $(RETROARCH_DIR)/retroarch.exe
 RETROARCH_CORE_BLASTEM 		:= $(RETROARCH_DIR)/cores/blastem_libretro.dll
 RETROARCH_CORE_GPGX			:= $(RETROARCH_DIR)/cores/genesis_plus_gx_libretro.dll
 RETROARCH_CORE_PICODRIVE 	:= $(RETROARCH_DIR)/cores/picodrive_libretro.dll
+SPLITROM 					:= $(TOOLS_DIR)/splitrom/splitrom.exe
 SJASMPLUS					:= $(TOOLS_DIR)/sjasmplus/sjasmplus.exe
 WAV2PCM						:= $(TOOLS_DIR)/wav2pcm/wav2pcm.go
 
@@ -145,7 +146,9 @@ z80_assemble:
 sha1:
 	$(GO) $(SHA1CHECK) "$(BUILD_DIR)/$(NAME) ($(REGION)) ($(VERSION)) [!].bin" $(SHA1)
 
-extract: pcm2wav segard_decomp 68k_assemble_palettes gfx2png
+extract: splitrom pcm2wav segard_decomp gfx2png
+splitrom:
+	$(SPLITROM) "$(ROM_DIR)/$(ROM_$(REGION)_$(VERSION))" split.txt
 segard_decomp:
 	$(GO) $(SEGARD_DECOMP) "$(ROM_DIR)/$(ROM_$(REGION)_$(VERSION))" $(GFX_DIR)/segard/00024000.smd 0x00024000 # Game Font
 	$(GO) $(SEGARD_DECOMP) "$(ROM_DIR)/$(ROM_$(REGION)_$(VERSION))" $(GFX_DIR)/segard/00027DDA.smd 0x00027DDA # Stage 1 background elements
