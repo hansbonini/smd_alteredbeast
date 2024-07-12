@@ -14650,7 +14650,7 @@ assettbl_stage4:dc.l pal_2F1D2          ; DATA XREF: ROM:0000B564   o
                 dc.l word_26C5A
                 dc.l off_269DE
                 dc.w $86
-assettbl_stage5:dc.l gfx_stage5_elements
+assettbl_stage5:dc.l pal_30E4E
                                         ; DATA XREF: ROM:0000B568   o
                 dc.l pal_B8E4
                 dc.l pal_B904
@@ -14658,7 +14658,7 @@ assettbl_stage5:dc.l gfx_stage5_elements
                 dc.l 0
                 dc.l $69000001          ; DO_WRITE_TO_VRAM_AT_$6900_ADDR
                                         ; DO_OPERATION_WITHOUT_DMA
-                dc.l gfx_30E70
+                dc.l gfx_stage5_elements
                 dc.l $40000000          ; DO_WRITE_TO_VRAM_AT_$0000_ADDR
                                         ; DO_OPERATION_WITHOUT_DMA
                 dc.l gfx_sprt_boss_dogs
@@ -37566,12 +37566,12 @@ gfx_stage4_elements:
     incbin "gfx/0002F1F4.smd"
     even
 
-gfx_stage5_elements:dc.b $60, $F, 0, $A0, $A, $E, 8, $C, 6, $A, 4, 8, 0, 6
+pal_30E4E:dc.b $60, $F, 0, $A0, $A, $E, 8, $C, 6, $A, 4, 8, 0, 6
                                         ; DATA XREF: ROM:assettbl_stage5   o
                 dc.b 0, $8E, 0, $6C, 0, $4A, 0, $26, 6, $8C, 4, $6A, 4
                 dc.b $82, 2, $60, 2, $40
     dcb.b 2,0
-gfx_30E70:
+gfx_stage5_elements:
     incbin "gfx/00030E70.smd"
     even
 
