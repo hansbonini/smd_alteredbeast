@@ -2,8 +2,11 @@ audio/pcm/*.pcm
 build/*
 gfx/nemesis/*.smd
 gfx/segard/*.smd
+includes/palettes/*.bin
+includes/palettes/*.txt
 rom/*
 smps/*
 z80/*.bin
+z80/*.txt
 z80/pcm_driver/*.bin
-
+z80/pcm_driver/*.txt
