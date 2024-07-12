@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"io"
 	"math/big"
-	"math/bits"
 	"os"
 )
 
@@ -49,28 +48,28 @@ func main() {
 			a := data[0]
 			b := binary.BigEndian.Uint32(data[1:])
 			pattern |= b
-			for y := 0; y < 0x20; y++ {
-				_, bit := bits.Add32(b, b, 0)
-				b += b
+			k := 0
+			for y := 0x1F; y >= 0; y-- {
+				bit := (b >> y) & 0x1
 				if bit&0x1 == 1 {
-					window[y] = a
+					window[k] = a
 				}
+				k++
 			}
 		}
 
 		x := 0
-		pattern2 := 0xFFFFFFFF ^ pattern
-		if pattern2 != 0 {
-			for y := 0; y < 0x20; y++ {
-				_, bit := bits.Add32(pattern, pattern, 0)
-				pattern += pattern
-				if bit&0x1 == 1 {
-					x++
-				} else {
-					rom.Read(tmp)
+		if pattern != 0xFFFFFFFF {
+			for y := 0x1F; y >= 0x0; y-- {
+				bit := (pattern >> y) & 0x1
+				if bit&0x1 == 0 {
+					_, err := rom.Read(tmp)
+					if err == io.EOF {
+						break
+					}
 					window[x] = tmp[0]
-					x++
 				}
+				x++
 			}
 		}
 
