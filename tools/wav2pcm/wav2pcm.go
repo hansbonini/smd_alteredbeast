@@ -49,15 +49,11 @@ func main() {
 		log.Fatal(err)
 	}
 	for n > 0 {
-		k := 0
-		p := 0
 		for i := 0; i < n; i++ {
-			chunk[k] = byte(buf.Data[p])
-			k++
-			p++
+			chunk[i] = byte(buf.Data[i])
 		}
 
-		_, err = bfo.Write(chunk[0:k])
+		_, err = bfo.Write(chunk[0:n])
 		if err != nil {
 			log.Fatal(err)
 		}
