@@ -881,8 +881,10 @@ byte_C08:       dc.b $78, $40           ; DATA XREF: ROM:00000BC4   o
                 dc.b $70, $40
                 dc.b $60, $38
                 dc.b $78, $48
-    include "includes/palettes/00000C2C.asm"
-    include "includes/palettes/00000C3A.asm"
+    pal_C2C:
+	incbin "includes/palettes/00000C2C.bin"
+    pal_C3A:
+	incbin "includes/palettes/00000C3A.bin"
 ; ---------------------------------------------------------------------------
 loc_C46:                                ; CODE XREF: ROM:00004494   j
                 bset    #7,2(a0)
@@ -1196,8 +1198,10 @@ byte_1026:      dc.b 8, $48, $D8, $10, $18, $4C, $E0, 8, $20, $44, 0, $F0
                 dc.b $F0, $28, $44, $E0
     dcb.b 2,8
                 dc.b $34, 0, $E4
-    include "includes/palettes/000010C6.asm"
-    include "includes/palettes/000010D0.asm"
+    pal_10C6:
+	incbin "includes/palettes/000010C6.bin"
+    pal_10D0:
+	incbin "includes/palettes/000010D0.bin"
 ; ---------------------------------------------------------------------------
 loc_10DA:                               ; CODE XREF: ROM:00004498   j
                 bset    #7,2(a0)
@@ -1579,12 +1583,18 @@ off_159C:       dc.l pal_15BC           ; DATA XREF: sub_1A62+78   o
                 dc.l pal_1602
                 dc.l pal_1602
                 dc.l pal_1602
-    include "includes/palettes/000015BC.asm"
-    include "includes/palettes/000015CA.asm"
-    include "includes/palettes/000015D8.asm"
-    include "includes/palettes/000015E6.asm"
-    include "includes/palettes/000015F4.asm"
-    include "includes/palettes/00001602.asm"
+    pal_15BC:
+	incbin "includes/palettes/000015BC.bin"
+    pal_15CA:
+	incbin "includes/palettes/000015CA.bin"
+    pal_15D8:
+	incbin "includes/palettes/000015D8.bin"
+    pal_15E6:
+	incbin "includes/palettes/000015E6.bin"
+    pal_15F4:
+	incbin "includes/palettes/000015F4.bin"
+    pal_1602:
+	incbin "includes/palettes/00001602.bin"
 ; ---------------------------------------------------------------------------
 loc_1610:                               ; CODE XREF: ROM:0000449C   j
                 bset    #7,2(a0)
@@ -2001,15 +2011,24 @@ off_1B36:       dc.l pal_1B56           ; DATA XREF: sub_1A62+6A   o
                 dc.l pal_1BA6
                 dc.l pal_1BA6
                 dc.l pal_1BA6
-    include "includes/palettes/00001B56.asm"
-    include "includes/palettes/00001B66.asm"
-    include "includes/palettes/00001B76.asm"
-    include "includes/palettes/00001B86.asm"
-    include "includes/palettes/00001B96.asm"
-    include "includes/palettes/00001BA6.asm"
-    include "includes/palettes/00001BB6.asm"
-    include "includes/palettes/00001BC6.asm"
-    include "includes/palettes/00001BD6.asm"
+    pal_1B56:
+	incbin "includes/palettes/00001B56.bin"
+    pal_1B66:
+	incbin "includes/palettes/00001B66.bin"
+    pal_1B76:
+	incbin "includes/palettes/00001B76.bin"
+    pal_1B86:
+	incbin "includes/palettes/00001B86.bin"
+    pal_1B96:
+	incbin "includes/palettes/00001B96.bin"
+    pal_1BA6:
+	incbin "includes/palettes/00001BA6.bin"
+    pal_1BB6:
+	incbin "includes/palettes/00001BB6.bin"
+    pal_1BC6:
+	incbin "includes/palettes/00001BC6.bin"
+    pal_1BD6:
+	incbin "includes/palettes/00001BD6.bin"
 ; ---------------------------------------------------------------------------
 loc_1BE6:                               ; CODE XREF: ROM:000044A0   j
                 bset    #7,2(a0)
@@ -2483,10 +2502,14 @@ off_21C4:       dc.l pal_21F2           ; DATA XREF: sub_2152+4E   o
                 dc.l pal_2210
                 dc.l pal_222E
                 dc.l pal_222E
-    include "includes/palettes/000021D4.asm"
-    include "includes/palettes/000021F2.asm"
-    include "includes/palettes/00002210.asm"
-    include "includes/palettes/0000222E.asm"
+    pal_21D4:
+	incbin "includes/palettes/000021D4.bin"
+    pal_21F2:
+	incbin "includes/palettes/000021F2.bin"
+    pal_2210:
+	incbin "includes/palettes/00002210.bin"
+    pal_222E:
+	incbin "includes/palettes/0000222E.bin"
 
 
 sub_224C:                               ; CODE XREF: sub_696+6   j
@@ -5611,18 +5634,30 @@ loc_3FC6:                               ; CODE XREF: sub_3F76+60   j
                 bra.s   loc_3FBC
 ; End of function sub_3F76
 ; ---------------------------------------------------------------------------
-    include "includes/palettes/00003FDC.asm"
-    include "includes/palettes/00003FF2.asm"
-    include "includes/palettes/00004008.asm"
-    include "includes/palettes/0000401E.asm"
-    include "includes/palettes/00004034.asm"
-    include "includes/palettes/00004048.asm"
-    include "includes/palettes/0000405C.asm"
-    include "includes/palettes/00004070.asm"
-    include "includes/palettes/00004082.asm"
-    include "includes/palettes/00004094.asm"
-    include "includes/palettes/000040A8.asm"
-    include "includes/palettes/000040BE.asm"
+    pal_3FDC:
+	incbin "includes/palettes/00003FDC.bin"
+    pal_3FF2:
+	incbin "includes/palettes/00003FF2.bin"
+    pal_4008:
+	incbin "includes/palettes/00004008.bin"
+    pal_401E:
+	incbin "includes/palettes/0000401E.bin"
+    pal_4034:
+	incbin "includes/palettes/00004034.bin"
+    pal_4048:
+	incbin "includes/palettes/00004048.bin"
+    pal_405C:
+	incbin "includes/palettes/0000405C.bin"
+    pal_4070:
+	incbin "includes/palettes/00004070.bin"
+    pal_4082:
+	incbin "includes/palettes/00004082.bin"
+    pal_4094:
+	incbin "includes/palettes/00004094.bin"
+    pal_40A8:
+	incbin "includes/palettes/000040A8.bin"
+    pal_40BE:
+	incbin "includes/palettes/000040BE.bin"
 
 
 sub_40D4:                               ; CODE XREF: sub_4386+1A   p
@@ -8382,7 +8417,8 @@ loc_6182:                               ; CODE XREF: sub_6160+1A   j
                 rts
 ; End of function sub_6160
 ; ---------------------------------------------------------------------------
-    include "includes/palettes/0000618E.asm"
+    pal_618E:
+	incbin "includes/palettes/0000618E.bin"
 stru_619A:      dc.l $FFF60000          ; field_0
                                         ; DATA XREF: sub_6076+A   o
                 dc.l $80160             ; field_4
@@ -11968,13 +12004,20 @@ pallist_8EA2:   dc.l pal_8EBE           ; DATA XREF: sub_8D16+16   o
                 dc.l pal_8EF2
                 dc.l pal_8EFA
                 dc.l pal_8EFA
-    include "includes/palettes/00008EBE.asm"
-    include "includes/palettes/00008ECE.asm"
-    include "includes/palettes/00008EDC.asm"
-    include "includes/palettes/00008EE8.asm"
-    include "includes/palettes/00008EF2.asm"
-    include "includes/palettes/00008EFA.asm"
-    include "includes/palettes/00008F00.asm"
+    pal_8EBE:
+	incbin "includes/palettes/00008EBE.bin"
+    pal_8ECE:
+	incbin "includes/palettes/00008ECE.bin"
+    pal_8EDC:
+	incbin "includes/palettes/00008EDC.bin"
+    pal_8EE8:
+	incbin "includes/palettes/00008EE8.bin"
+    pal_8EF2:
+	incbin "includes/palettes/00008EF2.bin"
+    pal_8EFA:
+	incbin "includes/palettes/00008EFA.bin"
+    pal_8F00:
+	incbin "includes/palettes/00008F00.bin"
 byte_8F04:      dc.b 7                  ; DATA XREF: sub_8D16+42   r
                 dc.b   0
 pallist_8F06:   dc.l pal_8F22           ; DATA XREF: sub_8D16+3C   o
@@ -11984,13 +12027,20 @@ pallist_8F06:   dc.l pal_8F22           ; DATA XREF: sub_8D16+3C   o
                 dc.l pal_8F62
                 dc.l pal_8F72
                 dc.l pal_8F82
-    include "includes/palettes/00008F22.asm"
-    include "includes/palettes/00008F32.asm"
-    include "includes/palettes/00008F42.asm"
-    include "includes/palettes/00008F52.asm"
-    include "includes/palettes/00008F62.asm"
-    include "includes/palettes/00008F72.asm"
-    include "includes/palettes/00008F82.asm"
+    pal_8F22:
+	incbin "includes/palettes/00008F22.bin"
+    pal_8F32:
+	incbin "includes/palettes/00008F32.bin"
+    pal_8F42:
+	incbin "includes/palettes/00008F42.bin"
+    pal_8F52:
+	incbin "includes/palettes/00008F52.bin"
+    pal_8F62:
+	incbin "includes/palettes/00008F62.bin"
+    pal_8F72:
+	incbin "includes/palettes/00008F72.bin"
+    pal_8F82:
+	incbin "includes/palettes/00008F82.bin"
 ; ---------------------------------------------------------------------------
 loc_8F92:                               ; CODE XREF: ROM:000044C0   j
                 bset    #7,2(a0)
@@ -12973,21 +13023,36 @@ pallist_9CE0:   dc.l pal_9D7A           ; DATA XREF: sub_92B6+2E   o
                 dc.l pal_9D3E
                 dc.l pal_9D4C
                 dc.l pal_9D00
-    include "includes/palettes/00009D00.asm"
-    include "includes/palettes/00009D04.asm"
-    include "includes/palettes/00009D14.asm"
-    include "includes/palettes/00009D22.asm"
-    include "includes/palettes/00009D30.asm"
-    include "includes/palettes/00009D3E.asm"
-    include "includes/palettes/00009D4C.asm"
-    include "includes/palettes/00009D5A.asm"
-    include "includes/palettes/00009D68.asm"
-    include "includes/palettes/00009D76.asm"
-    include "includes/palettes/00009D7A.asm"
-    include "includes/palettes/00009D9C.asm"
-    include "includes/palettes/00009DB0.asm"
-    include "includes/palettes/00009DC2.asm"
-    include "includes/palettes/00009DD6.asm"
+    pal_9D00:
+	incbin "includes/palettes/00009D00.bin"
+    pal_9D04:
+	incbin "includes/palettes/00009D04.bin"
+    pal_9D14:
+	incbin "includes/palettes/00009D14.bin"
+    pal_9D22:
+	incbin "includes/palettes/00009D22.bin"
+    pal_9D30:
+	incbin "includes/palettes/00009D30.bin"
+    pal_9D3E:
+	incbin "includes/palettes/00009D3E.bin"
+    pal_9D4C:
+	incbin "includes/palettes/00009D4C.bin"
+    pal_9D5A:
+	incbin "includes/palettes/00009D5A.bin"
+    pal_9D68:
+	incbin "includes/palettes/00009D68.bin"
+    pal_9D76:
+	incbin "includes/palettes/00009D76.bin"
+    pal_9D7A:
+	incbin "includes/palettes/00009D7A.bin"
+    pal_9D9C:
+	incbin "includes/palettes/00009D9C.bin"
+    pal_9DB0:
+	incbin "includes/palettes/00009DB0.bin"
+    pal_9DC2:
+	incbin "includes/palettes/00009DC2.bin"
+    pal_9DD6:
+	incbin "includes/palettes/00009DD6.bin"
 
 
 draw_segalogo:                          ; CODE XREF: ROM:0000A830   p
@@ -13179,8 +13244,10 @@ vdpregs_9F46:   dc.w $8004              ; DATA XREF: draw_segalogo+18   o
                                         ; MOVE_BY_0_CELLS
                 dc.w $9200              ; MOVE_WINDOW_VERT_LEFT
                                         ; MOVE_BY_0_CELLS
-    include "includes/palettes/00009F6C.asm"
-    include "includes/palettes/00009F94.asm"
+    pal_9F6C:
+	incbin "includes/palettes/00009F6C.bin"
+    pal_9F94:
+	incbin "includes/palettes/00009F94.bin"
 gfx_segalogo:
     incbin "gfx/00009FB4.smd"
     even
@@ -13696,8 +13763,10 @@ loc_AD38:                               ; CODE XREF: ROM:0000AC44   j
                 move.w  #0,$E(a0)
                 jmp     (load_animtbl).l
 ; ---------------------------------------------------------------------------
-    include "includes/palettes/0000AD54.asm"
-    include "includes/palettes/0000AD5C.asm"
+    pal_AD54:
+	incbin "includes/palettes/0000AD54.bin"
+    pal_AD5C:
+	incbin "includes/palettes/0000AD5C.bin"
 ; ---------------------------------------------------------------------------
 loc_AD64:                               ; CODE XREF: ROM:0000A71A   j
                 bset    #7,(word_FFB140+1).w
@@ -14620,18 +14689,30 @@ assettbl_stage5:dc.l gfx_stage5_elements
                 dc.l word_27726
                 dc.l off_2743C
                 dc.w $87
-    include "includes/palettes/0000B7CE.asm"
-    include "includes/palettes/0000B7EC.asm"
-    include "includes/palettes/0000B80A.asm"
-    include "includes/palettes/0000B828.asm"
-    include "includes/palettes/0000B846.asm"
-    include "includes/palettes/0000B864.asm"
-    include "includes/palettes/0000B884.asm"
-    include "includes/palettes/0000B8A4.asm"
-    include "includes/palettes/0000B8C4.asm"
-    include "includes/palettes/0000B8E4.asm"
-    include "includes/palettes/0000B904.asm"
-    include "includes/palettes/0000B912.asm"
+    pal_B7CE:
+	incbin "includes/palettes/0000B7CE.bin"
+    pal_B7EC:
+	incbin "includes/palettes/0000B7EC.bin"
+    pal_B80A:
+	incbin "includes/palettes/0000B80A.bin"
+    pal_B828:
+	incbin "includes/palettes/0000B828.bin"
+    pal_B846:
+	incbin "includes/palettes/0000B846.bin"
+    pal_B864:
+	incbin "includes/palettes/0000B864.bin"
+    pal_B884:
+	incbin "includes/palettes/0000B884.bin"
+    pal_B8A4:
+	incbin "includes/palettes/0000B8A4.bin"
+    pal_B8C4:
+	incbin "includes/palettes/0000B8C4.bin"
+    pal_B8E4:
+	incbin "includes/palettes/0000B8E4.bin"
+    pal_B904:
+	incbin "includes/palettes/0000B904.bin"
+    pal_B912:
+	incbin "includes/palettes/0000B912.bin"
 ; ---------------------------------------------------------------------------
 screen_titlescreen:                     ; CODE XREF: ROM:0000A716   j
                 bset    #7,(word_FFB140+1).w
@@ -14920,15 +15001,24 @@ text_copyright: dc.l $7C380002          ; DATA XREF: ROM:0000BC08   o
                 dc.b '!"#$% 1988'
                 dc.b   0
                 dc.b   0
-    include "includes/palettes/0000BCB4.asm"
-    include "includes/palettes/0000BCC4.asm"
-    include "includes/palettes/0000BD06.asm"
-    include "includes/palettes/0000BD10.asm"
-    include "includes/palettes/0000BD1A.asm"
-    include "includes/palettes/0000BD2A.asm"
-    include "includes/palettes/0000BD3A.asm"
-    include "includes/palettes/0000BD4A.asm"
-    include "includes/palettes/0000BD5A.asm"
+    pal_BCB4:
+	incbin "includes/palettes/0000BCB4.bin"
+    pal_BCC4:
+	incbin "includes/palettes/0000BCC4.bin"
+    pal_BD06:
+	incbin "includes/palettes/0000BD06.bin"
+    pal_BD10:
+	incbin "includes/palettes/0000BD10.bin"
+    pal_BD1A:
+	incbin "includes/palettes/0000BD1A.bin"
+    pal_BD2A:
+	incbin "includes/palettes/0000BD2A.bin"
+    pal_BD3A:
+	incbin "includes/palettes/0000BD3A.bin"
+    pal_BD4A:
+	incbin "includes/palettes/0000BD4A.bin"
+    pal_BD5A:
+	incbin "includes/palettes/0000BD5A.bin"
 gfx_copyright:
     incbin "gfx/0000BD72.smd"
     even
