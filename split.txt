@@ -92,10 +92,10 @@
 #split  0x0000BD5A,0x0000BD72,includes/palettes/0000BD5A.bin
 #split  0x000138EC,0x000153AC,audio/pcm/000138EC.pcm
 #split  0x0001552C,0x00017234,audio/pcm/0001552C.pcm
-#split  0x000173B4,0x0001919A,audio/pcm/000173B4.pcm
-#split  0x0001AFD4,0x0001CDCC,audio/pcm/0001AFD4.pcm
-#split  0x0001CF56,0x0001ED56,audio/pcm/0001CF56.pcm
-#split  0x0001EED8,0x00020A8A,audio/pcm/0001EED8.pcm
+#split  0x000173B4,0x0001919D,audio/pcm/000173B4.pcm
+#split  0x0001AFD4,0x0001CDD5,audio/pcm/0001AFD4.pcm
+#split  0x0001CF56,0x0001ED57,audio/pcm/0001CF56.pcm
+#split  0x0001EED8,0x00020A89,audio/pcm/0001EED8.pcm
 #split  0x00009FB4,0x0000A5D4,gfx/00009FB4.smd
 #split  0x0000BD72,0x0000BE12,gfx/0000BD72.smd
 #split  0x00024000,0x000244EF,gfx/00024000.smd
