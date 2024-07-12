@@ -1,5 +1,6 @@
 audio/pcm/*.pcm
 build/*
+gfx/*.smd
 gfx/nemesis/*.smd
 gfx/segard/*.smd
 includes/palettes/*.bin
