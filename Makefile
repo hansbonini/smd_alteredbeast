@@ -21,6 +21,7 @@ ASM68K 						:= $(TOOLS_DIR)/asm68k/asm68k.exe
 ASM68K_SWITCHES 			?= /m /p /k
 GO							:= go run
 GRPDMP						:= $(TOOLS_DIR)/grpdmp/grpdmp.exe
+GRPUNDMP					:= $(TOOLS_DIR)/grpundmp/grpundmp.exe
 SEGARD_DECOMP				:= $(TOOLS_DIR)/segard/decomp.go
 PCM2WAV						:= $(TOOLS_DIR)/pcm2wav/pcm2wav.go
 SHA1CHECK					:= $(TOOLS_DIR)/checksum/sha1.go
@@ -33,7 +34,7 @@ SJASMPLUS					:= $(TOOLS_DIR)/sjasmplus/sjasmplus.exe
 WAV2PCM						:= $(TOOLS_DIR)/wav2pcm/wav2pcm.go
 
 all: extract build
-build: wav2pcm z80_assemble 68k_assemble_palettes 68k_assemble sha1
+build: wav2pcm png2gfx z80_assemble 68k_assemble_palettes 68k_assemble sha1
 wav2pcm:
 	$(GO) $(WAV2PCM) "$(AUDIO_DIR)/pcm/000138EC.wav" $(AUDIO_DIR)/pcm/000138EC.pcm 8000
 	$(GO) $(WAV2PCM) "$(AUDIO_DIR)/pcm/0001552C.wav" $(AUDIO_DIR)/pcm/0001552C.pcm 4000
@@ -41,6 +42,12 @@ wav2pcm:
 	$(GO) $(WAV2PCM) "$(AUDIO_DIR)/pcm/0001AFD4.wav" $(AUDIO_DIR)/pcm/0001AFD4.pcm 4000
 	$(GO) $(WAV2PCM) "$(AUDIO_DIR)/pcm/0001CF56.wav" $(AUDIO_DIR)/pcm/0001CF56.pcm 4000
 	$(GO) $(WAV2PCM) "$(AUDIO_DIR)/pcm/0001EED8.wav" $(AUDIO_DIR)/pcm/0001EED8.pcm 4000
+png2gfx:
+	$(GRPUNDMP) $(GFX_DIR)/0000BD72.png $(GFX_DIR)/0000BD72.smd -p $(INCLUDES_DIR)/palettes/0000BCB4.bin
+	fsutil file seteof $(GFX_DIR)/0000BD72.smd 160
+	$(GRPUNDMP) $(GFX_DIR)/00009FB4.png $(GFX_DIR)/00009FB4.smd -p $(INCLUDES_DIR)/palettes/00009F94.bin
+	fsutil file seteof $(GFX_DIR)/00009FB4.smd 1568
+	$(GRPUNDMP) $(GFX_DIR)/segard/0004D24E.png $(GFX_DIR)/segard/0004D24E.smd -p $(INCLUDES_DIR)/palettes/0000BCB4.bin
 z80_assemble:
 	$(SJASMPLUS) --raw="$(Z80_DIR)/sounddriver.bin" --lst="$(Z80_DIR)/sounddriver.txt" "$(Z80_DIR)/sounddriver.asm"
 	$(SJASMPLUS) --raw="$(Z80_DIR)/pcm_driver/pcm_driver1.bin" --lst="$(Z80_DIR)/pcm_driver/pcm_driver1.txt" "$(Z80_DIR)/pcm_driver/pcm_driver1.asm"
@@ -260,12 +267,12 @@ pcm2wav:
 # Welcome to yor Doom
 	$(GO) $(PCM2WAV) "$(AUDIO_DIR)/pcm/0001EED8.pcm" $(AUDIO_DIR)/pcm/0001EED8.wav 4000
 gfx2png:
-	$(GRPDMP) $(GFX_DIR)/00009FB4.smd $(GFX_DIR)/00009FB4.png -p $(INCLUDES_DIR)/palettes/00009F6C.bin
+	$(GRPDMP) $(GFX_DIR)/00009FB4.smd $(GFX_DIR)/00009FB4.png -p $(INCLUDES_DIR)/palettes/00009F94.bin
 	$(GRPDMP) $(GFX_DIR)/0000BD72.smd $(GFX_DIR)/0000BD72.png -p $(INCLUDES_DIR)/palettes/0000BCB4.bin
 	$(GRPDMP) $(GFX_DIR)/segard/00024000.smd $(GFX_DIR)/segard/00024000.png -p $(INCLUDES_DIR)/palettes/0000BD4A.bin
 #	$(GRPDMP) $(GFX_DIR)/segard/00027DDA.smd $(GFX_DIR)/segard/00027DDA.png -p $(INCLUDES_DIR)/palettes/00027DB8.bin
 #	$(GRPDMP) $(GFX_DIR)/segard/0002ACEA.smd $(GFX_DIR)/segard/0002ACEA.png -p $(INCLUDES_DIR)/palettes/0002ACC8.bin
-#	$(GRPDMP) $(GFX_DIR)/segard/0002D1AA.smd $(GFX_DIR)/segard/0002D1AA.png -p $(INCLUDES_DIR)/palettes/0002D188.bin
+#	$(GRPDMP) $(GFX_DIR)/segard/0002D1AA.smd $(GFX_DIR)/segard/0002D1AA.png -p $(fINCLUDES_DIR)/palettes/0002D188.bin
 #	$(GRPDMP) $(GFX_DIR)/segard/0002F1F4.smd $(GFX_DIR)/segard/0002F1F4.png -p $(INCLUDES_DIR)/palettes/0002F1D2.bin
 #	$(GRPDMP) $(GFX_DIR)/segard/00030E70.smd $(GFX_DIR)/segard/00030E70.png -p $(INCLUDES_DIR)/palettes/00030E4E.bin
 #	$(GRPDMP) $(GFX_DIR)/segard/00033AAA.smd $(GFX_DIR)/segard/00033AAA.png
