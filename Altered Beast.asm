@@ -45736,11 +45736,9 @@ gfx_titlescreen:
     incbin "gfx/0004D64E.smd"
     even
 
-pal_529E8:      dc.b 0                  ; index
-                                        ; DATA XREF: ROM:0000B570   o
-                dc.b $F                 ; size
-                dc.w $E00, $8CE, $68C, $468, $A48, $C4A, $E6C, $266, $488; colors
-                dc.w $8CC, $666, $AAA, $EEE, $AEE, $BE, 0; colors
+pal_529E8:
+    incbin "includes/palettes/000529E8.bin"
+
 gfx_sprt_zeus:
     incbin "gfx/00052A0A.smd"
     even
@@ -46101,12 +46099,9 @@ byte_53162:     dc.b 8                  ; DATA XREF: sub_90C4+C   o
                 dc.b $11
                 dc.b $FF
                 dc.b   0
-pal_531A0:      dc.b 0                  ; index
-                                        ; DATA XREF: ROM:000582F4   o
-                                        ; ROM:00058306   o ...
-                dc.b $E                 ; size
-                dc.w $E00, $4AE, $6CE, $EEE, $CEE, $CEE, $AEE, $8CE, $6AE; colors
-                dc.w $48C, $26A, $48, $26, 4, 0; colors
+pal_531A0:      
+    incbin "includes/palettes/000531A0.bin"
+
 unk_531C0:      dc.b   2                ; DATA XREF: ROM:0005830A   o
                 dc.b  $D
                 dc.b  $C
