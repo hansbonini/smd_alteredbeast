@@ -97,5 +97,13 @@ func main() {
 	}
 	// Add EOF compression to output
 	out.Write([]byte{0xFF})
+	fo, err := out.Stat()
+	if err != nil {
+		panic(err)
+	}
+	// If size is even add an extra EOF byte to output
+	if fo.Size()%2 == 0 {
+		out.Write([]byte{0xFF})
+	}
 
 }

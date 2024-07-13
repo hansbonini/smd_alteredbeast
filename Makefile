@@ -35,7 +35,7 @@ SJASMPLUS					:= $(TOOLS_DIR)/sjasmplus/sjasmplus.exe
 WAV2PCM						:= $(TOOLS_DIR)/wav2pcm/wav2pcm.go
 
 all: extract build
-build: wav2pcm png2gfx z80_assemble 68k_assemble_palettes 68k_assemble sha1
+build: wav2pcm z80_assemble 68k_assemble_palettes png2gfx segard_comp 68k_assemble sha1
 wav2pcm:
 	$(GO) $(WAV2PCM) "$(AUDIO_DIR)/pcm/000138EC.wav" $(AUDIO_DIR)/pcm/000138EC.pcm 8000
 	$(GO) $(WAV2PCM) "$(AUDIO_DIR)/pcm/0001552C.wav" $(AUDIO_DIR)/pcm/0001552C.pcm 4000
@@ -48,7 +48,13 @@ png2gfx:
 	fsutil file seteof $(GFX_DIR)/0000BD72.smd 160
 	$(GRPUNDMP) $(GFX_DIR)/00009FB4.png $(GFX_DIR)/00009FB4.smd -p $(INCLUDES_DIR)/palettes/00009F94.bin
 	fsutil file seteof $(GFX_DIR)/00009FB4.smd 1568
-	$(GRPUNDMP) $(GFX_DIR)/segard/0004D24E.png $(GFX_DIR)/segard/0004D24E.smd -p $(INCLUDES_DIR)/palettes/0000BCB4.bin
+	$(GRPUNDMP) $(GFX_DIR)/segard/0004D24E.png $(GFX_DIR)/segard/0004D24E.smd -p $(INCLUDES_DIR)/palettes/0000BD5A.bin
+	fsutil file seteof $(GFX_DIR)/segard/0004D24E.smd 1600
+	$(GRPUNDMP) $(GFX_DIR)/segard/0004D64E.png $(GFX_DIR)/segard/0004D64E.smd -p $(INCLUDES_DIR)/palettes/0000BD4A.bin
+	fsutil file seteof $(GFX_DIR)/segard/0004D64E.smd 29472
+segard_comp:
+	$(GO) $(SEGARD_COMP) $(GFX_DIR)/segard/0004D24E.smd $(GFX_DIR)/0004D24E.smd
+	$(GO) $(SEGARD_COMP) $(GFX_DIR)/segard/0004D64E.smd $(GFX_DIR)/0004D64E.smd
 z80_assemble:
 	$(SJASMPLUS) --raw="$(Z80_DIR)/sounddriver.bin" --lst="$(Z80_DIR)/sounddriver.txt" "$(Z80_DIR)/sounddriver.asm"
 	$(SJASMPLUS) --raw="$(Z80_DIR)/pcm_driver/pcm_driver1.bin" --lst="$(Z80_DIR)/pcm_driver/pcm_driver1.txt" "$(Z80_DIR)/pcm_driver/pcm_driver1.asm"
@@ -303,7 +309,7 @@ gfx2png:
 #	$(GRPDMP) $(GFX_DIR)/segard/0004AAEE.smd $(GFX_DIR)/segard/0004AAEE.png
 #	$(GRPDMP) $(GFX_DIR)/segard/0004B00A.smd $(GFX_DIR)/segard/0004B00A.png
 #	$(GRPDMP) $(GFX_DIR)/segard/0004B3A4.smd $(GFX_DIR)/segard/0004B3A4.png
-	$(GRPDMP) $(GFX_DIR)/segard/0004D24E.smd $(GFX_DIR)/segard/0004D24E.png -p $(INCLUDES_DIR)/palettes/0000BCB4.bin
+	$(GRPDMP) $(GFX_DIR)/segard/0004D24E.smd $(GFX_DIR)/segard/0004D24E.png -p $(INCLUDES_DIR)/palettes/0000BD5A.bin
 	$(GRPDMP) $(GFX_DIR)/segard/0004D64E.smd $(GFX_DIR)/segard/0004D64E.png -p $(INCLUDES_DIR)/palettes/0000BD4A.bin
 #	$(GRPDMP) $(GFX_DIR)/segard/00052A0A.smd $(GFX_DIR)/segard/00052A0A.png
 #	$(GRPDMP) $(GFX_DIR)/segard/00058562.smd $(GFX_DIR)/segard/00058562.png
