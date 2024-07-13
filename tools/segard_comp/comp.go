@@ -39,15 +39,11 @@ func main() {
 		for _, b := range window {
 			stats[b]++
 		}
-		statsKeys := make([]byte, 0, len(stats))
-		for b := range stats {
-			statsKeys = append(statsKeys, b)
-		}
 
 		// To be a candidate needs to have value greater or equal 6
-		for k := range statsKeys {
-			if stats[statsKeys[k]] > 5 {
-				candidates[statsKeys[k]] = stats[statsKeys[k]]
+		for k, v := range stats {
+			if v > 5 {
+				candidates[k] = v
 			}
 		}
 
