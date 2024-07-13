@@ -39,6 +39,7 @@ func main() {
 	window := make([]byte, 0x20)
 	rom.Read(readed)
 	for readed[0] != byte(0xFF) {
+		fmt.Printf("%02X\n", readed)
 		var pattern uint32
 		for x := uint8(0); x < readed[0]; x++ {
 			_, err := rom.Read(data)
@@ -58,6 +59,7 @@ func main() {
 			}
 		}
 
+		fmt.Printf("%X\n\n", pattern)
 		x := 0
 		if pattern != 0xFFFFFFFF {
 			for y := 0x1F; y >= 0x0; y-- {
