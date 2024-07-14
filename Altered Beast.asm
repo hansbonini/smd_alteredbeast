@@ -37530,11 +37530,9 @@ word_27A40:     dc.w     0,    0,    0,    0,    0,    0,$6459,$645A,    0
                 dc.w $6533,$6534,$6534,$6535,$6535,$6535,$6535,$6535,$6535
                 dc.w $6536,$6537,$6538,$6539,$653A,$653B,$653C,$653D,$6D37
                 dc.w $6D36,$6D39,$6D38
-pal_27DB8:      dc.b $60                ; index
-                                        ; DATA XREF: ROM:assettbl_stage1   o
-                dc.b $F                 ; size
-                dc.w $E00, $CEC, $ACA, $8A8, $686, $6AA, $488, $266, $C6; colors
-                dc.w $A4, $82, $6A0, $480, $460, $EA8, $A64; colors
+pal_27DB8:
+    incbin "includes/palettes/00027DB8.bin"
+    
 gfx_stage1_elements:
     incbin "gfx/00027DDA.smd"
     even
