@@ -135,6 +135,9 @@
 #split  0x0004D24E,0x0004D64D,gfx/0004D24E.smd
 #split  0x0004D64E,0x000529E7,gfx/0004D64E.smd
 #split  0x0004C600,0x0004CD17,gfx/0004C600.smd
+#split  0x0004CD18,0x0004CE20,includes/tilemaps/0004CD18.bin
+#split  0x0004CE20,0x0004D0AE,includes/tilemaps/0004CE20.bin
+#split  0x0004D0AE,0x0004D1E2,includes/tilemaps/0004D0AE.bin
 #split  0x000529E8,0x00052A0A,includes/palettes/000529E8.bin
 #split  0x00052A0A,0x00052ECD,gfx/00052A0A.smd
 #split  0x000531A0,0x000531C0,includes/palettes/000531A0.bin
