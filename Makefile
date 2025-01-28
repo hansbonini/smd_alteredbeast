@@ -163,8 +163,13 @@ z80_assemble:
 	$(ASM68K) $(ASM68K_SWITCHES) "$(INCLUDES_DIR)/palettes/0000BD3A.asm","$(INCLUDES_DIR)/palettes/0000BD3A.bin",,"$(INCLUDES_DIR)/palettes/0000BD3A.txt"
 	$(ASM68K) $(ASM68K_SWITCHES) "$(INCLUDES_DIR)/palettes/0000BD4A.asm","$(INCLUDES_DIR)/palettes/0000BD4A.bin",,"$(INCLUDES_DIR)/palettes/0000BD4A.txt"
 	$(ASM68K) $(ASM68K_SWITCHES) "$(INCLUDES_DIR)/palettes/0000BD5A.asm","$(INCLUDES_DIR)/palettes/0000BD5A.bin",,"$(INCLUDES_DIR)/palettes/0000BD5A.txt"
+	$(ASM68K) $(ASM68K_SWITCHES) "$(INCLUDES_DIR)/palettes/0002ACC8.asm","$(INCLUDES_DIR)/palettes/0002ACC8.bin",,"$(INCLUDES_DIR)/palettes/0002ACC8.txt"
+	$(ASM68K) $(ASM68K_SWITCHES) "$(INCLUDES_DIR)/palettes/0002D188.asm","$(INCLUDES_DIR)/palettes/0002D188.bin",,"$(INCLUDES_DIR)/palettes/0002D188.txt"
+	$(ASM68K) $(ASM68K_SWITCHES) "$(INCLUDES_DIR)/palettes/0002F1D2.asm","$(INCLUDES_DIR)/palettes/0002F1D2.bin",,"$(INCLUDES_DIR)/palettes/0002F1D2.txt"
+	$(ASM68K) $(ASM68K_SWITCHES) "$(INCLUDES_DIR)/palettes/00030E4E.asm","$(INCLUDES_DIR)/palettes/00030E4E.bin",,"$(INCLUDES_DIR)/palettes/00030E4E.txt"
 	$(ASM68K) $(ASM68K_SWITCHES) "$(INCLUDES_DIR)/palettes/000529E8.asm","$(INCLUDES_DIR)/palettes/000529E8.bin",,"$(INCLUDES_DIR)/palettes/000529E8.txt"
 	$(ASM68K) $(ASM68K_SWITCHES) "$(INCLUDES_DIR)/palettes/000531A0.asm","$(INCLUDES_DIR)/palettes/000531A0.bin",,"$(INCLUDES_DIR)/palettes/000531A0.txt"
+	$(ASM68K) $(ASM68K_SWITCHES) "$(INCLUDES_DIR)/palettes/greyscale.asm","$(INCLUDES_DIR)/palettes/greyscale.bin",,"$(INCLUDES_DIR)/palettes/greyscale.txt"
 68k_assemble:
 	$(ASM68K) $(ASM68K_SWITCHES) "$(NAME).asm","$(BUILD_DIR)/$(NAME) ($(REGION)) ($(VERSION)) [!].bin",,"$(BUILD_DIR)/$(NAME) ($(REGION)) ($(VERSION)) [!].txt"
 
@@ -292,52 +297,52 @@ gfx2png:
 	$(GO) $(GFXDUMP) $(GFX_DIR)/0000BD72.smd $(GFX_DIR)/0000BD72.png $(INCLUDES_DIR)/palettes/0000BCB4.bin 2
 	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/00024000.smd $(GFX_DIR)/segard/00024000.png $(INCLUDES_DIR)/palettes/0000BD4A.bin 2 1
 	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/00027DDA.smd $(GFX_DIR)/segard/00027DDA.png $(INCLUDES_DIR)/palettes/00027DB8.bin 2
-#	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/0002ACEA.smd $(GFX_DIR)/segard/0002ACEA.png $(INCLUDES_DIR)/palettes/0002ACC8.bin
-#	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/0002D1AA.smd $(GFX_DIR)/segard/0002D1AA.png $(INCLUDES_DIR)/palettes/0002D188.bin
-#	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/0002F1F4.smd $(GFX_DIR)/segard/0002F1F4.png $(INCLUDES_DIR)/palettes/0002F1D2.bin
-#	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/00030E70.smd $(GFX_DIR)/segard/00030E70.png $(INCLUDES_DIR)/palettes/00030E4E.bin
-#	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/00033AAA.smd $(GFX_DIR)/segard/00033AAA.png
-#	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/0003565C.smd $(GFX_DIR)/segard/0003565C.png
-#	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/00038A2E.smd $(GFX_DIR)/segard/00038A2E.png
-#	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/0003BA00.smd $(GFX_DIR)/segard/0003BA00.png
-#	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/0003DFE0.smd $(GFX_DIR)/segard/0003DFE0.png
-#	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/00040A1C.smd $(GFX_DIR)/segard/00040A1C.png
-#	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/0004195C.smd $(GFX_DIR)/segard/0004195C.png
-#	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/00041AB8.smd $(GFX_DIR)/segard/00041AB8.png
-#	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/00041EC8.smd $(GFX_DIR)/segard/00041EC8.png
-#	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/0004270A.smd $(GFX_DIR)/segard/0004270A.png
-#	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/00042E7C.smd $(GFX_DIR)/segard/00042E7C.png
-#	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/000435E2.smd $(GFX_DIR)/segard/000435E2.png
-#	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/00043F22.smd $(GFX_DIR)/segard/00043F22.png
-#	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/0004479E.smd $(GFX_DIR)/segard/0004479E.png
-#	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/00044DA2.smd $(GFX_DIR)/segard/00044DA2.png
-#	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/0004547A.smd $(GFX_DIR)/segard/0004547A.png
-#	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/00045DAC.smd $(GFX_DIR)/segard/00045DAC.png
-#	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/000463DC.smd $(GFX_DIR)/segard/000463DC.png
-#	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/000470D8.smd $(GFX_DIR)/segard/000470D8.png
-#	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/000476C6.smd $(GFX_DIR)/segard/000476C6.png
-#	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/00047F56.smd $(GFX_DIR)/segard/00047F56.png
-#	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/00048452.smd $(GFX_DIR)/segard/00048452.png
-#	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/00049020.smd $(GFX_DIR)/segard/00049020.png
-#	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/0004A30E.smd $(GFX_DIR)/segard/0004A30E.png
-#	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/0004AAEE.smd $(GFX_DIR)/segard/0004AAEE.png
-#	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/0004B00A.smd $(GFX_DIR)/segard/0004B00A.png
-#	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/0004B3A4.smd $(GFX_DIR)/segard/0004B3A4.png
+	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/0002ACEA.smd $(GFX_DIR)/segard/0002ACEA.png $(INCLUDES_DIR)/palettes/0002ACC8.bin
+	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/0002D1AA.smd $(GFX_DIR)/segard/0002D1AA.png $(INCLUDES_DIR)/palettes/0002D188.bin
+	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/0002F1F4.smd $(GFX_DIR)/segard/0002F1F4.png $(INCLUDES_DIR)/palettes/0002F1D2.bin
+	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/00030E70.smd $(GFX_DIR)/segard/00030E70.png $(INCLUDES_DIR)/palettes/00030E4E.bin
+	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/00033AAA.smd $(GFX_DIR)/segard/00033AAA.png $(INCLUDES_DIR)/palettes/greyscale.bin 2
+	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/0003565C.smd $(GFX_DIR)/segard/0003565C.png $(INCLUDES_DIR)/palettes/greyscale.bin 2
+	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/00038A2E.smd $(GFX_DIR)/segard/00038A2E.png $(INCLUDES_DIR)/palettes/greyscale.bin 2
+	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/0003BA00.smd $(GFX_DIR)/segard/0003BA00.png $(INCLUDES_DIR)/palettes/greyscale.bin 2
+	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/0003DFE0.smd $(GFX_DIR)/segard/0003DFE0.png $(INCLUDES_DIR)/palettes/greyscale.bin 2
+	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/00040A1C.smd $(GFX_DIR)/segard/00040A1C.png $(INCLUDES_DIR)/palettes/greyscale.bin 2
+	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/0004195C.smd $(GFX_DIR)/segard/0004195C.png $(INCLUDES_DIR)/palettes/greyscale.bin 2
+	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/00041AB8.smd $(GFX_DIR)/segard/00041AB8.png $(INCLUDES_DIR)/palettes/greyscale.bin 2
+	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/00041EC8.smd $(GFX_DIR)/segard/00041EC8.png $(INCLUDES_DIR)/palettes/greyscale.bin 2
+	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/0004270A.smd $(GFX_DIR)/segard/0004270A.png $(INCLUDES_DIR)/palettes/greyscale.bin 2
+	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/00042E7C.smd $(GFX_DIR)/segard/00042E7C.png $(INCLUDES_DIR)/palettes/greyscale.bin 2
+	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/000435E2.smd $(GFX_DIR)/segard/000435E2.png $(INCLUDES_DIR)/palettes/greyscale.bin 2
+	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/00043F22.smd $(GFX_DIR)/segard/00043F22.png $(INCLUDES_DIR)/palettes/greyscale.bin 2
+	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/0004479E.smd $(GFX_DIR)/segard/0004479E.png $(INCLUDES_DIR)/palettes/greyscale.bin 2
+	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/00044DA2.smd $(GFX_DIR)/segard/00044DA2.png $(INCLUDES_DIR)/palettes/greyscale.bin 2
+	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/0004547A.smd $(GFX_DIR)/segard/0004547A.png $(INCLUDES_DIR)/palettes/greyscale.bin 2
+	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/00045DAC.smd $(GFX_DIR)/segard/00045DAC.png $(INCLUDES_DIR)/palettes/greyscale.bin 2
+	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/000463DC.smd $(GFX_DIR)/segard/000463DC.png $(INCLUDES_DIR)/palettes/greyscale.bin 2
+	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/000470D8.smd $(GFX_DIR)/segard/000470D8.png $(INCLUDES_DIR)/palettes/greyscale.bin 2
+	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/000476C6.smd $(GFX_DIR)/segard/000476C6.png $(INCLUDES_DIR)/palettes/greyscale.bin 2
+	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/00047F56.smd $(GFX_DIR)/segard/00047F56.png $(INCLUDES_DIR)/palettes/greyscale.bin 2
+	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/00048452.smd $(GFX_DIR)/segard/00048452.png $(INCLUDES_DIR)/palettes/greyscale.bin 2
+	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/00049020.smd $(GFX_DIR)/segard/00049020.png $(INCLUDES_DIR)/palettes/greyscale.bin 2
+	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/0004A30E.smd $(GFX_DIR)/segard/0004A30E.png $(INCLUDES_DIR)/palettes/greyscale.bin 2
+	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/0004AAEE.smd $(GFX_DIR)/segard/0004AAEE.png $(INCLUDES_DIR)/palettes/greyscale.bin 2
+	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/0004B00A.smd $(GFX_DIR)/segard/0004B00A.png $(INCLUDES_DIR)/palettes/greyscale.bin 2
+	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/0004B3A4.smd $(GFX_DIR)/segard/0004B3A4.png $(INCLUDES_DIR)/palettes/greyscale.bin 2
 	$(GO) $(GFXDUMP) $(GFX_DIR)/nemesis/0004C600.smd $(GFX_DIR)/nemesis/0004C600.png $(INCLUDES_DIR)/palettes/0000BD10.bin 2 1 
 	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/0004D24E.smd $(GFX_DIR)/segard/0004D24E.png $(INCLUDES_DIR)/palettes/0000BD5A.bin 2 1
 	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/0004D64E.smd $(GFX_DIR)/segard/0004D64E.png $(INCLUDES_DIR)/palettes/0000BD4A.bin 2 1
 	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/00052A0A.smd $(GFX_DIR)/segard/00052A0A.png $(INCLUDES_DIR)/palettes/0000B864.bin 2
-#	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/00058562.smd $(GFX_DIR)/segard/00058562.png
-#	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/00059A74.smd $(GFX_DIR)/segard/00059A74.png
-#	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/00059EE8.smd $(GFX_DIR)/segard/00059EE8.png
-#	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/00060280.smd $(GFX_DIR)/segard/00060280.png
-#	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/00060B66.smd $(GFX_DIR)/segard/00060B66.png
-#	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/0007E370.smd $(GFX_DIR)/segard/0007E370.png
-#	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/0007E5EC.smd $(GFX_DIR)/segard/0007E5EC.png
-#	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/0007EA8C.smd $(GFX_DIR)/segard/0007EA8C.png
-#	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/0007EF12.smd $(GFX_DIR)/segard/0007EF12.png
-#	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/0007F00E.smd $(GFX_DIR)/segard/0007F00E.png
-#	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/0007F4C6.smd $(GFX_DIR)/segard/0007F4C6.png
+	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/00058562.smd $(GFX_DIR)/segard/00058562.png $(INCLUDES_DIR)/palettes/greyscale.bin 2
+	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/00059A74.smd $(GFX_DIR)/segard/00059A74.png $(INCLUDES_DIR)/palettes/greyscale.bin 2
+	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/00059EE8.smd $(GFX_DIR)/segard/00059EE8.png $(INCLUDES_DIR)/palettes/greyscale.bin 2
+	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/00060280.smd $(GFX_DIR)/segard/00060280.png $(INCLUDES_DIR)/palettes/greyscale.bin 2
+	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/00060B66.smd $(GFX_DIR)/segard/00060B66.png $(INCLUDES_DIR)/palettes/greyscale.bin 2
+	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/0007E370.smd $(GFX_DIR)/segard/0007E370.png $(INCLUDES_DIR)/palettes/greyscale.bin 2
+	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/0007E5EC.smd $(GFX_DIR)/segard/0007E5EC.png $(INCLUDES_DIR)/palettes/greyscale.bin 2
+	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/0007EA8C.smd $(GFX_DIR)/segard/0007EA8C.png $(INCLUDES_DIR)/palettes/greyscale.bin 2
+	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/0007EF12.smd $(GFX_DIR)/segard/0007EF12.png $(INCLUDES_DIR)/palettes/greyscale.bin 2
+	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/0007F00E.smd $(GFX_DIR)/segard/0007F00E.png $(INCLUDES_DIR)/palettes/greyscale.bin 2
+	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/0007F4C6.smd $(GFX_DIR)/segard/0007F4C6.png $(INCLUDES_DIR)/palettes/greyscale.bin 2
 	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/0007F8B6.smd $(GFX_DIR)/segard/0007F8B6.png $(INCLUDES_DIR)/palettes/00027DB8.bin 2
 
 test-blastem:

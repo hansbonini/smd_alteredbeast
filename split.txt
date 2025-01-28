@@ -101,9 +101,13 @@
 #split  0x00024000,0x000244EF,gfx/00024000.smd
 #split  0x00027DB8,0x00027DDA,includes/palettes/00027DB8.bin
 #split  0x00027DDA,0x0002ACC7,gfx/00027DDA.smd
+#split  0x0002AAC8,0x0002ACEA,includes/palettes/0002AAC8.bin
 #split  0x0002ACEA,0x0002D187,gfx/0002ACEA.smd
+#split  0x0002D188,0x0002D1AA,includes/palettes/0002D188.bin
 #split  0x0002D1AA,0x0002F1D1,gfx/0002D1AA.smd
+#split  0x0002F1D2,0x0002F1F4,includes/palettes/0002F1D2.bin
 #split  0x0002F1F4,0x00030E4D,gfx/0002F1F4.smd
+#split  0x00030E4E,0x00030E70,includes/palettes/00030E4E.bin
 #split  0x00030E70,0x00033AA9,gfx/00030E70.smd
 #split  0x00033AAA,0x000354E5,gfx/00033AAA.smd
 #split  0x0003565C,0x000385E6,gfx/0003565C.smd

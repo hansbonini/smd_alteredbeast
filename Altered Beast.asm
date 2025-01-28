@@ -37537,38 +37537,34 @@ gfx_stage1_elements:
     incbin "gfx/00027DDA.smd"
     even
 
-pal_2ACC8:      dc.b $60                ; index
-                                        ; DATA XREF: ROM:assettbl_stage2   o
-                dc.b $F                 ; size
-                dc.w $22, $CEC, $8CA, $8AA, $6AA, $488, $266, $EEE, $EEC; colors
-                dc.w $8A8, $6AA, $488, $C0, $86, $6A, $26; colors
+pal_2ACC8:
+    incbin "includes/palettes/0002ACC8.bin"
+    even
+
 gfx_stage2_elements:
     incbin "gfx/0002ACEA.smd"
     even
 
-pal_2D188:      dc.b $60                ; index
-                                        ; DATA XREF: ROM:assettbl_stage3   o
-                dc.b $F                 ; size
-                dc.w 4, $8CE, $ACC, $8AA, $688, $466, $244, 0, $26C, $48; colors
-                dc.w $26, 4, $6AE, $48C, $26A, $26; colors
+pal_2D188:
+    incbin "includes/palettes/0002D188.bin"
+    even
+
 gfx_stage3_elements:
     incbin "gfx/0002D1AA.smd"
     even
 
-pal_2F1D2:      dc.b $60                ; index
-                                        ; DATA XREF: ROM:assettbl_stage4   o
-                dc.b $F                 ; size
-                dc.w 0, $E68, $C46, $A24, $802, $600, $400, $200, $EEC; colors
-                dc.w $ECA, $EA8, $E86, $EEE, $ECC, $EAA, $E8A; colors
+pal_2F1D2:
+    incbin "includes/palettes/0002F1D2.bin"
+    even
+
 gfx_stage4_elements:
     incbin "gfx/0002F1F4.smd"
     even
 
-pal_30E4E:dc.b $60, $F, 0, $A0, $A, $E, 8, $C, 6, $A, 4, 8, 0, 6
-                                        ; DATA XREF: ROM:assettbl_stage5   o
-                dc.b 0, $8E, 0, $6C, 0, $4A, 0, $26, 6, $8C, 4, $6A, 4
-                dc.b $82, 2, $60, 2, $40
-    dcb.b 2,0
+pal_30E4E:
+    incbin "includes/palettes/00030E4E.bin"
+    even
+    
 gfx_stage5_elements:
     incbin "gfx/00030E70.smd"
     even

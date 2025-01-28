@@ -5,7 +5,6 @@ gfx/nemesis/*.smd
 gfx/segard/*.smd
 includes/palettes/*.bin
 includes/palettes/*.txt
-includes/tilemaps/*.bin
 rom/*
 smps/*
 z80/*.bin
