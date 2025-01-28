@@ -24,6 +24,7 @@ GFXDUMP						:= $(TOOLS_DIR)/gfxdump/gfxdump.go
 GRPUNDMP					:= $(TOOLS_DIR)/grpundmp/grpundmp.exe
 SEGARD_COMP					:= $(TOOLS_DIR)/segard_comp/comp.go
 SEGARD_DECOMP				:= $(TOOLS_DIR)/segard_decomp/decomp.go
+NEMESIS_DECOMP				:= $(TOOLS_DIR)/clownnemesis/clownnemesis.exe
 PCM2WAV						:= $(TOOLS_DIR)/pcm2wav/pcm2wav.go
 SHA1CHECK					:= $(TOOLS_DIR)/checksum/sha1.go
 RETROARCH 					:= $(RETROARCH_DIR)/retroarch.exe
@@ -173,6 +174,9 @@ sha1:
 extract: splitrom pcm2wav segard_decomp gfx2png
 splitrom:
 	$(SPLITROM) "$(ROM_DIR)/$(ROM_$(REGION)_$(VERSION))" split.txt
+nemesis_decomp:
+# Title Screen
+	$(NEMESIS_DECOMP) "$(ROM_DIR)/$(ROM_$(REGION)_$(VERSION))" -d $(GFX_DIR)/nemesis/0004C6000.smd 0x0004C6000
 segard_decomp:
 # Game Font
 	$(GO) $(SEGARD_DECOMP) "$(ROM_DIR)/$(ROM_$(REGION)_$(VERSION))" $(GFX_DIR)/segard/00024000.smd 0x00024000
@@ -319,6 +323,7 @@ gfx2png:
 #	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/0004AAEE.smd $(GFX_DIR)/segard/0004AAEE.png
 #	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/0004B00A.smd $(GFX_DIR)/segard/0004B00A.png
 #	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/0004B3A4.smd $(GFX_DIR)/segard/0004B3A4.png
+	$(GO) $(GFXDUMP) $(GFX_DIR)/nemesis/0004C600.smd $(GFX_DIR)/nemesis/0004C600.png $(INCLUDES_DIR)/palettes/0000BD10.bin 2 1 
 	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/0004D24E.smd $(GFX_DIR)/segard/0004D24E.png $(INCLUDES_DIR)/palettes/0000BD5A.bin 2 1
 	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/0004D64E.smd $(GFX_DIR)/segard/0004D64E.png $(INCLUDES_DIR)/palettes/0000BD4A.bin 2 1
 	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/00052A0A.smd $(GFX_DIR)/segard/00052A0A.png $(INCLUDES_DIR)/palettes/0000B864.bin 2
