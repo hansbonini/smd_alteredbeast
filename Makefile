@@ -24,6 +24,7 @@ GFXDUMP						:= $(TOOLS_DIR)/gfxdump/gfxdump.go
 GRPUNDMP					:= $(TOOLS_DIR)/grpundmp/grpundmp.exe
 SEGARD_COMP					:= $(TOOLS_DIR)/segard_comp/comp.go
 SEGARD_DECOMP				:= $(TOOLS_DIR)/segard_decomp/decomp.go
+NEMESIS_COMP				:= $(TOOLS_DIR)/clownnemesis/clownnemesis.exe
 NEMESIS_DECOMP				:= $(TOOLS_DIR)/clownnemesis/clownnemesis.exe
 PCM2WAV						:= $(TOOLS_DIR)/pcm2wav/pcm2wav.go
 SHA1CHECK					:= $(TOOLS_DIR)/checksum/sha1.go
@@ -36,7 +37,7 @@ SJASMPLUS					:= $(TOOLS_DIR)/sjasmplus/sjasmplus.exe
 WAV2PCM						:= $(TOOLS_DIR)/wav2pcm/wav2pcm.go
 
 all: extract build
-build: wav2pcm z80_assemble 68k_assemble_palettes png2gfx segard_comp 68k_assemble sha1
+build: wav2pcm z80_assemble 68k_assemble_palettes png2gfx nemesis_comp segard_comp 68k_assemble sha1
 wav2pcm:
 	$(GO) $(WAV2PCM) "$(AUDIO_DIR)/pcm/000138EC.wav" $(AUDIO_DIR)/pcm/000138EC.pcm 8000
 	$(GO) $(WAV2PCM) "$(AUDIO_DIR)/pcm/0001552C.wav" $(AUDIO_DIR)/pcm/0001552C.pcm 4000
@@ -58,12 +59,57 @@ png2gfx:
 #	fsutil file seteof $(GFX_DIR)/segard/0004D64E.smd 29472
 #	$(GRPUNDMP) $(GFX_DIR)/segard/00052A0A.png $(GFX_DIR)/segard/00052A0A.smd -p $(INCLUDES_DIR)/palettes/0000B864.bin
 #	fsutil file seteof $(GFX_DIR)/segard/00052A0A.smd 1760
+nemesis_comp:
+	$(NEMESIS_COMP) -ca $(GFX_DIR)/nemesis/0004C600.smd $(GFX_DIR)/0004C600.smd
 segard_comp:
-#	$(GO) $(SEGARD_COMP) $(GFX_DIR)/segard/00024000.smd $(GFX_DIR)/00024000.smd
-#	$(GO) $(SEGARD_COMP) $(GFX_DIR)/segard/00027DDA.smd $(GFX_DIR)/00027DDA.smd
-#	$(GO) $(SEGARD_COMP) $(GFX_DIR)/segard/0004D24E.smd $(GFX_DIR)/0004D24E.smd
-#	$(GO) $(SEGARD_COMP) $(GFX_DIR)/segard/0004D64E.smd $(GFX_DIR)/0004D64E.smd
-#	$(GO) $(SEGARD_COMP) $(GFX_DIR)/segard/00052A0A.smd $(GFX_DIR)/00052A0A.smd
+	$(GO) $(SEGARD_COMP) $(GFX_DIR)/segard/00024000.smd $(GFX_DIR)/00024000.smd
+	$(GO) $(SEGARD_COMP) $(GFX_DIR)/segard/00027DDA.smd $(GFX_DIR)/00027DDA.smd
+	$(GO) $(SEGARD_COMP) $(GFX_DIR)/segard/0002ACEA.smd $(GFX_DIR)/0002ACEA.smd
+	$(GO) $(SEGARD_COMP) $(GFX_DIR)/segard/0002D1AA.smd $(GFX_DIR)/0002D1AA.smd
+	$(GO) $(SEGARD_COMP) $(GFX_DIR)/segard/0002F1F4.smd $(GFX_DIR)/0002F1F4.smd
+	$(GO) $(SEGARD_COMP) $(GFX_DIR)/segard/00030E70.smd $(GFX_DIR)/00030E70.smd
+	$(GO) $(SEGARD_COMP) $(GFX_DIR)/segard/00033AAA.smd $(GFX_DIR)/00033AAA.smd
+	$(GO) $(SEGARD_COMP) $(GFX_DIR)/segard/0003565C.smd $(GFX_DIR)/0003565C.smd
+	$(GO) $(SEGARD_COMP) $(GFX_DIR)/segard/00038A2E.smd $(GFX_DIR)/00038A2E.smd
+	$(GO) $(SEGARD_COMP) $(GFX_DIR)/segard/0003BA00.smd $(GFX_DIR)/0003BA00.smd
+	$(GO) $(SEGARD_COMP) $(GFX_DIR)/segard/0003DFE0.smd $(GFX_DIR)/0003DFE0.smd
+	$(GO) $(SEGARD_COMP) $(GFX_DIR)/segard/00040A1C.smd $(GFX_DIR)/00040A1C.smd
+	$(GO) $(SEGARD_COMP) $(GFX_DIR)/segard/0004195C.smd $(GFX_DIR)/0004195C.smd
+	$(GO) $(SEGARD_COMP) $(GFX_DIR)/segard/00041AB8.smd $(GFX_DIR)/00041AB8.smd
+	$(GO) $(SEGARD_COMP) $(GFX_DIR)/segard/00041EC8.smd $(GFX_DIR)/00041EC8.smd
+	$(GO) $(SEGARD_COMP) $(GFX_DIR)/segard/0004270A.smd $(GFX_DIR)/0004270A.smd
+	$(GO) $(SEGARD_COMP) $(GFX_DIR)/segard/00042E7C.smd $(GFX_DIR)/00042E7C.smd
+	$(GO) $(SEGARD_COMP) $(GFX_DIR)/segard/000435E2.smd $(GFX_DIR)/000435E2.smd
+	$(GO) $(SEGARD_COMP) $(GFX_DIR)/segard/00043F22.smd $(GFX_DIR)/00043F22.smd
+	$(GO) $(SEGARD_COMP) $(GFX_DIR)/segard/0004479E.smd $(GFX_DIR)/0004479E.smd
+	$(GO) $(SEGARD_COMP) $(GFX_DIR)/segard/00044DA2.smd $(GFX_DIR)/00044DA2.smd
+	$(GO) $(SEGARD_COMP) $(GFX_DIR)/segard/0004547A.smd $(GFX_DIR)/0004547A.smd
+	$(GO) $(SEGARD_COMP) $(GFX_DIR)/segard/00045DAC.smd $(GFX_DIR)/00045DAC.smd
+	$(GO) $(SEGARD_COMP) $(GFX_DIR)/segard/000463DC.smd $(GFX_DIR)/000463DC.smd
+	$(GO) $(SEGARD_COMP) $(GFX_DIR)/segard/000470D8.smd $(GFX_DIR)/000470D8.smd
+	$(GO) $(SEGARD_COMP) $(GFX_DIR)/segard/000476C6.smd $(GFX_DIR)/000476C6.smd
+	$(GO) $(SEGARD_COMP) $(GFX_DIR)/segard/00047F56.smd $(GFX_DIR)/00047F56.smd
+	$(GO) $(SEGARD_COMP) $(GFX_DIR)/segard/00048452.smd $(GFX_DIR)/00048452.smd
+	$(GO) $(SEGARD_COMP) $(GFX_DIR)/segard/00049020.smd $(GFX_DIR)/00049020.smd
+	$(GO) $(SEGARD_COMP) $(GFX_DIR)/segard/0004A30E.smd $(GFX_DIR)/0004A30E.smd
+	$(GO) $(SEGARD_COMP) $(GFX_DIR)/segard/0004AAEE.smd $(GFX_DIR)/0004AAEE.smd
+	$(GO) $(SEGARD_COMP) $(GFX_DIR)/segard/0004B00A.smd $(GFX_DIR)/0004B00A.smd
+	$(GO) $(SEGARD_COMP) $(GFX_DIR)/segard/0004B3A4.smd $(GFX_DIR)/0004B3A4.smd
+	$(GO) $(SEGARD_COMP) $(GFX_DIR)/segard/0004D24E.smd $(GFX_DIR)/0004D24E.smd
+	$(GO) $(SEGARD_COMP) $(GFX_DIR)/segard/0004D64E.smd $(GFX_DIR)/0004D64E.smd
+	$(GO) $(SEGARD_COMP) $(GFX_DIR)/segard/00052A0A.smd $(GFX_DIR)/00052A0A.smd
+	$(GO) $(SEGARD_COMP) $(GFX_DIR)/segard/00058562.smd $(GFX_DIR)/00058562.smd
+	$(GO) $(SEGARD_COMP) $(GFX_DIR)/segard/00059A74.smd $(GFX_DIR)/00059A74.smd
+	$(GO) $(SEGARD_COMP) $(GFX_DIR)/segard/00059EE8.smd $(GFX_DIR)/00059EE8.smd
+	$(GO) $(SEGARD_COMP) $(GFX_DIR)/segard/00060280.smd $(GFX_DIR)/00060280.smd
+	$(GO) $(SEGARD_COMP) $(GFX_DIR)/segard/00060B66.smd $(GFX_DIR)/00060B66.smd
+	$(GO) $(SEGARD_COMP) $(GFX_DIR)/segard/0007E370.smd $(GFX_DIR)/0007E370.smd
+	$(GO) $(SEGARD_COMP) $(GFX_DIR)/segard/0007E5EC.smd $(GFX_DIR)/0007E5EC.smd
+	$(GO) $(SEGARD_COMP) $(GFX_DIR)/segard/0007EA8C.smd $(GFX_DIR)/0007EA8C.smd
+	$(GO) $(SEGARD_COMP) $(GFX_DIR)/segard/0007EF12.smd $(GFX_DIR)/0007EF12.smd
+	$(GO) $(SEGARD_COMP) $(GFX_DIR)/segard/0007F00E.smd $(GFX_DIR)/0007F00E.smd
+	$(GO) $(SEGARD_COMP) $(GFX_DIR)/segard/0007F4C6.smd $(GFX_DIR)/0007F4C6.smd
+	$(GO) $(SEGARD_COMP) $(GFX_DIR)/segard/0007F8B6.smd $(GFX_DIR)/0007F8B6.smd
 z80_assemble:
 	$(SJASMPLUS) --raw="$(Z80_DIR)/sounddriver.bin" --lst="$(Z80_DIR)/sounddriver.txt" "$(Z80_DIR)/sounddriver.asm"
 	$(SJASMPLUS) --raw="$(Z80_DIR)/pcm_driver/pcm_driver1.bin" --lst="$(Z80_DIR)/pcm_driver/pcm_driver1.txt" "$(Z80_DIR)/pcm_driver/pcm_driver1.asm"
@@ -163,6 +209,7 @@ z80_assemble:
 	$(ASM68K) $(ASM68K_SWITCHES) "$(INCLUDES_DIR)/palettes/0000BD3A.asm","$(INCLUDES_DIR)/palettes/0000BD3A.bin",,"$(INCLUDES_DIR)/palettes/0000BD3A.txt"
 	$(ASM68K) $(ASM68K_SWITCHES) "$(INCLUDES_DIR)/palettes/0000BD4A.asm","$(INCLUDES_DIR)/palettes/0000BD4A.bin",,"$(INCLUDES_DIR)/palettes/0000BD4A.txt"
 	$(ASM68K) $(ASM68K_SWITCHES) "$(INCLUDES_DIR)/palettes/0000BD5A.asm","$(INCLUDES_DIR)/palettes/0000BD5A.bin",,"$(INCLUDES_DIR)/palettes/0000BD5A.txt"
+	$(ASM68K) $(ASM68K_SWITCHES) "$(INCLUDES_DIR)/palettes/00027DB8.asm","$(INCLUDES_DIR)/palettes/00027DB8.bin",,"$(INCLUDES_DIR)/palettes/00027DB8.txt"
 	$(ASM68K) $(ASM68K_SWITCHES) "$(INCLUDES_DIR)/palettes/0002ACC8.asm","$(INCLUDES_DIR)/palettes/0002ACC8.bin",,"$(INCLUDES_DIR)/palettes/0002ACC8.txt"
 	$(ASM68K) $(ASM68K_SWITCHES) "$(INCLUDES_DIR)/palettes/0002D188.asm","$(INCLUDES_DIR)/palettes/0002D188.bin",,"$(INCLUDES_DIR)/palettes/0002D188.txt"
 	$(ASM68K) $(ASM68K_SWITCHES) "$(INCLUDES_DIR)/palettes/0002F1D2.asm","$(INCLUDES_DIR)/palettes/0002F1D2.bin",,"$(INCLUDES_DIR)/palettes/0002F1D2.txt"
@@ -181,7 +228,7 @@ splitrom:
 	$(SPLITROM) "$(ROM_DIR)/$(ROM_$(REGION)_$(VERSION))" split.txt
 nemesis_decomp:
 # Title Screen
-	$(NEMESIS_DECOMP) "$(ROM_DIR)/$(ROM_$(REGION)_$(VERSION))" -d $(GFX_DIR)/nemesis/0004C6000.smd 0x0004C6000
+	$(NEMESIS_DECOMP) -d $(GFX_DIR)/nemesis/0004C600.smd $(GFX_DIR)/0004C600.smd
 segard_decomp:
 # Game Font
 	$(GO) $(SEGARD_DECOMP) "$(ROM_DIR)/$(ROM_$(REGION)_$(VERSION))" $(GFX_DIR)/segard/00024000.smd 0x00024000
@@ -301,11 +348,11 @@ gfx2png:
 	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/0002D1AA.smd $(GFX_DIR)/segard/0002D1AA.png $(INCLUDES_DIR)/palettes/0002D188.bin
 	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/0002F1F4.smd $(GFX_DIR)/segard/0002F1F4.png $(INCLUDES_DIR)/palettes/0002F1D2.bin
 	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/00030E70.smd $(GFX_DIR)/segard/00030E70.png $(INCLUDES_DIR)/palettes/00030E4E.bin
-	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/00033AAA.smd $(GFX_DIR)/segard/00033AAA.png $(INCLUDES_DIR)/palettes/greyscale.bin 2
-	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/0003565C.smd $(GFX_DIR)/segard/0003565C.png $(INCLUDES_DIR)/palettes/greyscale.bin 2
-	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/00038A2E.smd $(GFX_DIR)/segard/00038A2E.png $(INCLUDES_DIR)/palettes/greyscale.bin 2
-	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/0003BA00.smd $(GFX_DIR)/segard/0003BA00.png $(INCLUDES_DIR)/palettes/greyscale.bin 2
-	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/0003DFE0.smd $(GFX_DIR)/segard/0003DFE0.png $(INCLUDES_DIR)/palettes/greyscale.bin 2
+	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/00033AAA.smd $(GFX_DIR)/segard/00033AAA.png $(INCLUDES_DIR)/palettes/0000B7EC.bin 2 1
+	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/0003565C.smd $(GFX_DIR)/segard/0003565C.png $(INCLUDES_DIR)/palettes/0000B846.bin 2 1
+	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/00038A2E.smd $(GFX_DIR)/segard/00038A2E.png $(INCLUDES_DIR)/palettes/0000B7CE.bin 2 1
+	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/0003BA00.smd $(GFX_DIR)/segard/0003BA00.png $(INCLUDES_DIR)/palettes/0000B828.bin 2 1
+	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/0003DFE0.smd $(GFX_DIR)/segard/0003DFE0.png $(INCLUDES_DIR)/palettes/0000B80A.bin 2 1
 	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/00040A1C.smd $(GFX_DIR)/segard/00040A1C.png $(INCLUDES_DIR)/palettes/greyscale.bin 2
 	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/0004195C.smd $(GFX_DIR)/segard/0004195C.png $(INCLUDES_DIR)/palettes/greyscale.bin 2
 	$(GO) $(GFXDUMP) $(GFX_DIR)/segard/00041AB8.smd $(GFX_DIR)/segard/00041AB8.png $(INCLUDES_DIR)/palettes/greyscale.bin 2
