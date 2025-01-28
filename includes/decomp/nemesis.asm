@@ -1,5 +1,3 @@
-NEMESIS_VDP_BUFFER equ $FFA000
-
 ; ---------------------------------------------------------------------------
 ; Nemesis decompression	subroutine, decompresses art directly to VRAM
 
