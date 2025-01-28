@@ -1,164 +1,207 @@
-nemesis_decomp:                         ; CODE XREF: ROM:0000BB90   p
-                movem.l d0-d7/a0-a1/a3-a5,-(sp)
-                lea     (loc_C328).l,a3
-                lea     (VDP_DATA).l,a4
-                bra.s   loc_C2B8
+NEMESIS_VDP_BUFFER equ $FFA000
+
 ; ---------------------------------------------------------------------------
+; Nemesis decompression	subroutine, decompresses art directly to VRAM
+
+; input:
+;	a0 = art source address
+
+; usage:
+;	locVRAM	destination
+;	lea	(source).l,a0
+;	bsr.w	NemDec
+
+; See http://info.sonicretro.org/Nemesis_compression for format explanation
+; -----------------------
+
+nemesis_decomp:
                 movem.l d0-d7/a0-a1/a3-a5,-(sp)
-                lea     (loc_C33E).l,a3
-loc_C2B8:                               ; CODE XREF: nemesis_decomp+10   j
-                lea     (unk_FFA000).w,a1
-                move.w  (a0)+,d2
+                lea     (NemPCD_WriteRowToVDP).l,a3		; write all data to the same location
+                lea     (VDP_DATA).l,a4			        ; specifically, to the VDP data port
+                bra.s   nemesis_decomp_main
+
+; ---------------------------------------------------------------------------
+; Nemesis decompression subroutine, decompresses art to RAM (unused)
+
+; input:
+;	a0 = art source address
+;	a4 = destination RAM address
+; ---------------------------------------------------------------------------
+nemesis_decomp_to_ram:
+                movem.l d0-d7/a0-a1/a3-a5,-(sp)
+                lea     (NemPCD_WriteRowToRAM).l,a3		; advance to the next location after each write
+nemesis_decomp_main:
+                lea     (NEMESIS_VDP_BUFFER).w,a1
+                move.w  (a0)+,d2                        ; get number of patterns
                 add.w   d2,d2
-                bcc.s   loc_C2C6
-                adda.w  #$A,a3
-loc_C2C6:                               ; CODE XREF: nemesis_decomp+24   j
-                lsl.w   #2,d2
-                movea.w d2,a5
-                moveq   #8,d3
+                bcc.s   loc_C2C6                        ; branch if the sign bit isn't set
+                adda.w  #NemPCD_WriteRowToVDP_XOR-NemPCD_WriteRowToVDP,a3 ; otherwise the file uses XOR mode
+loc_C2C6:
+                lsl.w   #2,d2					        ; get number of 8-pixel rows in the uncompressed data
+                movea.w d2,a5					        ; and store it in a5 because there aren't any spare data registers
+                moveq   #8,d3					        ; 8 pixels in a pattern row
                 moveq   #0,d2
                 moveq   #0,d4
-                bsr.w   sub_C358
-                move.b  (a0)+,d5
-                asl.w   #8,d5
-                move.b  (a0)+,d5
-                move.w  #$10,d6
-loc_C2DE:                               ; CODE XREF: nemesis_decomp+7C   j
+                bsr.w   NemDec_BuildCodeTable
+                move.b  (a0)+,d5        				; get first byte of compressed data
+                asl.w   #8,d5       					; shift up by a byte
+                move.b  (a0)+,d5				        ; get second byte of compressed dat
+                move.w  #$10,d6                         ; set initial shift value
+
+
+; ---------------------------------------------------------------------------
+; Part of the Nemesis decompressor, processes the actual compressed data
+; ---------------------------------------------------------------------------
+
+NemDec_ProcessCompressedData:
                 moveq   #8,d0
                 bsr.w   sub_C3BA
-                cmpi.w  #$FC,d1
-                bcc.s   loc_C31A
+                cmpi.w  #%11111100,d1                   ; are the high 6 bits set?
+                bcc.s   NemPCD_InlineData               ; if they are, it signifies inline data
                 add.w   d1,d1
-                move.b  (a1,d1.w),d0
+                move.b  (a1,d1.w),d0                    ; get the length of the code in bits
                 ext.w   d0
                 bsr.w   sub_C3CE
                 move.b  1(a1,d1.w),d1
-loc_C2FA:                               ; CODE XREF: nemesis_decomp+8A   j
+loc_C2FA:
                 move.w  d1,d0
-                andi.w  #$F,d1
+                andi.w  #$F,d1                          ; get palette index for pixel
                 andi.w  #$F0,d0
-                lsr.w   #4,d0
-loc_C306:                               ; CODE XREF: nemesis_decomp:loc_C314   j
-                lsl.l   #4,d4
-                or.b    d1,d4
-                subq.w  #1,d3
-                bne.s   loc_C314
-                jmp     (a3)
+                lsr.w   #4,d0                           ; get repeat count
+NemPCD_WritePixel:
+                lsl.l   #4,d4					        ; shift up by a nybble
+                or.b    d1,d4       					; write pixel
+                subq.w  #1,d3       					; has an entire 8-pixel row been written?
+
+
+                bne.s   NemPCD_WritePixel_Loop          ; if not, loop
+                jmp     (a3)                            ; otherwise, write the row to its destination, by doing a dynamic jump to NemPCD_WriteRowToVDP, NemDec_WriteAndAdvance, NemPCD_WriteRowToVDP_XOR, or NemDec_WriteAndAdvance_XOR
 ; ---------------------------------------------------------------------------
-loc_C310:                               ; CODE XREF: ROM:0000C32E   j
-                                        ; ROM:0000C33A   j ...
-                moveq   #0,d4
-                moveq   #8,d3
-loc_C314:                               ; CODE XREF: nemesis_decomp+70   j
-                dbf     d0,loc_C306
-                bra.s   loc_C2DE
+NemPCD_NewRow:
+                moveq   #0,d4                           ; reset row
+                moveq   #8,d3                           ; reset nybble counter
+
+NemPCD_WritePixel_Loop:
+                dbf     d0,NemPCD_WritePixel
+                bra.s   NemDec_ProcessCompressedData
 ; ---------------------------------------------------------------------------
-loc_C31A:                               ; CODE XREF: nemesis_decomp+4C   j
-                moveq   #6,d0
+NemPCD_InlineData:
+                moveq   #6,d0					        ; 6 bits needed to signal inline data
                 bsr.w   sub_C3CE
-                moveq   #7,d0
+                moveq   #7,d0                           ; and 7 bits needed for the inline data itself
                 bsr.w   sub_C3CA
                 bra.s   loc_C2FA
-; End of function nemesis_decomp
 ; ---------------------------------------------------------------------------
-loc_C328:                               ; DATA XREF: nemesis_decomp+4   o
-                move.l  d4,(a4)
+NemPCD_WriteRowToVDP:
+                move.l  d4,(a4)                         ; write 8-pixel row
+                subq.w  #1,a5
+                move.w  a5,d4                           ; have all the 8-pixel rows been written?
+                bne.s   NemPCD_NewRow                   ; if not, branch
+                bra.s   loc_C352                        ; otherwise the decompression is finished
+; ---------------------------------------------------------------------------
+NemPCD_WriteRowToVDP_XOR:
+                eor.l   d4,d2                           ; XOR the previous row by the current row
+                move.l  d2,(a4)                         ; and write the result
                 subq.w  #1,a5
                 move.w  a5,d4
-                bne.s   loc_C310
+                bne.s   NemPCD_NewRow
                 bra.s   loc_C352
 ; ---------------------------------------------------------------------------
-                eor.l   d4,d2
-                move.l  d2,(a4)
-                subq.w  #1,a5
-                move.w  a5,d4
-                bne.s   loc_C310
-                bra.s   loc_C352
-; ---------------------------------------------------------------------------
-loc_C33E:                               ; DATA XREF: nemesis_decomp+16   o
+NemPCD_WriteRowToRAM:
                 move.l  d4,(a4)+
                 subq.w  #1,a5
                 move.w  a5,d4
-                bne.s   loc_C310
+                bne.s   NemPCD_NewRow
                 bra.s   loc_C352
 ; ---------------------------------------------------------------------------
+NemPCD_WriteRowToRAM_XOR:
                 eor.l   d4,d2
                 move.l  d2,(a4)+
                 subq.w  #1,a5
                 move.w  a5,d4
-                bne.s   loc_C310
+                bne.s   NemPCD_NewRow
 loc_C352:                               ; CODE XREF: ROM:0000C330   j
                                         ; ROM:0000C33C   j ...
                 movem.l (sp)+,d0-d7/a0-a1/a3-a5
                 rts
-sub_C358:                               ; CODE XREF: nemesis_decomp+34   p
-                move.b  (a0)+,d0
-loc_C35A:                               ; CODE XREF: sub_C358+E   j
-                cmpi.b  #$FF,d0
-                bne.s   loc_C362
-                rts
+
 ; ---------------------------------------------------------------------------
-loc_C362:                               ; CODE XREF: sub_C358+6   j
+; Part of the Nemesis decompressor, builds the code table (in RAM)
+; ---------------------------------------------------------------------------
+
+NemDec_BuildCodeTable:
+                move.b  (a0)+,d0                        ; read first byte
+NemBCT_ChkEnd:
+                cmpi.b  #$FF,d0                         ; has the end of the code table description been reached?
+                bne.s   NemBCT_NewPALIndex              ; if not, branch
+                rts                                     ; otherwise, this subroutine's work is done
+; ---------------------------------------------------------------------------
+NemBCT_NewPALIndex:
                 move.w  d0,d7
-loc_C364:                               ; CODE XREF: sub_C358+34   j
-                                        ; sub_C358:loc_C3A8   j
+NemBCT_Loop:
                 move.b  (a0)+,d0
-                bmi.s   loc_C35A
+                bmi.s   NemBCT_ChkEnd
                 move.b  d0,d1
-                andi.w  #$F,d7
-                andi.w  #$70,d1 ; 'p'
-                or.w    d1,d7
-                andi.w  #$F,d0
+                andi.w  #$F,d7					        ; get palette index
+                andi.w  #$70,d1					        ; get repeat count for palette index
+                or.w    d1,d7                           ; combine the two
+                andi.w  #$F,d0                          ; get the length of the code in bits
                 move.b  d0,d1
                 lsl.w   #8,d1
-                or.w    d1,d7
+                or.w    d1,d7                           ; combine with palette index and repeat count to form code table entry
                 moveq   #8,d1
-                sub.w   d0,d1
-                bne.s   loc_C38E
-                move.b  (a0)+,d0
-                add.w   d0,d0
-                move.w  d7,(a1,d0.w)
-                bra.s   loc_C364
-; ---------------------------------------------------------------------------
-loc_C38E:                               ; CODE XREF: sub_C358+2A   j
-                move.b  (a0)+,d0
-                lsl.w   d1,d0
-                add.w   d0,d0
+                sub.w   d0,d1                           ; is the code 8 bits long?
+                bne.s   NemBCT_ShortCode                ; if not, a bit of extra processing is needed
+                move.b  (a0)+,d0                        ; get code
+                add.w   d0,d0                           ; each code gets a word-sized entry in the table
+                move.w  d7,(a1,d0.w)                    ; store the entry for the code
+                bra.s   NemBCT_Loop                     ; repeat
+; ===========================================================================
+
+; the Nemesis decompressor uses prefix-free codes (no valid code is a prefix of a longer code)
+; e.g. if 10 is a valid 2-bit code, 110 is a valid 3-bit code but 100 isn't
+; also, when the actual compressed data is processed the high bit of each code is in bit position 7
+; so the code needs to be bit-shifted appropriately over here before being used as a code table index
+; additionally, the code needs multiple entries in the table because no masking is done during compressed data processing
+; so if 11000 is a valid code then all indices of the form 11000XXX need to have the same entry
+
+NemBCT_ShortCode:
+                move.b  (a0)+,d0                        ; get code
+                lsl.w   d1,d0                           ; get index into code table
+                add.w   d0,d0                           ; shift so that high bit is in bit position 7
                 moveq   #1,d5
                 lsl.w   d1,d5
-                subq.w  #1,d5
+                subq.w  #1,d5                           ; d5 = 2^d1 - 1
                 lea     (a1,d0.w),a1
-loc_C39E:                               ; CODE XREF: sub_C358+48   j
+NemBCT_ShortCode_Loop:
                 move.w  d7,(a1)+
-                dbf     d5,loc_C39E
-                lea     (unk_FFA000).w,a1
+                dbf     d5,NemBCT_ShortCode_Loop        ; repeat for required number of entries
+                lea     (NEMESIS_VDP_BUFFER).w,a1
 loc_C3A8:
-                bra.s   loc_C364
-; End of function sub_C358
+                bra.s   NemBCT_Loop
+; End of function NemDec_BuildCodeTable
 ; ---------------------------------------------------------------------------
                 dc.w 1, 3, 7, $F, $1F, $3F, $7F, $FF
-sub_C3BA:                               ; CODE XREF: nemesis_decomp+44   p
-                                        ; sub_C3CA   p
+sub_C3BA:
                 move.w  d6,d7
-                sub.w   d0,d7
+                sub.w   d0,d7                           ; get shift value
                 move.w  d5,d1
-                lsr.w   d7,d1
+                lsr.w   d7,d1                           ; shift so that high bit of the code is in bit position 7
                 add.w   d0,d0
                 and.w   loc_C3A8(pc,d0.w),d1
                 rts
 ; End of function sub_C3BA
-sub_C3CA:                               ; CODE XREF: nemesis_decomp+86   p
+sub_C3CA:
                 bsr.s   sub_C3BA
                 lsr.w   #1,d0
 ; End of function sub_C3CA
-sub_C3CE:                               ; CODE XREF: nemesis_decomp+56   p
-                                        ; nemesis_decomp+80   p
-                sub.w   d0,d6
-                cmpi.w  #9,d6
-                bcc.s   locret_C3DC
+sub_C3CE:
+                sub.w   d0,d6                           ; subtract from shift value so that the next code is read next time around
+                cmpi.w  #9,d6                           ; does a new byte need to be read?
+                bcc.s   locret_C3DC                     ; if not, branch
                 addq.w  #8,d6
                 asl.w   #8,d5
-                move.b  (a0)+,d5
-locret_C3DC:                            ; CODE XREF: sub_C3CE+6   j
+                move.b  (a0)+,d5                        ; read next byte
+locret_C3DC:
                 rts
 ; End of function sub_C3CE
