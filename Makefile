@@ -50,7 +50,7 @@ png2gfx:
 #	fsutil file seteof $(GFX_DIR)/0000BD72.smd 160
 #	$(GRPUNDMP) $(GFX_DIR)/00009FB4.png $(GFX_DIR)/00009FB4.smd -p $(INCLUDES_DIR)/palettes/00009F94.bin
 #	fsutil file seteof $(GFX_DIR)/00009FB4.smd 1568
-	$(GRPUNDMP) $(GFX_DIR)/nemesis/0004C600.png $(GFX_DIR)/nemesis/0004C600.smd -p $(INCLUDES_DIR)/palettes/0000BD10.bin
+#	$(GRPUNDMP) $(GFX_DIR)/nemesis/0004C600.png $(GFX_DIR)/nemesis/0004C600.smd -p $(INCLUDES_DIR)/palettes/0000BD10.bin
 #	$(GRPUNDMP) $(GFX_DIR)/segard/00024000.png $(GFX_DIR)/segard/00024000.smd -p $(INCLUDES_DIR)/palettes/0000BD4A.bin
 #	$(GRPUNDMP) $(GFX_DIR)/segard/00027DDA.png $(GFX_DIR)/segard/00027DDA.smd -p $(INCLUDES_DIR)/palettes/00027DB8.bin
 #	fsutil file seteof $(GFX_DIR)/segard/00027DDA.smd 15424
@@ -61,7 +61,7 @@ png2gfx:
 #	$(GRPUNDMP) $(GFX_DIR)/segard/00052A0A.png $(GFX_DIR)/segard/00052A0A.smd -p $(INCLUDES_DIR)/palettes/0000B864.bin
 #	fsutil file seteof $(GFX_DIR)/segard/00052A0A.smd 1760
 nemesis_comp:
-	$(NEMESIS_COMP) -ca $(GFX_DIR)/nemesis/0004C600.smd $(GFX_DIR)/0004C600.smd
+#	$(NEMESIS_COMP) -ca $(GFX_DIR)/nemesis/0004C600.smd $(GFX_DIR)/0004C600.smd
 segard_comp:
 # $(GO) $(SEGARD_COMP) $(GFX_DIR)/segard/00024000.smd $(GFX_DIR)/00024000.smd
 # $(GO) $(SEGARD_COMP) $(GFX_DIR)/segard/00027DDA.smd $(GFX_DIR)/00027DDA.smd
